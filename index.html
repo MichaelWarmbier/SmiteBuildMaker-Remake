@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" Content-Type="text/html; charset=utf-8" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Roboto&family=Roboto+Mono&family=Rubik+Burned&display=swap" rel="stylesheet">
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div id="Header">
+            <span class="title">Smite Build Maker</span>
+            <span class="subtitle">V5.0.0 [Smite V10.9]</span>
+            <div id="Nav">
+                <div id="About" class="button">?</div>
+                <div id="News" class="button">!</div>
+                <div id="Alert" class="button">🕭</div>
+                <div id="File" class="button">🖿</div>
+                <div id="Lang" class="button">⛿</div>
+            </div>
+            <div id="GlobalOptions">
+                <span class="title">Global Options ⛭</span>
+                <div class="content">
+                    <span>Toggle Build Numbering&nbsp;&nbsp;&nbsp; ⃞</span>
+                    <span>Non-Conquest Changes&nbsp;&nbsp;&nbsp;&nbsp; ⃞</span>
+                    <section>
+                        <div class="button">Load Local Saves</div>
+                        <div class="button">Save to Local Storage</div>
+                        <div class="button">Create Share Link</div>
+                    </section>
+                </div>
+                <div class="mask"></div>
+                <div class="tab" onclick="DisplayGlobalOptions()">⛭</div>
+            </div>
+        </div>
+
+        <!-- JSON Storage -->
+        <script src="Data/SiteData.json"></script>
+
+        <!-- Scripts -->
+        <script src="Scripts/Display.js"></script>
+
+    </body>
+</html>
