@@ -1,5 +1,11 @@
-SiteData = {
+const SiteData = {
+    "SiteAlert": "",
     "Flags": {
-        "GlobalOptionsOpen": false
-    }
+        "MenuOpen": false,
+        "GlobalOptionsOpen": false,
+        "SelectionWindowOpen": false,
+        "InfoDisplayOpen": false
+    },
+    "ActiveMenu": null,
+    "Options": [0, 0]
 }

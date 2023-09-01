@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" Content-Type="text/html; charset=utf-8" />
@@ -12,17 +12,17 @@
             <span class="title">Smite Build Maker</span>
             <span class="subtitle">V5.0.0 [Smite V10.9]</span>
             <div id="Nav">
-                <div id="About" class="button">?</div>
-                <div id="News" class="button">!</div>
-                <div id="Alert" class="button">🕭</div>
-                <div id="File" class="button">🖿</div>
-                <div id="Lang" class="button">⛿</div>
+                <div id="About" class="button" onclick="displayMenu(document.querySelector('#AboutMenu'))">?</div>
+                <div id="News" class="button" onclick="displayMenu(document.querySelector('#NewsMenu'))">!</div>
+                <div id="Alert" class="button" onclick="displayMenu(document.querySelector('#AlertMenu'))">🕭</div>
+                <div id="File" class="button" onclick="displayMenu(document.querySelector('#FileMenu'))">🖿</div>
+                <div id="Lang" class="button" onclick="displayMenu(document.querySelector('#LangMenu'))">⛿</div>
             </div>
             <div id="GlobalOptions">
                 <span class="title">Global Options ⛭</span>
                 <div class="content">
-                    <span>Toggle Build Numbering&nbsp;&nbsp;&nbsp; ⃞</span>
-                    <span>Non-Conquest Changes&nbsp;&nbsp;&nbsp;&nbsp; ⃞</span>
+                    <span><p onclick="toggleGOption(0)">Toggle Build Numbering&nbsp;&nbsp;&nbsp; ⃞<p class="c"></p></p></span>
+                    <span><p onclick="toggleGOption(1)">Non-Conquest Changes&nbsp;&nbsp;&nbsp;&nbsp; ⃞<p class="c"></p></p></span>
                     <section>
                         <div class="button">Load Local Saves</div>
                         <div class="button">Save to Local Storage</div>
@@ -30,12 +30,33 @@
                     </section>
                 </div>
                 <div class="mask"></div>
-                <div class="tab" onclick="DisplayGlobalOptions()">⛭</div>
+                <div class="tab" onclick="toggleGlobalOptions()">⛭</div>
             </div>
+        </div>
+        <div id="MenuBackdrop" onclick="displayMenu(null, 1);"></div>
+        <div id="AboutMenu" class="menu"><span class="header">About Smite Build Maker</span></div>
+        <div id="NewsMenu" class="menu"><span class="header">Recent News</span></div>
+        <div id="AlertMenu" class="menu"><span class="header">Site Announcements</span></div>
+        <div id="FileMenu" class="list_menu">
+            <span class="header">Select a File</span>
+            <span class="option">1</span>
+            <span class="option">2</span>
+            <span class="option">3</span>
+            <span class="option">4</span>
+            <span class="option">5</span>
+        </div>
+        <div id="LangMenu" class="list_menu">
+            <span class="header">Select a Language</span>
+            <span class="option">English</span>
+            <span class="option">German/Deutsch</span>
+            <span class="option">Polish/Polski</span>
+            <span class="option">Spanish/Española Latinoamericana</span>
         </div>
 
         <!-- JSON Storage -->
         <script src="Data/SiteData.json"></script>
+        <script src="Data/About.json"></script>
+        <script src="Data/News.json"></script>
 
         <!-- Scripts -->
         <script src="Scripts/Display.js"></script>
