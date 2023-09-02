@@ -8,6 +8,7 @@
         <link href="style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <!-- Header and Navigation -->
         <div id="Header">
             <div id="HeaderBody"></div>
             <span class="title">Smite Build Maker</span>
@@ -19,10 +20,11 @@
                 <div id="File" class="button" onclick="displayMenu(document.querySelector('#FileMenu'))">🖿</div>
                 <div id="Lang" class="button" onclick="displayMenu(document.querySelector('#LangMenu'))">⛿</div>
             </div>
+            <!-- Global Option Menu -->
             <div id="GlobalOptions">
                 <span class="title">Global Options ⛭</span>
                 <div class="content">
-                    <span><p onclick="toggleGOption(0)">Toggle Build Numbering&nbsp;&nbsp;&nbsp; ⃞&nbsp;&nbsp;<p class="c"></p></p></span>
+                    <span><p onclick="toggleBuildNumbering();">Toggle Build Numbering&nbsp;&nbsp;&nbsp; ⃞&nbsp;&nbsp;<p class="c"></p></p></span>
                     <span><p onclick="toggleGOption(1)">Non-Conquest Changes&nbsp;&nbsp;&nbsp;&nbsp; ⃞&nbsp;&nbsp;<p class="c"></p></p></span>
                     <section>
                         <div class="button">Load Local Saves</div>
@@ -34,6 +36,7 @@
                 <div class="tab" onclick="toggleGlobalOptions()">⛭</div>
             </div>
         </div>
+        <!-- Menus -->
         <div id="MenuBackdrop" onclick="displayMenu(null, 1);"></div>
         <div id="AboutMenu" class="menu"><span class="header">About Smite Build Maker</span></div>
         <div id="NewsMenu" class="menu"><span class="header">Recent News</span></div>
@@ -53,12 +56,60 @@
             <span class="option">Polish/Polski</span>
             <span class="option">Spanish/Española Latinoamericana</span>
         </div>
+        <div id="OptionsMenu" class="menu">
+            <span class="header"></span>
+            <div id="OptionsList">
+                <span class="title">Options ⛭</span>
+                <div id="OptionsLevel">Level:  
+                    <input oninput="updateLevelSlider()" type="range" min="1" max="20" value="1" class="slider" id="LevelSlider">
+                    <span id="LevelValue">1</span>
+                </div>
+                <div id="OptionsBuffs">
+                    <span class="label">Buffs: </span>
+                    <div id="RegularBuffs" class="item_cont">
+                        <div id="PowerBuff" onclick="updateBuffs('Power_Buff', '#ba463c')" class="buff" style="background-image: URL('Assets/Icons/Power_Buff.png')"></div>
+                        <div id="SpeedBuff" onclick="updateBuffs('Speed_Buff', '#d1e346')" class="buff" style="background-image: URL('Assets/Icons/Speed_Buff.png')"></div>
+                        <div id="HealthBuff" onclick="updateBuffs('Health_Buff', '#1bc440')" class="buff" style="background-image: URL('Assets/Icons/Health_Buff.png')"></div>
+                        <div id="ManaBuff" onclick="updateBuffs('Mana_Buff', '#2a3ba3')" class="buff" style="background-image: URL('Assets/Icons/Mana_Buff.png')"></div>
+                        <div id="VoidBuff" onclick="updateBuffs('Void_Buff', '#8225a1')"class="buff" style="background-image: URL('Assets/Icons/Void_Buff.png')"></div>
+                        <div id="AttackSBuff" onclick="updateBuffs('AttackSpeed_Buff', '#9c48b8')" class="buff" style="background-image: URL('Assets/Icons/AttackSpeed_Buff.png')"></div>
+                    </div>
+                    <div id="MetallicBuffs" class="item_cont">
+                        <div id="GoldBuff" onclick="updateBuffs('Gold_Buff', '#c2cf5f')" class="buff" style="background-image: URL('Assets/Icons/Gold_Buff.png')"></div>
+                        <div id="SilverBuff" onclick="updateBuffs('Silver_Buff', '#9d9e93')"class="buff" style="background-image: URL('Assets/Icons/Silver_Buff.png')"></div>
+                    </div>
+                    <div id="FireBuff" class="item_cont">
+                        <div id="FireBuff" onclick="updateBuffs('Fire_Giant', '#cc275e')"class="buff" style="background-image: URL('Assets/Icons/Fire_Giant.png')"></div>
+                        <div id="SlashBuff" onclick="updateBuffs('Slash_Buff', '#701fc2')" class="buff" style="background-image: URL('Assets/Icons/Slash_Buff.png')"></div>
+                        <div id="JoustBuff" onclick="updateBuffs('Joust_Buff', '#17873a')" class="buff" style="background-image: URL('Assets/Icons/Joust_Buff.png')"></div>
+                    </div>
+                    <div id="OniBuff" class="item_cont">
+                        <div id="OniBuff" onclick="updateBuffs('Oni_Buff', '#706e08')" class="buff" style="background-image: URL('Assets/Icons/Oni_Buff.png')"></div>
+                    </div>
+                    <div id="PotionBuff" class="item_cont">
+                        <div id="PowerPotBuff" onclick="updateBuffs('Power_Potion', '#de4f12')" class="buff" style="background-image: URL('Assets/Icons/Power_Potion.png')"></div>
+                    </div>
+                    <div id="ElixirBuff" class="item_cont">
+                        <div id="PowerEBuff" onclick="updateBuffs('Power_Elixir', '#f2400a')" class="buff" style="background-image: URL('Assets/Icons/Power_Elixir.png')"></div>
+                        <div id="DefenseEBuff" onclick="updateBuffs('Defense_Elixir', '#13389e')" class="buff" style="background-image: URL('Assets/Icons/Defense_Elixir.png')"></div>
+                    </div>
+                    <div id="NoBuff" class="item_cont">
+                        <div id="NoBuff" onclick="updateBuffs()" class="buff" style="background-image: URL('Assets/Icons/Reset.png')"></div>
+                    </div>
+                    <div id="BuffValue">No Buff Selected</div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div id="RandomList">
+                <span class="title">Randomize ⚄</span>
+            </div>
+        </div>
 
         <div id="App">
-            <!-- Right Side -->
+            <!-- Left Chaos Side -->
             <div id="Chaos" class="team">
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 0)">
+                    <div class="preferences" onclick="displayOptions(this, 1, 'Chaos')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -71,11 +122,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 1)">
+                    <div class="preferences" onclick="displayOptions(this, 2, 'Chaos')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -88,11 +139,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 2)">
+                    <div class="preferences" onclick="displayOptions(this, 3, 'Chaos')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -105,11 +156,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 3)">
+                    <div class="preferences" onclick="displayOptions(this, 4, 'Chaos')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -122,11 +173,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 4)">
+                    <div class="preferences" onclick="displayOptions(this, 5, 'Chaos')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -139,14 +190,13 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
             </div>
-            <!-- Right Side -->
             <div id="Order" class="team">
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 0)">
+                    <div class="preferences" onclick="displayOptions(this, 1, 'Order')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -159,11 +209,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 1)">
+                    <div class="preferences" onclick="displayOptions(this, 2, 'Order')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -176,11 +226,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 2)">
+                    <div class="preferences" onclick="displayOptions(this, 3, 'Order')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -193,11 +243,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 3)">
+                    <div class="preferences" onclick="displayOptions(this, 4, 'Order')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -210,11 +260,11 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
-                <div class="player">
-                    <div class="preferences">⛭</div>
+                <div class="player" style="top: calc(20% * 4)">
+                    <div class="preferences" onclick="displayOptions(this, 5, 'Order')">⛭</div>
                     <div class="information">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
@@ -227,7 +277,7 @@
                     </div>
                     <div class="bar">
                         <div class="health"></div>
-                        <div class="mana"></div>
+                        <div class="mana"></div>-
                     </div>
                 </div>
             </div>

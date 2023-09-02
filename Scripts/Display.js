@@ -57,10 +57,34 @@ function toggleGlobalOptions() {
     }
 }
 
+function toggleBuildNumbering() {
+    let players = document.querySelectorAll('.player');
+    let items = document.querySelectorAll('.item');
+
+    for (let player = 0; player < players.length; player++)
+        for (let item = 0; item < 6; item++) {
+            let curr = (player * 6) + item;
+            switch (SiteData.Options[0]) {
+                case false:
+                    items[curr].innerHTML = '<span class="build_num">' + item + '</span>+';
+                    items[curr].style.fontSize = '5vh';
+                break;
+                case true:
+                    items[curr].innerHTML = '+';
+                    items[curr].style.fontSize = '7vh';
+                break;
+            }
+        }
+    toggleGOption(0);
+}
+
 function displayMenu(context, override) {
+    document.querySelector('#LevelSlider').value = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
+    document.querySelector('#LevelValue').innerHTML = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
+    updateBuffs('or');
     if (MenuFlags.MenuOpen && !context && override) { displayMenu(SiteData.ActiveMenu, 1); return; }
     if (MenuFlags.MenuOpen && SiteData.ActiveMenu != context && !override) displayMenu(SiteData.ActiveMenu, 1);
-    try { clearInterval(AlertInterval); } catch(e) { }
+    try { clearInterval(AlertInterval); document.querySelector('#Alert').style.color = 'rgb(168, 168, 168)'; } catch(e) { }
     let backdrop = document.querySelector('#MenuBackdrop');
     if (!MenuFlags.MenuOpen) {
         context.style.left = '0vw';
@@ -82,6 +106,42 @@ function toggleGOption(option) {
     SiteData.Options[option] = !SiteData.Options[option];
     if (SiteData.Options[option]) optionElem.innerHTML = '✓';
     else optionElem.innerHTML = '';
+}
+
+function displayOptions(obj, pIndex, side) {
+    SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
+    Menu = document.querySelector('#OptionsMenu');
+    Title = Menu.getElementsByClassName('header')[0];
+    Title.innerHTML = `Modify player ${pIndex} of ${side}`;
+    displayMenu(Menu);
+}
+
+function updateLevelSlider() { 
+    let newLevel = document.querySelector('#LevelSlider').value;
+    document.querySelector('#LevelValue').innerHTML = newLevel;
+    SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level = newLevel;
+ }
+
+function updateBuffs(buffName, hex) {
+    let buffValue = document.querySelector('#BuffValue');
+    const override = buffName == 'or';
+    if (!hex) hex = '#FFFFFF';
+    
+    if (!buffName) {
+        SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs = [];
+        buffValue.innerHTML = 'No Buff Selected';
+    } else {
+        if (override && !SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs.length) {
+            buffValue.innerHTML = 'No Buff Selected';
+            return;
+        }
+
+        if (!override) 
+        SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs.push('<span style="color:' + hex + '">' + buffName + '</span>');
+        buffValue.innerHTML = 'Current Buffs:';
+        for (buff of SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs)
+            buffValue.innerHTML += ' ' + buff.replace('_', ' ');
+    }
 }
 
 /*//// Persistant Functions ////*/

@@ -162,7 +162,7 @@ body {
     color: green;
  }
 
-#GlobalOptions .content section {
+#GlobalOptions .content Section {
     height: 100%;
     width: 50%;
     display: flex;
@@ -177,7 +177,7 @@ body {
     border: solid .05vw var(--DarkGold);
     color: var(--DarkGrayed);
     font-family: 'Roboto', sans-serif;
-    padding: 1vw;
+    padding: 2vh;
     width: 80%;
     font-size: 3vw;
     text-align: center;
@@ -251,7 +251,7 @@ body {
     text-align: center;
     color: var(--DarkGrayed);
     padding-top: 3vw;
-}
+} #OptionsMenu .header { font-size: 3vw; }
 
 .menu .title { 
     text-align: left;
@@ -307,6 +307,7 @@ body {
     align-items: center;
     justify-content: space-around;
     padding: 2vh 0 2vh 0;
+    z-index: 150;
 } 
 
 .list_menu .header { 
@@ -329,40 +330,180 @@ body {
 #FileMenu .option { width: 4vw; }
 #LangMenu .option { width: 60%; }
 
+#OptionsMenu {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: start;
+    padding: 0 0 2vh 0;
+    text-shadow: .4vh .4vh .4vh black;
+} #OptionsMenu .header { margin-top: -3vh;}
+
+#OptionsMenu div { box-shadow: .4vh .4vh 1vh black; }
+
+#OptionsMenu .title {
+    font-size: 3vw;
+    color: var(--Grayed);
+    font-family: 'Nova Square', cursive;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: -10vh;
+}
+
+#OptionsMenu .divider {
+    width: 1vw;
+    height: 75%;
+    background-color: #2A2E4F;
+    border-radius: .8vw;
+    box-shadow: none !important;
+}
+
+#OptionsMenu #OptionsList {
+    width: calc(60% - .5vw);
+    height: max-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: start;
+    box-shadow: none !important;
+}
+
+#OptionsList #OptionsLevel {
+    width: 80%;
+    height: 4vh;
+    font-size: 2vw;
+    font-family: 'Roboto', sans-serif;
+    color: var(--Grayed);
+    margin-top: 5vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-shadow: none !important;
+}
+
+#OptionsLevel #LevelValue {
+    color: var(--BrightGold);
+    font-size: 2.5vw;
+}
+
+#OptionsList #OptionsLevel #LevelSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 60%;
+    background: #4A596A;
+    opacity: .7;
+    border-radius: .4vw;
+}
+
+#LevelSlider::-webkit-slider-thumb,
+#LevelSlider::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4vh;
+    height: 3vh;
+    background: #2E353F;
+    border-radius: 1vw;
+    transition-duration: .2s;
+    cursor: pointer;
+    border: none;
+}
+
+#OptionsList #OptionsBuffs {
+    width: 85%;
+    height: 25vh;
+    font-size: 2vw;
+    font-family: 'Roboto', sans-serif;
+    color: var(--Grayed);
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-left: calc(5% - 2vw);
+    box-shadow: none !important;
+    flex-wrap: wrap;
+}
+
+#OptionsBuffs #BuffValue { 
+    width: 100%;
+    text-align: center;
+    box-shadow: none !important;
+    font-size: 3vh;
+    margin-top: .5vh;
+ }
+
+#OptionsBuffs .label { margin-right: .5vw; }
+
+#OptionsBuffs .item_cont {
+    width: max-content;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: none !important;
+} 
+#OptionsBuffs #RegularBuffs { 
+    width: 15.5vh !important; 
+    margin-right: -.5vh;
+}
+
+#OptionsBuffs .buff {
+    width: 6vh;
+    height: 6vh;
+    border: solid .3vh var(--DarkGold);
+    border-radius: .4vw;
+    background-color: var(--DarkButton);
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition-property: box-shadow;
+    transition-duration: .2s;
+} 
+
+#OptionsBuffs .buff:hover {
+    box-shadow: .2vh .2vh 1vh white, -.2vh -.2vh 1vh white, -.2vh .2vh 1vh white, .2vh -.2vh 1vh white;
+    border-color: var(--BrightGold);
+}
+
+#OptionsMenu #RandomList {
+    width: calc(40% - .5vw);
+    height: max-content;
+    box-shadow: none !important;
+}
+
 /*//// App ////*/
 
 #App .team { 
     width: 50%;
     height: 85vh;
-    float: left;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: -100;
+    position: absolute;
+    top: 15vh;
 }
 
+#App #Chaos { left: 0; }
+#App #Order { right: 0; }
+
 #App .player { 
-    width: calc(100% - 9vw);
-    height: 17vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding-right: 9vw;
-    transform: translateY(2vh);
-    pointer-events: none;
-    z-index: -100;
-} 
-#App #Order { transform: rotateY(180deg); }
+    width: 100%;
+    position: absolute;
+    height: 20%;
+} #App #Order { transform: rotateY(180deg); } 
+
 
 #App .player div {
-    box-shadow: .2vw .2vw .5vw black;
-    text-shadow: .1vw .1vw .2vw black;
+    box-shadow: .4vh .4vh .75vh black;
+    text-shadow: .4vh .4vh 1vh black;
 }
 
 #App .preferences,
 #App .information {
+    position: absolute; margin: auto;
+    bottom: 0; left: 4vh;
     background-color: var(--AppBlue);
     border: solid .3vh var(--DarkGold);
     border-radius: .4vw;
@@ -374,19 +515,22 @@ body {
     font-size: 4.5vh;
     color: var(--DarkGrayed);
     justify-self: center;
-    margin: 1vh .75vw 0 2vw;
     padding-bottom: .4vh;
     cursor: pointer;
     pointer-events: auto;
 } 
-
 #App .preferences:hover,
 #App .information:hover {
     color: white;
     border-color: var(--BrightGold);
 }
 
+#App .preferences { top: -6vh; }
+#App .information { top: 6vh; }
+
 #App .icon {
+    position: absolute; margin: auto;
+    bottom: 0; top: 0; left: 11vh;
     background-color: var(--AppBlue);
     border: solid .3vh var(--DarkGold);
     border-radius: .6vw;
@@ -399,8 +543,6 @@ body {
     font-size: 11vh;
     font-family: var(--BrandFont);
     padding-top: .35vw;
-    transform: translateX(-.5vw);
-    margin-top: 1vh;
     cursor: pointer;
     pointer-events: auto;
 } 
@@ -408,20 +550,18 @@ body {
 #App #Order .icon { transform: scale(-1, 1) translateX(.5vw); }
 
 #App .item_cont {
-    width: 26.75vw;
-    height: calc(50% - 1vh);
-    margin-top: 1vh;
+    position: absolute; margin: auto;
+    top: -3.5vh; bottom: 0; left: 22.75vh;
+    width: calc(65% - 22.5vh);
+    height: 50%;
     display: flex;
-    padding-left: .25vw;
     justify-content: space-around;
-    transform: translateX(-1.25vw);
-    padding-right: 2vw;
     box-shadow: none !important;
-}
+} #App #Order .item_cont { left: 21.75vh; }
 
 #App .item {
     background-color: var(--AppBlue);
-    border: solid .2vw var(--DarkGold);
+    border: solid .3vh var(--DarkGold);
     border-radius: .4vw;
     height: 6vh;
     width: 6vh;
@@ -432,22 +572,33 @@ body {
     font-size: 7vh;
     cursor: pointer;
     pointer-events: auto;
-} #App .item:hover { color: var(--BrightGold); border-color: var(--BrightGold); }
+} 
+
+#App #Order .item { transform: rotateY(180deg); }
+#App .item:hover { color: var(--BrightGold); border-color: var(--BrightGold); }
+
+#App .item .build_num { 
+    justify-self: flex-start;
+    align-self: flex-start;
+    font-size: 3vh;
+}
+
 
 #App .bar {
+    position: absolute; margin: auto;
+    top: 7vh; bottom: 0; left: 21.5vh;
     background-color: var(--AppBlue);
     border: solid .2vw var(--DarkGold);
-    width: 27vw;
+    width: calc(65% - 22.5vh);
     height: 4vh;
     z-index: -1;
-    transform: translate(-2.1vw, -.15vh);
-    overflow: hidden;
 }
 
 #App .health,
 #App .mana {
     width: 100%;
     height: 50%;
+    box-shadow: none !important;
 }
 
 #App .health { background-color: #3cb038; }
@@ -490,25 +641,4 @@ body {
     #GlobalOptions .content Section .button { font-size: 2.25vw; }
 
     #GlobalOptions .tab { box-shadow: .1vw .1vw .5vw black;}
-}
-
-/*//// HALF SCREENS ////*/
-
-@media (max-width: 1000px) {
-    #App .player { 
-        width: calc(100%);
-        transform: scale(.85, .85) translateX(-5vw);
-        padding-right: 0vh;
-    }
-
-    #App .item_cont { 
-        width: 50vh;
-        transform: translateX(.5vh);
-     }
-
-     #App .bar {
-        width: 55vh;
-        transform: translateX(-5.5vh, -.1vh);
-     }
-
 }
