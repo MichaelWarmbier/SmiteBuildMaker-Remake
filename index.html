@@ -56,6 +56,46 @@
             <span class="option">Polish/Polski</span>
             <span class="option">Spanish/Española Latinoamericana</span>
         </div>
+        <div id="InfoMenu" class="menu">
+            <div id="GodCard" onhover="displayExtraInfo()"></div>
+            <div class="item_cont">
+                <div class="item" onhover="displayExtraInfo()"></div>
+                <div class="item" onhover="displayExtraInfo()"></div>
+                <div class="item" onhover="displayExtraInfo()"></div>
+                <div class="item" onhover="displayExtraInfo()"></div>
+                <div class="item" onhover="displayExtraInfo()"></div>
+                <div class="item" onhover="displayExtraInfo()"></div>
+                <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
+                <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
+                <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
+                <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
+                <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
+                <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
+            </div>
+            <div id="GodInfo">
+                <span id="GodName">God Name</span><br>
+                <span id="GodTitle">"God Title"</span><br>
+                <span id="GodPantheon"><img src=""> Pantheon</span><br><br>
+                <span id="GodLevel">Level: 1</span><br>
+                <span id="GodBuffs">No Buffs Selected</span><br>
+                <span id="BuildPrice">0 <img src="Assets/Icons/Gold.png"></span>
+            </div>
+            <div id="GodStats">
+                <span class="title">Statistics</span><br><br><br><br>
+                Speed: <span></span><br>Attack Speed: <span></span><br>
+                Power: <span></span><br>Health: <span></span><br> 
+                Mana: <span></span><br>HP5: <span></span><br>
+                MP5: <span></span><br>Crowd Control Reduction: <span></span><br>
+                Damage Reduction: <span></span><br> Basic Attack Damage: <span></span><br>
+                Physical Protections: <span></span><br> Magical Protections: <span></span><br>
+                Penetration: <span></span><br> Percent Penetration: <span></span><br>
+                Critical Strike Chance: <span></span><br>Cooldown Reduction: <span></span><br>
+                Lifesteal: <span></span><br>Effective Health: <span></span><br>
+            </div>
+            <div id="GodExtraInfo">
+                <span>🛈</span>
+            </div>
+        </div>
         <div id="OptionsMenu" class="menu">
             <span class="header"></span>
             <div id="OptionsList">
@@ -67,31 +107,31 @@
                 <div id="OptionsBuffs">
                     <span class="label">Buffs: </span>
                     <div id="RegularBuffs" class="item_cont">
-                        <div id="PowerBuff" onclick="updateBuffs('Power_Buff', '#ba463c')" class="buff" style="background-image: URL('Assets/Icons/Power_Buff.png')"></div>
-                        <div id="SpeedBuff" onclick="updateBuffs('Speed_Buff', '#d1e346')" class="buff" style="background-image: URL('Assets/Icons/Speed_Buff.png')"></div>
-                        <div id="HealthBuff" onclick="updateBuffs('Health_Buff', '#1bc440')" class="buff" style="background-image: URL('Assets/Icons/Health_Buff.png')"></div>
-                        <div id="ManaBuff" onclick="updateBuffs('Mana_Buff', '#2a3ba3')" class="buff" style="background-image: URL('Assets/Icons/Mana_Buff.png')"></div>
-                        <div id="VoidBuff" onclick="updateBuffs('Void_Buff', '#8225a1')"class="buff" style="background-image: URL('Assets/Icons/Void_Buff.png')"></div>
-                        <div id="AttackSBuff" onclick="updateBuffs('AttackSpeed_Buff', '#9c48b8')" class="buff" style="background-image: URL('Assets/Icons/AttackSpeed_Buff.png')"></div>
+                        <div id="PowerBuff" onclick="updateBuffs('Power_Buff', 'Regular', '#ba463c')" class="buff" style="background-image: URL('Assets/Icons/Power_Buff.png')"></div>
+                        <div id="SpeedBuff" onclick="updateBuffs('Speed_Buff', 'Regular', '#d1e346')" class="buff" style="background-image: URL('Assets/Icons/Speed_Buff.png')"></div>
+                        <div id="HealthBuff" onclick="updateBuffs('Health_Buff', 'Regular', '#1bc440')" class="buff" style="background-image: URL('Assets/Icons/Health_Buff.png')"></div>
+                        <div id="ManaBuff" onclick="updateBuffs('Mana_Buff', 'Regular', '#2a3ba3')" class="buff" style="background-image: URL('Assets/Icons/Mana_Buff.png')"></div>
+                        <div id="VoidBuff" onclick="updateBuffs('Void_Buff', 'Regular', '#8225a1')"class="buff" style="background-image: URL('Assets/Icons/Void_Buff.png')"></div>
+                        <div id="AttackSBuff" onclick="updateBuffs('Attack_Speed_Buff', 'Regular', '#9c48b8')" class="buff" style="background-image: URL('Assets/Icons/AttackSpeed_Buff.png')"></div>
                     </div>
                     <div id="MetallicBuffs" class="item_cont">
-                        <div id="GoldBuff" onclick="updateBuffs('Gold_Buff', '#c2cf5f')" class="buff" style="background-image: URL('Assets/Icons/Gold_Buff.png')"></div>
-                        <div id="SilverBuff" onclick="updateBuffs('Silver_Buff', '#9d9e93')"class="buff" style="background-image: URL('Assets/Icons/Silver_Buff.png')"></div>
+                        <div id="GoldBuff" onclick="updateBuffs('Gold_Buff', 'Metallic', '#c2cf5f')" class="buff" style="background-image: URL('Assets/Icons/Gold_Buff.png')"></div>
+                        <div id="SilverBuff" onclick="updateBuffs('Silver_Buff','Metallic', '#9d9e93')"class="buff" style="background-image: URL('Assets/Icons/Silver_Buff.png')"></div>
                     </div>
                     <div id="FireBuff" class="item_cont">
-                        <div id="FireBuff" onclick="updateBuffs('Fire_Giant', '#cc275e')"class="buff" style="background-image: URL('Assets/Icons/Fire_Giant.png')"></div>
-                        <div id="SlashBuff" onclick="updateBuffs('Slash_Buff', '#701fc2')" class="buff" style="background-image: URL('Assets/Icons/Slash_Buff.png')"></div>
-                        <div id="JoustBuff" onclick="updateBuffs('Joust_Buff', '#17873a')" class="buff" style="background-image: URL('Assets/Icons/Joust_Buff.png')"></div>
+                        <div id="FireBuff" onclick="updateBuffs('Fire_Giant', 'Large', '#cc275e')"class="buff" style="background-image: URL('Assets/Icons/Fire_Giant.png')"></div>
+                        <div id="SlashBuff" onclick="updateBuffs('Slash_Buff', 'Large', '#701fc2')" class="buff" style="background-image: URL('Assets/Icons/Slash_Buff.png')"></div>
+                        <div id="JoustBuff" onclick="updateBuffs('Joust_Buff', 'Large', '#17873a')" class="buff" style="background-image: URL('Assets/Icons/Joust_Buff.png')"></div>
                     </div>
                     <div id="OniBuff" class="item_cont">
-                        <div id="OniBuff" onclick="updateBuffs('Oni_Buff', '#706e08')" class="buff" style="background-image: URL('Assets/Icons/Oni_Buff.png')"></div>
+                        <div id="OniBuff" onclick="updateBuffs('Oni_Buff', 'Oni', '#706e08')" class="buff" style="background-image: URL('Assets/Icons/Oni_Buff.png')"></div>
                     </div>
                     <div id="PotionBuff" class="item_cont">
-                        <div id="PowerPotBuff" onclick="updateBuffs('Power_Potion', '#de4f12')" class="buff" style="background-image: URL('Assets/Icons/Power_Potion.png')"></div>
+                        <div id="PowerPotBuff" onclick="updateBuffs('Power_Potion', 'Potion', '#de4f12')" class="buff" style="background-image: URL('Assets/Icons/Power_Potion.png')"></div>
                     </div>
                     <div id="ElixirBuff" class="item_cont">
-                        <div id="PowerEBuff" onclick="updateBuffs('Power_Elixir', '#f2400a')" class="buff" style="background-image: URL('Assets/Icons/Power_Elixir.png')"></div>
-                        <div id="DefenseEBuff" onclick="updateBuffs('Defense_Elixir', '#13389e')" class="buff" style="background-image: URL('Assets/Icons/Defense_Elixir.png')"></div>
+                        <div id="PowerEBuff" onclick="updateBuffs('Power_Elixir', 'Elixir', '#f2400a')" class="buff" style="background-image: URL('Assets/Icons/Power_Elixir.png')"></div>
+                        <div id="DefenseEBuff" onclick="updateBuffs('Defense_Elixir', 'Elixir', '#13389e')" class="buff" style="background-image: URL('Assets/Icons/Defense_Elixir.png')"></div>
                     </div>
                     <div id="NoBuff" class="item_cont">
                         <div id="NoBuff" onclick="updateBuffs()" class="buff" style="background-image: URL('Assets/Icons/Reset.png')"></div>
@@ -102,6 +142,9 @@
             <div class="divider"></div>
             <div id="RandomList">
                 <span class="title">Randomize ⚄</span>
+                <div class="button">Randomize Everything</div>
+                <div class="button">Randomize Gods</div>
+                <div class="button">Randomize Items</div>
             </div>
         </div>
 
@@ -110,7 +153,7 @@
             <div id="Chaos" class="team">
                 <div class="player" style="top: calc(20% * 0)">
                     <div class="preferences" onclick="displayOptions(this, 1, 'Chaos')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 1, 'Chaos')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -127,7 +170,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 1)">
                     <div class="preferences" onclick="displayOptions(this, 2, 'Chaos')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 2, 'Chaos')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -144,7 +187,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 2)">
                     <div class="preferences" onclick="displayOptions(this, 3, 'Chaos')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 3, 'Chaos')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -161,7 +204,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 3)">
                     <div class="preferences" onclick="displayOptions(this, 4, 'Chaos')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 4, 'Chaos')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -178,7 +221,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 4)">
                     <div class="preferences" onclick="displayOptions(this, 5, 'Chaos')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 5, 'Chaos')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -197,7 +240,7 @@
             <div id="Order" class="team">
                 <div class="player" style="top: calc(20% * 0)">
                     <div class="preferences" onclick="displayOptions(this, 1, 'Order')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 1, 'Order')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -214,7 +257,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 1)">
                     <div class="preferences" onclick="displayOptions(this, 2, 'Order')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 2, 'Order')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -231,7 +274,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 2)">
                     <div class="preferences" onclick="displayOptions(this, 3, 'Order')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 3, 'Order')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -248,7 +291,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 3)">
                     <div class="preferences" onclick="displayOptions(this, 4, 'Order')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 4, 'Order')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
@@ -265,7 +308,7 @@
                 </div>
                 <div class="player" style="top: calc(20% * 4)">
                     <div class="preferences" onclick="displayOptions(this, 5, 'Order')">⛭</div>
-                    <div class="information">🛈</div>
+                    <div class="information" onclick="displayInfo(this, 5, 'Order')">🛈</div>
                     <div class="icon">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>

@@ -12,43 +12,53 @@ const SiteData = {
     "PlayerData": [
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         },
         {
             "Level": 1,
-            "Buffs": []
+            "Buffs": [],
+            "BuffTypes": []
         }
     ]
 }

@@ -116,31 +116,44 @@ function displayOptions(obj, pIndex, side) {
     displayMenu(Menu);
 }
 
+function displayInfo (obj, pIndex, side) {
+    SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
+    Menu = document.querySelector('#InfoMenu');
+    displayMenu(Menu);
+}
+
 function updateLevelSlider() { 
     let newLevel = document.querySelector('#LevelSlider').value;
     document.querySelector('#LevelValue').innerHTML = newLevel;
     SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level = newLevel;
  }
 
-function updateBuffs(buffName, hex) {
+function updateBuffs(buffName, type, hex) {
     let buffValue = document.querySelector('#BuffValue');
-    const override = buffName == 'or';
+    let Player = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1];
+    let override = buffName == 'or';
     if (!hex) hex = '#FFFFFF';
     
     if (!buffName) {
-        SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs = [];
+        Player.Buffs = [];
+        Player.BuffTypes = [];
         buffValue.innerHTML = 'No Buff Selected';
     } else {
-        if (override && !SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs.length) {
+        if (override && !Player.Buffs.length) {
             buffValue.innerHTML = 'No Buff Selected';
             return;
         }
 
-        if (!override) 
-        SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs.push('<span style="color:' + hex + '">' + buffName + '</span>');
+        if (Player.BuffTypes.includes(type)) override = true;
+
+        if (!override) {
+            Player.Buffs.push('<span style="color:' + hex + '">' + buffName + '</span>, ');
+            Player.BuffTypes.push(type);
+        }
         buffValue.innerHTML = 'Current Buffs:';
-        for (buff of SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Buffs)
+        for (buff of Player.Buffs)
             buffValue.innerHTML += ' ' + buff.replace('_', ' ');
+        buffValue.innerHTML = buffValue.innerHTML.slice(0, -2);
     }
 }
 
