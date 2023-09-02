@@ -49,7 +49,7 @@ function toggleGlobalOptions() {
     if (MenuFlags.GlobalOptionsOpen ) {
         target.style.top = '-46vh';
         SiteData.Flags.GlobalOptionsOpen = false;
-        MenuFlags.MenuOpen = false;
+        MenuFlags.MenuOpen = false;6
     } else if (!MenuFlags.MenuOpen) {
         target.style.top = '15vh';
         SiteData.Flags.GlobalOptionsOpen = true;
@@ -91,7 +91,7 @@ const AlertInterval = setInterval(function() {
     else {
         AlertButton = document.querySelector('#Alert');
         AlertColor = window.getComputedStyle(AlertButton).color;
-        if (AlertColor == 'rgb(255, 255, 255)') AlertButton.style.color = '#d17524';
-        else AlertButton.style.color = 'rgb(255, 255, 255)';
+        if (AlertColor == 'rgb(168, 168, 168)') AlertButton.style.color = '#d17524';
+        else AlertButton.style.color = 'rgb(168, 168, 168)';
     }
 }, 750);

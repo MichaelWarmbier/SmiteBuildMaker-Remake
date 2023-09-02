@@ -13,6 +13,7 @@
     --Grayed: #757171;
     --DarkGrayed: #A8A8A8;
     --DarkButton: #051124;
+    --AppBlue: #1D2938;
     /* Global Fonts */
     --BrandFont: Penumbra, sans-serif;
     --TitleFont: 'Nova Square', cursive;
@@ -23,6 +24,7 @@ body {
     margin: 0;
     background-color: var(--BodyBlue);
     overflow: hidden;
+    min-width: 1500px;
 }
 
 /*//// Header ////*/
@@ -31,14 +33,24 @@ body {
     width: 100vw;
     height: 15vh;
     background-color: var(--HeaderBlue);
-    box-shadow: 0 1vh .5vh 0 RGBA(13, 26, 48, 25%), inset
-    0 -1.25vh .4vh 0 RGBA(13, 26, 48, 25%);
     display: flex;
     align-items: center;
     float: left;
+    position: relative;
+    z-index: 100;
 } 
 
-#Header span { text-shadow: .2vw .2vw black; }
+#Header #HeaderBody { 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    z-index: -1;
+    box-shadow: 0 1vh .5vh 0 RGBA(13, 26, 48, 25%), inset
+    0 -1.25vh .4vh 0 RGBA(13, 26, 48, 25%);
+}
+
+#Header span { text-shadow: .2vw .2vw .1vw black; }
 
 #Header .title {
     height: inherit;
@@ -74,7 +86,7 @@ body {
     background-color: var(--DarkButton);
     border-radius: .4vw;
     border: solid .05vw var(--DarkGold);
-    color: white;
+    color: var(--DarkGrayed);
     font-size: 3.75vw;
     display: flex;
     justify-content: center;
@@ -82,7 +94,7 @@ body {
     box-shadow: .2vw .2vw 1vw black;
     user-select: none;
     cursor: pointer;
-}
+} #Nav .button:hover { color: white; border-color: var(--BrightGold); }
 
 #Nav .button:nth-child(3),
 #Nav .button:nth-child(4) {
@@ -97,17 +109,17 @@ body {
     border-radius: 0 0 2vw 2vw;
     left: 0; right: 0; top: -46vh;
     margin: auto;
-    z-index: -1;
+    z-index: -2;
     box-shadow: .2vw .2vw 2vw black;
     transition-duration: 1s;
     transition-property: top;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-shadow: .3vw .3vw black;
+    text-shadow: .3vw .3vw .1vw black;
 }
 
-#GlobalOptions Span { text-shadow: .3vw .3vw black; }
+#GlobalOptions Span { text-shadow: .3vw .3vw .1vw black; }
 #GlobalOptions Div { box-shadow: .2vw .2vw 1vw black; }
 
 #GlobalOptions .title {
@@ -146,7 +158,7 @@ body {
 #GlobalOptions .content Span p { cursor: pointer; }
 
 #GlobalOptions .content Span .c { 
-    transform: translate(-.5vw, -.5vw);
+    transform: translate(-2vw, -.5vw);
     color: green;
  }
 
@@ -163,14 +175,14 @@ body {
     background-color: var(--DarkButton);
     border-radius: .4vw;
     border: solid .05vw var(--DarkGold);
-    color: white;
+    color: var(--DarkGrayed);
     font-family: 'Roboto', sans-serif;
     padding: 1vw;
     width: 80%;
     font-size: 3vw;
     text-align: center;
     cursor: pointer;
-}
+} #GlobalOptions .content Section .button:hover { color: white; border-color: var(--BrightGold); }
 
 #GlobalOptions .tab {
     position: absolute;
@@ -189,7 +201,7 @@ body {
     cursor: pointer;
     z-index: -2;
     user-select: none;
-}
+} #GlobalOptions .tab:hover { color: white; }
 
 #GlobalOptions .mask {
     width: 7vw;
@@ -204,7 +216,7 @@ body {
 /*//// Menus ////*/
 
 #MenuBackdrop {
-    width: 100vw;
+    width: 200vw;
     height: 85vh;
     background-color:  var(--BodyBlue);
     opacity: 0;
@@ -212,6 +224,7 @@ body {
     transition: opacity 1s;
     position: absolute;
     bottom: 0;
+    z-index: 149;
 }
 
 .menu {
@@ -229,6 +242,7 @@ body {
     align-items: center;
     overflow-y: scroll;
     padding: 2vh 0 2vh 0;
+    z-index: 150;
 } .menu a { color: var(--DarkGold); }
 
 .menu .header { 
@@ -315,14 +329,139 @@ body {
 #FileMenu .option { width: 4vw; }
 #LangMenu .option { width: 60%; }
 
+/*//// App ////*/
+
+#App .team { 
+    width: 50%;
+    height: 85vh;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: -100;
+}
+
+#App .player { 
+    width: calc(100% - 9vw);
+    height: 17vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-right: 9vw;
+    transform: translateY(2vh);
+    pointer-events: none;
+    z-index: -100;
+} 
+#App #Order { transform: rotateY(180deg); }
+
+#App .player div {
+    box-shadow: .2vw .2vw .5vw black;
+    text-shadow: .1vw .1vw .2vw black;
+}
+
+#App .preferences,
+#App .information {
+    background-color: var(--AppBlue);
+    border: solid .3vh var(--DarkGold);
+    border-radius: .4vw;
+    height: 4.6vh;
+    width: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.5vh;
+    color: var(--DarkGrayed);
+    justify-self: center;
+    margin: 1vh .75vw 0 2vw;
+    padding-bottom: .4vh;
+    cursor: pointer;
+    pointer-events: auto;
+} 
+
+#App .preferences:hover,
+#App .information:hover {
+    color: white;
+    border-color: var(--BrightGold);
+}
+
+#App .icon {
+    background-color: var(--AppBlue);
+    border: solid .3vh var(--DarkGold);
+    border-radius: .6vw;
+    height: 11vh;
+    width: 11vh;
+    color: var(--BrightGold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11vh;
+    font-family: var(--BrandFont);
+    padding-top: .35vw;
+    transform: translateX(-.5vw);
+    margin-top: 1vh;
+    cursor: pointer;
+    pointer-events: auto;
+} 
+#App .icon:hover { color: var(--BrightGold); border-color: var(--BrightGold); }
+#App #Order .icon { transform: scale(-1, 1) translateX(.5vw); }
+
+#App .item_cont {
+    width: 26.75vw;
+    height: calc(50% - 1vh);
+    margin-top: 1vh;
+    display: flex;
+    padding-left: .25vw;
+    justify-content: space-around;
+    transform: translateX(-1.25vw);
+    padding-right: 2vw;
+    box-shadow: none !important;
+}
+
+#App .item {
+    background-color: var(--AppBlue);
+    border: solid .2vw var(--DarkGold);
+    border-radius: .4vw;
+    height: 6vh;
+    width: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--BrightGold);
+    font-size: 7vh;
+    cursor: pointer;
+    pointer-events: auto;
+} #App .item:hover { color: var(--BrightGold); border-color: var(--BrightGold); }
+
+#App .bar {
+    background-color: var(--AppBlue);
+    border: solid .2vw var(--DarkGold);
+    width: 27vw;
+    height: 4vh;
+    z-index: -1;
+    transform: translate(-2.1vw, -.15vh);
+    overflow: hidden;
+}
+
+#App .health,
+#App .mana {
+    width: 100%;
+    height: 50%;
+}
+
+#App .health { background-color: #3cb038; }
+
+#App .mana { background-color: #4054ad; }
+
 /*//// LARGE SCREENS ////*/
 
-@media (min-width: 1300px) {
+@media (min-width: 1000px) {
     /* Header */
 
     #Header .title { font-size: 4.5vw; }
     #Header .subtitle { font-size: 1.25vw; }
-    #Header Span { text-shadow: .1vw .1vw black; }
+    #Header Span { text-shadow: .1vw .1vw .1vw black; }
 
     #Header #Nav {
         width: 21vw;
@@ -338,8 +477,8 @@ body {
 
     #Nav .tab { width: 5vw; }
 
-    #GlobalOptions { text-shadow: .3vw .3vw black; }
-    #GlobalOptions Span { text-shadow: .3vw .3vw black; }
+    #GlobalOptions { text-shadow: .3vw .3vw .1vw black; }
+    #GlobalOptions Span { text-shadow: .3vw .3vw .1vw black; }
     #GlobalOptions Div { box-shadow: .2vw .2vw .5vw black; }
 
     #GlobalOptions .content { 
@@ -351,4 +490,25 @@ body {
     #GlobalOptions .content Section .button { font-size: 2.25vw; }
 
     #GlobalOptions .tab { box-shadow: .1vw .1vw .5vw black;}
+}
+
+/*//// HALF SCREENS ////*/
+
+@media (max-width: 1000px) {
+    #App .player { 
+        width: calc(100%);
+        transform: scale(.85, .85) translateX(-5vw);
+        padding-right: 0vh;
+    }
+
+    #App .item_cont { 
+        width: 50vh;
+        transform: translateX(.5vh);
+     }
+
+     #App .bar {
+        width: 55vh;
+        transform: translateX(-5.5vh, -.1vh);
+     }
+
 }
