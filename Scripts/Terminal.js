@@ -1,3 +1,5 @@
+/*//// Data ////*/
+
 let Terminal = document.querySelector('#Terminal');
 let TerminalInput = Terminal.querySelectorAll('input')[0];
 

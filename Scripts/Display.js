@@ -1,4 +1,5 @@
 /*//// Data ////*/
+
 const MenuFlags = SiteData.Flags
 let touchValue = 0;
 
@@ -32,7 +33,7 @@ window.onload = function() {
 
         let left = document.querySelector('#Chaos');
         let right = document.querySelector('#Order');
-        if (dir < 0) { left.style.left = '-105%'; right.style.left = '0'; }
+        if (dir < 0) { left.style.left = '-105%'; right.style.left = '1%'; }
         if (dir > 0) { left.style.left = '0'; right.style.left = '105%'; }
     })
 
@@ -168,7 +169,7 @@ function displayOptions(obj, pIndex, side) {
     displayMenu(Menu);
 }
 
-function displayInfo (obj, pIndex, side) {
+function displayInfo(obj, pIndex, side) {
     print(`Opening Information for Player ${(pIndex)} of ${side}`);
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     Menu = document.querySelector('#InfoMenu');
@@ -217,7 +218,7 @@ function updateBuffs(buffName, type, hex) {
     }
 }
 
-/*//// Persistant Functions ////*/
+/*//// Persistent Functions ////*/
 
 const AlertInterval = setInterval(function() {
     if (!SiteData.SiteAlert) clearInterval(AlertInterval);

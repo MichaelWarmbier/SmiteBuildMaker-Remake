@@ -8,7 +8,7 @@ const SiteData = {
         "TerminalOpen": false
     },
     "ActiveMenu": null,
-    "ActivePlayerIndex": 0,
+    "ActivePlayerIndex": 1,
     "Options": [0, 0],
     "PlayerData": [
         {

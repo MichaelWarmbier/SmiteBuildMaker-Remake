@@ -692,7 +692,7 @@ body {
     transition-property: opacity;
     transition-duration: .4s;
     color: white;
-    font-family: 'Robot', sans-serif;
+    font-family: 'Nova Square', cursive;
     font-size: 1.5vw;
     text-shadow: .2vw .2vw black;
     display: flex; 
@@ -708,6 +708,8 @@ body {
     width: 100%;
     margin-bottom: 2vh;
 }
+
+#App #SwipeNotif { display: none; }
 
 #App .team { 
     width: 50%;
@@ -1035,7 +1037,38 @@ body {
     #App .player { 
         margin-left: .5vw;
         width: 105%;
-     }
+    }
+
+    #App #SwipeNotif {
+        display: block;
+        color: white;
+        font-size: 20vw;
+        opacity: .8;
+        position: absolute; margin: auto;
+        top: 0; right: 0; left: 0; bottom: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        font-family: 'Nova Square', cursive;
+        z-index: 200;
+        height: 50vh;
+        width: 80vw;
+        background-color: RGBA(255, 255, 255, .3);
+        border-radius: 5vw;
+        pointer-events: none;
+        animation-name: swipefade;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+    }
+
+    #App Span { 
+        animation-name: arrow;
+        animation-timing-function: linear;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+        animation-duration: .4s;
+    }
 
     #App #ExtraInfo { display: none !important; }
 
@@ -1060,6 +1093,7 @@ body {
     #App .item_cont { 
         width: 62.5%;
         left: 34vw; top: -2.5vh;
+        transform: translateX(-2vw);
      }
     
     #App .item { 
@@ -1073,6 +1107,7 @@ body {
         width: 63.5%;
         left: 31.5vw; top: 5.5vh;
         border: solid .2vh var(--DarkGold);
+        transform: translateX(-2vw);
     }
 
     #Order .bar { left: 15.5vh !important; }
@@ -1082,4 +1117,19 @@ body {
 
     #Terminal { display: none; }
 
+}
+
+/*///////////////////*/
+/*//// Keyframes ////*/
+/*///////////////////*/
+
+@keyframes arrow {
+    from { transform: translateX(2.5vw); }
+    to { transform: translateX(-2.5vw); }
+}
+
+@keyframes swipefade {
+    0% { opacity: .8; }
+    80% { opacity: .8; }
+    100% { opacity: 0; }
 }
