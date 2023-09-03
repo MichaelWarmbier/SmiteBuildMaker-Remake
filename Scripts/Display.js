@@ -1,6 +1,19 @@
 /*//// Data ////*/
 const MenuFlags = SiteData.Flags
 
+/*//// Utility ////*/
+
+function createTextEvent(item, text) {
+    Info = document.querySelector('#ExtraInfo');
+    item.addEventListener('mouseover', function() {
+        Info.innerHTML = '<span>🛈</span>' + text;
+        Info.style.opacity = '1';
+    })
+    item.addEventListener('mouseout', function() { Info.style.opacity = '0'; })
+}
+
+function print(str) { console.log('[SmiteBuildMaker] ' + str); }
+
 /*//// Display Initialize ////*/
 
 window.onload = function() {
@@ -39,6 +52,18 @@ window.onload = function() {
     else newAlert.innerHTML = "No Current Site Announcements"
     AlertMenu.append(newAlert);
 
+    // Initialize all Event Listeners
+    document.querySelectorAll('.item').forEach((i) => { createTextEvent(i, 'Select an Item'); })
+    document.querySelectorAll('.icon').forEach((i) => { createTextEvent(i, 'Select a Character'); })
+    document.querySelectorAll('.information').forEach((i) => { createTextEvent(i, 'View Character Information'); })
+    document.querySelectorAll('.preferences').forEach((i) => { createTextEvent(i, 'Modify Character Preferences'); })
+    document.querySelectorAll('.tab').forEach((i) => { createTextEvent(i, 'Modify Global Preferences'); })
+    createTextEvent(document.querySelector('#About'), 'Learn More About SmiteBuildMaker');
+    createTextEvent(document.querySelector('#News'), 'View Recent SmiteBuildMaker News');
+    createTextEvent(document.querySelector('#Alert'), 'View SmiteBuildMaker Announcements');
+    createTextEvent(document.querySelector('#File'), 'Load Local Save Data');
+    createTextEvent(document.querySelector('#Lang'), 'Select Site Language');
+    print('Finished Initializing Site Display');
 }
 
 /*//// Event Triggered Functions ////*/
@@ -47,10 +72,12 @@ function toggleGlobalOptions() {
     const target = document.querySelector('#GlobalOptions');
 
     if (MenuFlags.GlobalOptionsOpen ) {
+        print('Global Options Menu Opened');
         target.style.top = '-46vh';
         SiteData.Flags.GlobalOptionsOpen = false;
         MenuFlags.MenuOpen = false;6
     } else if (!MenuFlags.MenuOpen) {
+        print('Global Options Menu Closed');
         target.style.top = '15vh';
         SiteData.Flags.GlobalOptionsOpen = true;
         MenuFlags.MenuOpen = true;
@@ -66,10 +93,12 @@ function toggleBuildNumbering() {
             let curr = (player * 6) + item;
             switch (SiteData.Options[0]) {
                 case false:
+                    print('Build Numbering ON');
                     items[curr].innerHTML = '<span class="build_num">' + item + '</span>+';
                     items[curr].style.fontSize = '5vh';
                 break;
                 case true:
+                    print('Build Numbering OFF');
                     items[curr].innerHTML = '+';
                     items[curr].style.fontSize = '7vh';
                 break;
@@ -79,12 +108,19 @@ function toggleBuildNumbering() {
 }
 
 function displayMenu(context, override) {
-    document.querySelector('#LevelSlider').value = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
-    document.querySelector('#LevelValue').innerHTML = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
-    updateBuffs('or');
+
+    if (context != document.querySelector('#GlobalOptions') && SiteData.Flags.GlobalOptionsOpen) return;
+    
+    if (context == document.querySelector('#OptionsMenu')) {
+        document.querySelector('#LevelSlider').value = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
+        document.querySelector('#LevelValue').innerHTML = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
+        updateBuffs('or');
+    }
+
     if (MenuFlags.MenuOpen && !context && override) { displayMenu(SiteData.ActiveMenu, 1); return; }
     if (MenuFlags.MenuOpen && SiteData.ActiveMenu != context && !override) displayMenu(SiteData.ActiveMenu, 1);
     try { clearInterval(AlertInterval); document.querySelector('#Alert').style.color = 'rgb(168, 168, 168)'; } catch(e) { }
+    
     let backdrop = document.querySelector('#MenuBackdrop');
     if (!MenuFlags.MenuOpen) {
         context.style.left = '0vw';
@@ -109,23 +145,27 @@ function toggleGOption(option) {
 }
 
 function displayOptions(obj, pIndex, side) {
+    print(`Opening Options for Player ${(pIndex)} of ${side}`);
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     Menu = document.querySelector('#OptionsMenu');
     Title = Menu.getElementsByClassName('header')[0];
-    Title.innerHTML = `Modify player ${pIndex} of ${side}`;
+    Title.innerHTML = `Modify Player ${pIndex} of ${side}`;
     displayMenu(Menu);
 }
 
 function displayInfo (obj, pIndex, side) {
+    print(`Opening Information for Player ${(pIndex)} of ${side}`);
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     Menu = document.querySelector('#InfoMenu');
     displayMenu(Menu);
 }
 
 function updateLevelSlider() { 
+    let player = SiteData.ActivePlayerIndex;
     let newLevel = document.querySelector('#LevelSlider').value;
     document.querySelector('#LevelValue').innerHTML = newLevel;
-    SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level = newLevel;
+    SiteData.PlayerData[player - 1].Level = newLevel;
+    print(`Level set to ${newLevel} for player ${player % 5} on side ${player <= 4 ? 'Chaos':'Order'}`)
  }
 
 function updateBuffs(buffName, type, hex) {
@@ -138,17 +178,22 @@ function updateBuffs(buffName, type, hex) {
         Player.Buffs = [];
         Player.BuffTypes = [];
         buffValue.innerHTML = 'No Buff Selected';
+        print(`Buffs Cleared For Player ${(SiteData.ActivePlayerIndex - 1)}`);
     } else {
         if (override && !Player.Buffs.length) {
             buffValue.innerHTML = 'No Buff Selected';
             return;
         }
 
-        if (Player.BuffTypes.includes(type)) override = true;
+        if (Player.BuffTypes.includes(type)) {
+            print(`Cannot Set Buff, But of This Type Already Selected`);
+            override = true;
+        }
 
         if (!override) {
             Player.Buffs.push('<span style="color:' + hex + '">' + buffName + '</span>, ');
             Player.BuffTypes.push(type);
+            print(`Buff ${buffName} Set For Player ${(SiteData.ActivePlayerIndex - 1)}`);
         }
         buffValue.innerHTML = 'Current Buffs:';
         for (buff of Player.Buffs)

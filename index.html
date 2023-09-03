@@ -59,12 +59,12 @@
         <div id="InfoMenu" class="menu">
             <div id="GodCard" onhover="displayExtraInfo()"></div>
             <div class="item_cont">
-                <div class="item" onhover="displayExtraInfo()"></div>
-                <div class="item" onhover="displayExtraInfo()"></div>
-                <div class="item" onhover="displayExtraInfo()"></div>
-                <div class="item" onhover="displayExtraInfo()"></div>
-                <div class="item" onhover="displayExtraInfo()"></div>
-                <div class="item" onhover="displayExtraInfo()"></div>
+                <div class="item_disp" onhover="displayExtraInfo()"></div>
+                <div class="item_disp" onhover="displayExtraInfo()"></div>
+                <div class="item_disp" onhover="displayExtraInfo()"></div>
+                <div class="item_disp" onhover="displayExtraInfo()"></div>
+                <div class="item_disp" onhover="displayExtraInfo()"></div>
+                <div class="item_disp" onhover="displayExtraInfo()"></div>
                 <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
                 <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
                 <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
@@ -81,16 +81,79 @@
                 <span id="BuildPrice">0 <img src="Assets/Icons/Gold.png"></span>
             </div>
             <div id="GodStats">
-                <span class="title">Statistics</span><br><br><br><br>
-                Speed: <span></span><br>Attack Speed: <span></span><br>
-                Power: <span></span><br>Health: <span></span><br> 
-                Mana: <span></span><br>HP5: <span></span><br>
-                MP5: <span></span><br>Crowd Control Reduction: <span></span><br>
-                Damage Reduction: <span></span><br> Basic Attack Damage: <span></span><br>
-                Physical Protections: <span></span><br> Magical Protections: <span></span><br>
-                Penetration: <span></span><br> Percent Penetration: <span></span><br>
-                Critical Strike Chance: <span></span><br>Cooldown Reduction: <span></span><br>
-                Lifesteal: <span></span><br>Effective Health: <span></span><br>
+                <span class="title">Statistics</span><br><br><br>
+                <img src="Assets/Icons/speed.png"><span class="stat_name">Speed: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">1000</span>
+                </div><br>
+                <img src="Assets/Icons/attack_speed.png"><span class="stat_name">Att. Speed: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">2.5</span>
+                </div><br>
+                <img src="Assets/Icons/p_power.png"><span class="stat_name">Power: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">2500</span>
+                </div><br>
+                <img src="Assets/Icons/basic_attack.png"><span class="stat_name">B. Attack Damage: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">3000</span>
+                </div><br>
+                <img src="Assets/Icons/health.png"><span class="stat_name">Health: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">5500</span>
+                </div><br>
+                <img src="Assets/Icons/mana.png"><span class="stat_name">Mana: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">4000</span>
+                </div><br>
+                <img src="Assets/Icons/hp5.png"><span class="stat_name">HP5: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">100</span>
+                </div><br>
+                <img src="Assets/Icons/mp5.png"><span class="stat_name">MP5: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">100</span>
+                </div><br>
+                <img src="Assets/Icons/crowd_control.png"><span class="stat_name">CCR: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">40%</span>
+                </div><br>
+                <img src="Assets/Icons/damage_red.png"><span class="stat_name">Damage Reduction:</span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">100%</span>
+                </div><br>
+                <img src="Assets/Icons/p_protections.png"><span class="stat_name">P. Protections: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">325</span>
+                </div><br>
+                <img src="Assets/Icons/m_protections.png"><span class="stat_name">M. Protections: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">325</span>
+                </div><br>
+                <img src="Assets/Icons/p_armour.png"><span class="stat_name">Penetration: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">50</span>
+                </div><br>
+                <img src="Assets/Icons/p_armour.png"><span class="stat_name">% Penetration: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">40%</span>
+                </div><br>
+                <img src="Assets/Icons/crit.png"><span class="stat_name">Crit. Chance: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">100%</span>
+                </div><br>
+                <img src="Assets/Icons/cooldown.png"><span class="stat_name">CDR: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">40%</span>
+                </div><br>
+                <img src="Assets/Icons/p_lifesteal.png"><span class="stat_name">Lifesteal: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">100%</span>
+                </div><br>
+                <img src="Assets/Icons/ehp.png"><span class="stat_name">Eff. Health: </span>
+                <div class="stat">
+                    <span class="stat_amount">0</span><span class="stat_cap">10000</span>
+                </div><br>
             </div>
             <div id="GodExtraInfo">
                 <span>🛈</span>
@@ -149,6 +212,7 @@
         </div>
 
         <div id="App">
+            <div id="ExtraInfo"><span>🛈</span></div>
             <!-- Left Chaos Side -->
             <div id="Chaos" class="team">
                 <div class="player" style="top: calc(20% * 0)">

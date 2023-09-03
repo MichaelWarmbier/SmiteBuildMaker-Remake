@@ -447,6 +447,10 @@ body {
     align-items: center;
     justify-content: space-around;
     box-shadow: none !important;
+    background-color: var(--DarkButton);
+    border-radius: .4vw;
+    border: solid .05vw var(--DarkGold);
+    padding: .5vw;
 } 
 #OptionsBuffs #RegularBuffs { 
     width: 15.5vh !important; 
@@ -571,18 +575,18 @@ body {
     flex-wrap: wrap;
 }
 
-#InfoMenu .item_cont .item {
+#InfoMenu .item_cont .item_disp {
     position: relative;
     background-color: var(--DarkButton);
     border-radius: .5vw;
-    width: 15vh;
-    height: 15vh;
+    width: 7.5vw;
+    height: 7.5vw;
     cursor: help;
 }
 
 #InfoMenu .item_cont .item_price {
     position: relative;
-    width: 15vh;
+    width: 7.5vw;
     height: max-content;
     font-family: 'Roboto', sans-serif;
     color: var(--BrightGold);
@@ -617,23 +621,91 @@ body {
 #GodStats {
     height: max-content;
     width: 20vw;
-    left: 70vw; top: 4vh;
+    left: 70vw; top: 7.5vh;
     box-shadow: none !important;
+    font-family: 'Roboto', sans-serif;
 } 
 
 #GodStats .title { 
-    color: white;
     font-family: 'Nova Square', cursive;
     font-size: 3vw;
+    color: var(--DarkGrayed);
 }
 
 #GodStats Span {
     line-height: 1vh;
-    font-family: var(--TitleFont);
-    font-size: 5vh;
+    font-size: 6vh;
+    font-family: inherit;
+}
+
+#GodStats .stat {
+    display: inline-block;
+    height: 1em;
+    border-radius: .4vh;
+    box-shadow: none !important;
+    background-color: #111821;
+    margin: 0 0 0 .5vw;
+    padding: 0 .25vw 0 .25vw;
+    text-shadow: none !important;
+    text-align: justify;
+    width: 40%;
+} 
+
+#GodStats .stat_name {
+    display: inline-block;
+}
+
+#GodStats .stat_name,
+#GodStats .stat_amount,
+#GodStats .stat_cap { 
+    font-size: 1.75vh;
+    width: 50%;
+}
+
+#GodStats .stat .stat_amount { 
+    font-weight: bold;
+    line-height: 2vh;
+    text-align: left;
+    float: left;
+}
+
+#GodStats .stat .stat_cap { 
+    font-weight: bold;
+    line-height: 2vh;
+    text-align: right;
+    float: right;
 }
 
 /*//// App ////*/
+
+#App #ExtraInfo {
+    position: absolute; margin: auto;
+    background-color: #0a2047;
+    width: 40vh;
+    height: max-content;
+    padding: 3vh;
+    border-radius: .8vh;
+    left: 0; right: 0; top: 2vh; bottom: 0;
+    text-align: center;
+    transition-property: opacity;
+    transition-duration: .4s;
+    color: white;
+    font-family: 'Robot', sans-serif;
+    font-size: 1.5vw;
+    text-shadow: .2vw .2vw black;
+    display: flex; 
+    flex-direction: column;
+    color: var(--DarkGrayed);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#App #ExtraInfo Span {
+    font-size: 2.5vw;
+    color: var(--Grayed);
+    width: 100%;
+    margin-bottom: 2vh;
+}
 
 #App .team { 
     width: 50%;
@@ -742,13 +814,13 @@ body {
 
 #App .bar {
     position: absolute; margin: auto;
-    top: 7vh; bottom: 0; left: 21.5vh;
+    top: 7vh; bottom: 0; left: 20.75vh;
     background-color: var(--AppBlue);
     border: solid .2vw var(--DarkGold);
-    width: calc(65% - 22.5vh);
+    width: calc(65% - 21.5vh);
     height: 4vh;
     z-index: -1;
-}
+} #App #Order .bar { left: 19.5vh; }
 
 #App .health,
 #App .mana {
