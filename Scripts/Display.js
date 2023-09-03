@@ -1,5 +1,6 @@
 /*//// Data ////*/
 const MenuFlags = SiteData.Flags
+let touchValue = 0;
 
 /*//// Utility ////*/
 
@@ -17,9 +18,23 @@ function print(str) { console.log('[SmiteBuildMaker] ' + str); }
 /*//// Display Initialize ////*/
 
 window.onload = function() {
+    TerminalInput.value = '';
     const AboutMenu = document.querySelector('#AboutMenu');
     const NewsMenu = document.querySelector('#NewsMenu');
     const AlertMenu = document.querySelector('#AlertMenu');
+
+    // Initialize Touch Controls
+    document.addEventListener('touchstart', function(event) { event.preventDefault();touchValue = event.touches[0].clientX; })
+    document.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+        const dir = event.touches[0].clientX - touchValue;
+        if (!touchValue) return;
+
+        let left = document.querySelector('#Chaos');
+        let right = document.querySelector('#Order');
+        if (dir < 0) { left.style.left = '-105%'; right.style.left = '0'; }
+        if (dir > 0) { left.style.left = '0'; right.style.left = '105%'; }
+    })
 
     // Initialize About Menu
     for (item of AboutContent) {
@@ -74,12 +89,12 @@ function toggleGlobalOptions() {
     if (MenuFlags.GlobalOptionsOpen ) {
         print('Global Options Menu Opened');
         target.style.top = '-46vh';
-        SiteData.Flags.GlobalOptionsOpen = false;
+        MenuFlags.GlobalOptionsOpen = false;
         MenuFlags.MenuOpen = false;6
     } else if (!MenuFlags.MenuOpen) {
         print('Global Options Menu Closed');
         target.style.top = '15vh';
-        SiteData.Flags.GlobalOptionsOpen = true;
+        MenuFlags.GlobalOptionsOpen = true;
         MenuFlags.MenuOpen = true;
     }
 }
@@ -109,7 +124,7 @@ function toggleBuildNumbering() {
 
 function displayMenu(context, override) {
 
-    if (context != document.querySelector('#GlobalOptions') && SiteData.Flags.GlobalOptionsOpen) return;
+    if (context != document.querySelector('#GlobalOptions') && MenuFlags.GlobalOptionsOpen) return;
     
     if (context == document.querySelector('#OptionsMenu')) {
         document.querySelector('#LevelSlider').value = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;

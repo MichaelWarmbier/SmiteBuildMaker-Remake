@@ -4,7 +4,8 @@ const SiteData = {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,
         "SelectionWindowOpen": false,
-        "InfoDisplayOpen": false
+        "InfoDisplayOpen": false,
+        "TerminalOpen": false
     },
     "ActiveMenu": null,
     "ActivePlayerIndex": 0,
