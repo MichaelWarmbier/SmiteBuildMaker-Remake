@@ -3,7 +3,7 @@
 let Terminal = document.querySelector('#Terminal');
 let TerminalInput = Terminal.querySelectorAll('input')[0];
 
-/* Open Terminal */
+/*//// Open Terminal ////*/
 
 document.addEventListener('keydown', function(event) {
     if (event.key != '`') return;
@@ -12,7 +12,7 @@ document.addEventListener('keydown', function(event) {
     SiteData.Flags.TerminalOpen = !SiteData.Flags.TerminalOpen;
 })
 
-/* Enter terminal value */
+/*//// Enter Terminal Value ////*/
 
 TerminalInput.addEventListener('keydown', function(event) {
     if (event.keyCode != 13) return;

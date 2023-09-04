@@ -12,51 +12,61 @@ const SiteData = {
     "Options": [0, 0],
     "PlayerData": [
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []
         },
         {
+            "GodName": null,
             "Level": 1,
             "Buffs": [],
             "BuffTypes": []

@@ -14,7 +14,16 @@ function createTextEvent(item, text) {
     item.addEventListener('mouseout', function() { Info.style.opacity = '0'; })
 }
 
-function print(str) { console.log('[SmiteBuildMaker] ' + str); }
+function print(str, warn) { 
+    if (warn) {
+        const Warning = document.querySelector('#Warning');
+        console.log('[SmiteBuildMaker] [WARNING] ' + str);
+        Warning.innerHTML = str;
+        Warning.style.opacity = 1;
+        setTimeout(function() { Warning.style.opacity = 0; }, 1000)
+
+    } else { console.log('[SmiteBuildMaker] ' + str); }
+}
 
 /*//// Display Initialize ////*/
 
@@ -23,6 +32,12 @@ window.onload = function() {
     const AboutMenu = document.querySelector('#AboutMenu');
     const NewsMenu = document.querySelector('#NewsMenu');
     const AlertMenu = document.querySelector('#AlertMenu');
+    const InfoMenu = document.querySelector('#InfoMenu');
+    const OptionsMenu = document.querySelector('#OptionsMenu');
+
+    // Reset Scroll
+    InfoMenu.scrollTop = 0;
+    OptionsMenu.scrollTop = 0;
 
     // Initialize Touch Controls
     document.addEventListener('touchstart', function(event) { event.preventDefault();touchValue = event.touches[0].clientX; })
@@ -33,9 +48,30 @@ window.onload = function() {
 
         let left = document.querySelector('#Chaos');
         let right = document.querySelector('#Order');
-        if (dir < 0) { left.style.left = '-105%'; right.style.left = '1%'; }
-        if (dir > 0) { left.style.left = '0'; right.style.left = '105%'; }
+        if (dir < 0) { 
+            left.style.left = '-105%'; right.style.left = '1%';
+            if (SiteData.ActiveMenu == InfoMenu) {
+                document.querySelector('#GodInfo').style.left = '-300vw';
+                document.querySelector('#GodCard').style.left = '-300vw';
+                document.querySelector('#InfoMenu .item_cont').style.left = '-300vw';
+                document.querySelector('#GodStats').style.left = '0vw';
+                InfoMenu.scrollTop = 0;
+            }
+        } if (dir > 0) { 
+            left.style.left = '0'; right.style.left = '105%';
+            if (SiteData.ActiveMenu == InfoMenu) {
+                document.querySelector('#GodInfo').style.left = '0vw';
+                document.querySelector('#GodCard').style.left = '0vw';
+                document.querySelector('#InfoMenu .item_cont').style.left = '0vw';
+                document.querySelector('#GodStats').style.left = '300vw';
+            }
+        }
+
     })
+
+    // Play Swipe Animation
+    document.querySelector('#SwipeNotif').style.opacity = 1;
+    setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 0; }, 1000)
 
     // Initialize About Menu
     for (item of AboutContent) {
@@ -89,12 +125,12 @@ function toggleGlobalOptions() {
 
     if (MenuFlags.GlobalOptionsOpen ) {
         print('Global Options Menu Opened');
-        target.style.top = '-46vh';
+        target.style.top = '-60vh';
         MenuFlags.GlobalOptionsOpen = false;
         MenuFlags.MenuOpen = false;6
     } else if (!MenuFlags.MenuOpen) {
         print('Global Options Menu Closed');
-        target.style.top = '15vh';
+        target.style.top = '45vh';
         MenuFlags.GlobalOptionsOpen = true;
         MenuFlags.MenuOpen = true;
     }
@@ -170,6 +206,11 @@ function displayOptions(obj, pIndex, side) {
 }
 
 function displayInfo(obj, pIndex, side) {
+    //if (!SiteData.PlayerData[pIndex].GodName) { print('A Character Must Be Selected First', 1); return; }
+    
+    setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 1; }, 500)
+    setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 0; }, 1500)
+
     print(`Opening Information for Player ${(pIndex)} of ${side}`);
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     Menu = document.querySelector('#InfoMenu');
