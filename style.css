@@ -113,12 +113,12 @@ body {
     margin: auto;
     z-index: -2;
     box-shadow: .2vw .2vw 2vw black;
-    transition: .7s top;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-shadow: .3vw .3vw .1vw black;
     padding-top: 2vh;
+    transition: opacity 1s, .7s top;
 }
 
 #GlobalOptions Span { text-shadow: .3vw .3vw .1vw black; }
@@ -684,6 +684,129 @@ body {
     line-height: 2vh;
     text-align: right;
     float: right;
+}
+
+#GodMenu { 
+    text-shadow: .3vw .3vw .5vw black;
+    overflow: hidden;
+}
+
+#GodMenu #GodFilters {
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    width: 15%;
+    background-color: var(--DarkButton);
+    overflow-y: scroll;
+}
+
+#GodFilters .label {
+    font-size: 2vw;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    color: var(--DarkGold);
+    font-family: var(--BrandFont);
+    padding: 2vh 0 2vh 0;
+}
+
+#GodFilters Select {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #161f2e;
+    height: 2.5vw;
+    font-size: 1.5vw;
+    color: var(--DarkGrayed);
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+#GodFilters #GodFilterNames {
+    width: 100%;
+    height: max-content;
+}
+
+#GodFilters button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 1.2vw;
+    color: var(--Grayed);
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 1vh;
+} 
+
+#GodFilterNames button:focus { color: white; }
+#GodFilterNames button:hover { color: white; }
+#ResetFilter { color: var(--DarkGrayed) !important; }
+#ResetFilter:hover { color: white !important; }
+
+#GodMenu #GodList {
+    width: 55%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: space-around;
+    overflow-y: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+    position: absolute; margin: auto;
+    left: -10vw; right: 0;
+} #GodList::-webkit-scrollbar { display: none; }
+
+#GodList .god {
+    width: 6vw;
+    height: 6vw;
+    border-radius: .6vw;
+    background-color: var(--DarkButton);
+    background-size: cover;
+    border: .15vw solid var(--DarkGold);
+    cursor: pointer;
+    margin: 1vw;
+} 
+
+#GodList .god:hover { 
+    border-color: var(--BrightGold); 
+    box-shadow: .1vw .1vw .5vw white, -.1vw -.1vw .5vw white, -.1vw .1vw .5vw white, .1vw -.1vw .5vw white;
+}
+
+#GodExtraInfo {
+    background-color: var(--DarkButton);
+    height: 100%;
+    width: 25vw;
+    position: absolute;
+    right: 0; bottom: 0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#GodExtraInfo .title {
+    font-size: 3vw;
+    color: var(--DarkGrayed);
+    text-align: center;
+}
+
+#GodExtraInfo .subtitle {
+    font-size: 2.5vw;
+    color: var(--Grayed);
+}
+
+#GodExtraInfo .label {
+    font-size: 2vw;
+    color: var(--Grayed);
+}
+
+#GodExtraInfo img { 
+    width: 1em;
+    height: 1em;
+    margin-right: 1vw;
 }
 
 /*//// App ////*/

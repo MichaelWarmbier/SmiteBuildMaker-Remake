@@ -1,4 +1,4 @@
-const SiteData = {
+let SiteData = {
     "SiteAlert": "",
     "Flags": {
         "MenuOpen": false,
@@ -7,69 +7,127 @@ const SiteData = {
         "InfoDisplayOpen": false,
         "TerminalOpen": false
     },
+    "GodCategories": [ 
+        {
+            "Name": "Role",
+            "Choices": ["Guardian", "Hunter", "Assassin", "Warrior", "Mage"]
+        },
+        {
+            "Name": "Pantheon",
+            "Choices": ["Arthurian", "Babylonian", "Celtic", "Chinese", "Egyptian", "Great Old Ones", "Greek", "Hindu", "Japanese", "Maya", "Norse", "Polynesian", "Roman", "Slavic", "VooDoo", "Yoruba"]
+        },
+        {
+            "Name": "Range",
+            "Choices": ["Melee", "Ranged"]
+        },
+        {
+            "Name": "Damage",
+            "Choices": ["Magical", "Physical"]
+        }
+    ],
     "ActiveMenu": null,
     "ActivePlayerIndex": 1,
     "Options": [0, 0],
     "PlayerData": [
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         },
         {
-            "GodName": null,
+            "God": null,
             "Level": 1,
             "Buffs": [],
-            "BuffTypes": []
+            "BuffTypes": [],
+            "Items": [null, null, null, null, null, null],
+            "GlyphIndex": -1,
+            "StarterIndex": -1,
+            "Stats": { }
         }
     ]
 }

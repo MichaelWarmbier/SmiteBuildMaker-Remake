@@ -211,7 +211,33 @@
                 <div class="button">Randomize Items</div>
             </div>
         </div>
-
+        <div id="GodMenu" class="menu">
+            <div id="GodFilters">
+                <span class="label">Filters</span>
+                <select name="filters" onchange="updateFilters()"">
+                    <option value="Role" selected>Roles</option>
+                    <option value="Pantheon" selected>Pantheons</option>
+                    <option value="Range" selected>Range</option>
+                    <option value="Damage" selected>Damage Types</option>
+                </select>
+                <div id="GodFilterNames">
+                    <button>Guardian</button>
+                    <button>Hunter</button>
+                    <button>Assassin</button>
+                    <button>Warrior</button>
+                    <button>Mage</button>
+                </div>
+                <button id="ResetFilter">Reset Filter</button>
+            </div>
+            <div id="GodList"></div>
+            <div id="GodExtraInfo">
+                <span class="title">God Name</span>
+                <span class="subtitle">God Title</span>
+                <span class="label"><img src="">God Pantheon</span>
+            </div>
+        </div>
+        
+        <!-- App -->
         <div id="App">
             <div id="SwipeNotif">Swipe<span>>>></span></div>
             <div id="ExtraInfo"><span>🛈</span></div>
@@ -221,7 +247,7 @@
                 <div class="player" style="top: calc(20% * 0)">
                     <div class="preferences" onclick="displayOptions(this, 1, 'Chaos')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 1, 'Chaos')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(1, 'Chaos')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -238,7 +264,7 @@
                 <div class="player" style="top: calc(20% * 1)">
                     <div class="preferences" onclick="displayOptions(this, 2, 'Chaos')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 2, 'Chaos')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(2, 'Chaos')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -255,7 +281,7 @@
                 <div class="player" style="top: calc(20% * 2)">
                     <div class="preferences" onclick="displayOptions(this, 3, 'Chaos')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 3, 'Chaos')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(3, 'Chaos')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -272,7 +298,7 @@
                 <div class="player" style="top: calc(20% * 3)">
                     <div class="preferences" onclick="displayOptions(this, 4, 'Chaos')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 4, 'Chaos')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(4, 'Chaos')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -289,7 +315,7 @@
                 <div class="player" style="top: calc(20% * 4)">
                     <div class="preferences" onclick="displayOptions(this, 5, 'Chaos')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 5, 'Chaos')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(5, 'Chaos')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -308,7 +334,7 @@
                 <div class="player" style="top: calc(20% * 0)">
                     <div class="preferences" onclick="displayOptions(this, 1, 'Order')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 1, 'Order')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(1, 'Order')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -325,7 +351,7 @@
                 <div class="player" style="top: calc(20% * 1)">
                     <div class="preferences" onclick="displayOptions(this, 2, 'Order')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 2, 'Order')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(2, 'Order')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -342,7 +368,7 @@
                 <div class="player" style="top: calc(20% * 2)">
                     <div class="preferences" onclick="displayOptions(this, 3, 'Order')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 3, 'Order')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(3, 'Order')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -359,7 +385,7 @@
                 <div class="player" style="top: calc(20% * 3)">
                     <div class="preferences" onclick="displayOptions(this, 4, 'Order')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 4, 'Order')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(4, 'Order')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -376,7 +402,7 @@
                 <div class="player" style="top: calc(20% * 4)">
                     <div class="preferences" onclick="displayOptions(this, 5, 'Order')">⛭</div>
                     <div class="information" onclick="displayInfo(this, 5, 'Order')">🛈</div>
-                    <div class="icon">?</div>
+                    <div class="icon" onclick="openGodMenu(5, 'Order')">?</div>
                     <div class="item_cont">
                         <div class="item">+</div>
                         <div class="item">+</div>
@@ -398,12 +424,16 @@
             > <input placeholder="Start Typing..">
         </div>
 
+        <!-- Language Data -->
+        <script src="Data/Languages/English.json"></script>
+
         <!-- JSON Storage -->
         <script src="Data/SiteData.json"></script>
         <script src="Data/About.json"></script>
         <script src="Data/News.json"></script>
 
         <!-- Scripts -->
+        <script src="Scripts/DataManip.js"></script>
         <script src="Scripts/Display.js"></script>
         <script src="Scripts/Terminal.js"></script>
 

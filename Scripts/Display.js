@@ -35,9 +35,10 @@ window.onload = function() {
     const InfoMenu = document.querySelector('#InfoMenu');
     const OptionsMenu = document.querySelector('#OptionsMenu');
 
-    // Reset Scroll
+    // Reset Scroll and Initial Values 
     InfoMenu.scrollTop = 0;
     OptionsMenu.scrollTop = 0;
+    document.querySelector('#GodMenu select').value = 'Role';
 
     // Initialize Touch Controls
     document.addEventListener('touchstart', function(event) { event.preventDefault();touchValue = event.touches[0].clientX; })
@@ -49,7 +50,7 @@ window.onload = function() {
         let left = document.querySelector('#Chaos');
         let right = document.querySelector('#Order');
         if (dir < 0) { 
-            left.style.left = '-105%'; right.style.left = '1%';
+            if (!MenuFlags.MenuOpen) { left.style.left = '-105%'; right.style.left = '1%'; }
             if (SiteData.ActiveMenu == InfoMenu) {
                 document.querySelector('#GodInfo').style.left = '-300vw';
                 document.querySelector('#GodCard').style.left = '-300vw';
@@ -58,7 +59,7 @@ window.onload = function() {
                 InfoMenu.scrollTop = 0;
             }
         } if (dir > 0) { 
-            left.style.left = '0'; right.style.left = '105%';
+            if (!MenuFlags.MenuOpen) { left.style.left = '0'; right.style.left = '105%'; }
             if (SiteData.ActiveMenu == InfoMenu) {
                 document.querySelector('#GodInfo').style.left = '0vw';
                 document.querySelector('#GodCard').style.left = '0vw';
@@ -174,15 +175,18 @@ function displayMenu(context, override) {
     try { clearInterval(AlertInterval); document.querySelector('#Alert').style.color = 'rgb(168, 168, 168)'; } catch(e) { }
     
     let backdrop = document.querySelector('#MenuBackdrop');
+    let GOptions = document.querySelector('#GlobalOptions');
     if (!MenuFlags.MenuOpen) {
         context.style.left = '0vw';
-        backdrop.style.opacity = 100;
+        backdrop.style.opacity = 1;
+        GOptions.style.opacity = 0;
         backdrop.style.pointerEvents = "auto";
         SiteData.ActiveMenu = context;
         MenuFlags.MenuOpen = true;
     } else {
         context.style.left = '200vw';
         backdrop.style.opacity = 0;
+        GOptions.style.opacity = 1;
         backdrop.style.pointerEvents = "none";
         SiteData.ActiveMenu = null;
         MenuFlags.MenuOpen = false;
@@ -206,7 +210,7 @@ function displayOptions(obj, pIndex, side) {
 }
 
 function displayInfo(obj, pIndex, side) {
-    //if (!SiteData.PlayerData[pIndex].GodName) { print('A Character Must Be Selected First', 1); return; }
+    //if (!SiteData.PlayerData[pIndex].God) { print('A Character Must Be Selected First', 1); return; }
     
     setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 1; }, 500)
     setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 0; }, 1500)
@@ -257,6 +261,25 @@ function updateBuffs(buffName, type, hex) {
             buffValue.innerHTML += ' ' + buff.replace('_', ' ');
         buffValue.innerHTML = buffValue.innerHTML.slice(0, -2);
     }
+}
+
+function openGodMenu(pIndex, side) {
+    SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
+    initializeGods();
+    displayMenu(document.querySelector('#GodMenu'));
+}
+
+function updateFilters() {
+    const Filter = document.querySelector('#GodFilters select');
+    const Names = document.querySelector('#GodFilterNames');
+
+    for (item of SiteData.GodCategories) 
+        if (item.Name === Filter.value) {
+            Names.innerHTML = '';
+            for (subItem of item.Choices) 
+                Names.innerHTML += `<button>${subItem}</button>`;
+            return;
+        }
 }
 
 /*//// Persistent Functions ////*/
