@@ -1,5 +1,9 @@
 let SiteData = {
     "SiteAlert": "",
+    "ActiveMenu": null,
+    "ActivePlayerIndex": 1,
+    "Options": [0, 0],
+    "Filter": null,
     "Flags": {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,
@@ -7,6 +11,88 @@ let SiteData = {
         "InfoDisplayOpen": false,
         "TerminalOpen": false
     },
+    "PantheonData": [
+        {
+            "Name": "Arthurian",
+            "Color": "#a3190f",
+            "Icon": "Arthurian.png",
+        },
+        {
+            "Name": "Babylonian",
+            "Color": "#8fc9eb",
+            "Icon": "Babylonian.png",
+        },
+        {
+            "Name": "Celtic",
+            "Color": "#0f7013",
+            "Icon": "Celtic.png",
+        },
+        {
+            "Name": "Chinese",
+            "Color": "#edea32",
+            "Icon": "Chinese.png",
+        },
+        {
+            "Name": "Egyptian",
+            "Color": "#a13d12",
+            "Icon": "Egyptian.png",
+        },
+        {
+            "Name": "Great Old Ones",
+            "Color": "#4f0b8a",
+            "Icon": "Great_Old_Ones.png",
+        },
+        {
+            "Name": "Greek",
+            "Color": "#6b19b3",
+            "Icon": "Greek.png",
+        },
+        {
+            "Name": "Hindu",
+            "Color": "#d911bb",
+            "Icon": "Hindu.png",
+        },
+        {
+            "Name": "Japanese",
+            "Color": "#e61919",
+            "Icon": "Japanese.png",
+        },
+        {
+            "Name": "Maya",
+            "Color": "#eda70e",
+            "Icon": "Maya.png",
+        },
+        {
+            "Name": "Norse",
+            "Color": "#b3b3b3",
+            "Icon": "Norse.png",
+        },
+        {
+            "Name": "Polynesian",
+            "Color": "#ffb74a",
+            "Icon": "Polynesian.png",
+        },
+        {
+            "Name": "Roman",
+            "Color": "#bf7f1d",
+            "Icon": "Roman.png",
+        },
+        {
+            "Name": "Slavic",
+            "Color": "#ed9d21",
+            "Icon": "Slavic.png",
+        },
+        {
+            "Name": "Voodoo",
+            "Color": "#d664ed",
+            "Icon": "Voodoo.png",
+        },
+        {
+            "Name": "Yoruba",
+            "Color": "#799e0b",
+            "Icon": "Yoruba.png",
+        },
+    ],
     "GodCategories": [ 
         {
             "Name": "Role",
@@ -14,20 +100,17 @@ let SiteData = {
         },
         {
             "Name": "Pantheon",
-            "Choices": ["Arthurian", "Babylonian", "Celtic", "Chinese", "Egyptian", "Great Old Ones", "Greek", "Hindu", "Japanese", "Maya", "Norse", "Polynesian", "Roman", "Slavic", "VooDoo", "Yoruba"]
+            "Choices": ["Arthurian", "Babylonian", "Celtic", "Chinese", "Egyptian", "Great Old Ones", "Greek", "Hindu", "Japanese", "Maya", "Norse", "Polynesian", "Roman", "Slavic", "Voodoo", "Yoruba"]
         },
         {
             "Name": "Range",
             "Choices": ["Melee", "Ranged"]
         },
         {
-            "Name": "Damage",
+            "Name": "Type",
             "Choices": ["Magical", "Physical"]
         }
     ],
-    "ActiveMenu": null,
-    "ActivePlayerIndex": 1,
-    "Options": [0, 0],
     "PlayerData": [
         {
             "God": null,

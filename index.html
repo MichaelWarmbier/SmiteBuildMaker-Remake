@@ -218,22 +218,25 @@
                     <option value="Role" selected>Roles</option>
                     <option value="Pantheon" selected>Pantheons</option>
                     <option value="Range" selected>Range</option>
-                    <option value="Damage" selected>Damage Types</option>
+                    <option value="Type" selected>Damage Type</option>
                 </select>
                 <div id="GodFilterNames">
-                    <button>Guardian</button>
-                    <button>Hunter</button>
-                    <button>Assassin</button>
-                    <button>Warrior</button>
-                    <button>Mage</button>
+                    <button onclick="setFilter('Guardian')">Guardian</button>
+                    <button onclick="setFilter('Hunter')">Hunter</button>
+                    <button onclick="setFilter('Assassin')">Assassin</button>
+                    <button onclick="setFilter('Warrior')">Warrior</button>
+                    <button onclick="setFilter('Mage')">Mage</button>
                 </div>
-                <button id="ResetFilter">Reset Filter</button>
+                <button id="ResetFilter" onclick="setFilter(null)">Reset Filter</button>
             </div>
             <div id="GodList"></div>
-            <div id="GodExtraInfo">
+            <div id="GodDetails">
                 <span class="title">God Name</span>
                 <span class="subtitle">God Title</span>
-                <span class="label"><img src="">God Pantheon</span>
+                <span class="label"><div class="pantheon_ico"></div>God Pantheon</span>
+                <div class="ico"></div>
+                <span class="type">Ranged Magical</span>
+                <span class="desc">Double-Tap to Select!</span>
             </div>
         </div>
         

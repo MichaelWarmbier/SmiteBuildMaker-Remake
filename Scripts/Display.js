@@ -170,6 +170,8 @@ function displayMenu(context, override) {
         updateBuffs('or');
     }
 
+    if (context == document.querySelector('#InfoMenu')) { appendInfo(); }
+
     if (MenuFlags.MenuOpen && !context && override) { displayMenu(SiteData.ActiveMenu, 1); return; }
     if (MenuFlags.MenuOpen && SiteData.ActiveMenu != context && !override) displayMenu(SiteData.ActiveMenu, 1);
     try { clearInterval(AlertInterval); document.querySelector('#Alert').style.color = 'rgb(168, 168, 168)'; } catch(e) { }
@@ -210,7 +212,7 @@ function displayOptions(obj, pIndex, side) {
 }
 
 function displayInfo(obj, pIndex, side) {
-    //if (!SiteData.PlayerData[pIndex].God) { print('A Character Must Be Selected First', 1); return; }
+    if (!SiteData.PlayerData[pIndex + 5 * (side == 'Order') - 1].God) { print('A Character Must Be Selected First', 1); return; }
     
     setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 1; }, 500)
     setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 0; }, 1500)
@@ -265,6 +267,7 @@ function updateBuffs(buffName, type, hex) {
 
 function openGodMenu(pIndex, side) {
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
+    if (!SiteData.PlayerData[pIndex].God) displayGod('Zeus');
     initializeGods();
     displayMenu(document.querySelector('#GodMenu'));
 }
@@ -277,7 +280,7 @@ function updateFilters() {
         if (item.Name === Filter.value) {
             Names.innerHTML = '';
             for (subItem of item.Choices) 
-                Names.innerHTML += `<button>${subItem}</button>`;
+                Names.innerHTML += `<button onclick="setFilter('${subItem}');">${subItem}</button>`;
             return;
         }
 }
