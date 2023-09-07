@@ -567,8 +567,7 @@ body {
     height: max-content;
     width: 75%;
     padding: 0 .5vw 0 .5vw;
-    transform: translateY(-2vh);
- }
+}
 
 #InfoMenu img {
     width: 2em;
@@ -608,7 +607,7 @@ body {
     text-align: center;
     box-shadow: none !important;
     font-size: 2vh;
-    padding-top: 1vh;
+    transform: translateY(-.75vh);
 } #InfoMenu .item_cont .item_price img { display: inline-block; }
 
 #InfoMenu #GodExtraInfo {
@@ -635,56 +634,43 @@ body {
 #GodStats {
     height: 100%;
     width: 40%;
-    left: 55vw; top: 3vh;
+    left: 55vw; top: -2vh;
     box-shadow: none !important;
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-content: flex-start;
+    line-height: 50%;
 } 
 
 #GodStats .title { 
-    font-family: 'Nova Square', cursive;
-    font-size: 3vw;
-    color: var(--DarkGrayed);
+    color: var(--DarkGray);
+    transform: translateY(-1.5vh);
 }
 
-#GodStats Span {
-    line-height: 1vh;
-    font-size: 1vw;
-    font-family: inherit;
+#GodStats .stat { 
+    width: 70%;
 }
 
-#GodStats .stat {
+#GodStats .stat_name { 
     display: inline-block;
-    height: 1em;
-    border-radius: .4vh;
-    box-shadow: none !important;
-    background-color: #111821;
-    text-shadow: none !important;
-    text-align: justify;
-    width: 35%;
-} 
-
-#GodStats .stat_name { display: inline-block; }
-
-#GodStats .stat_name,
-#GodStats .stat_amount,
-#GodStats .stat_cap { 
-    font-size: 1.75vh;
     width: 50%;
 }
 
-#GodStats .stat .stat_amount { 
-    font-weight: bold;
-    line-height: 3vh;
-    text-align: left;
-    float: left;
+#GodStats .stat_bar { 
+    width: 50%;
+    display: inline-block;
+    background-color: #111821;
+    padding: 0 1vw 0 1vw;
+    transform: translateY(1em);
+    height: 1em;
+    line-height: 75%;
 }
 
-#GodStats .stat .stat_cap { 
-    font-weight: bold;
-    line-height: 3vh;
-    text-align: right;
-    float: right;
-}
+#GodStats .stat_bar Span { display: inline-block; }
+#GodStats .stat_bar .stat_amount { float: left; }
+#GodStats .stat_bar .stat_cap { float: right; }
 
 #GodMenu { 
     text-shadow: .3vw .3vw .5vw black;
@@ -1359,7 +1345,9 @@ body {
         display: block;
     }
 
-    #GodStats .stat_name { font-size: 2vh; } 
+    #GodStats .stat_name { 
+        font-size: 1.5vh;
+    } 
     #GodExtraInfo { display: none; }
 
     /* App */
