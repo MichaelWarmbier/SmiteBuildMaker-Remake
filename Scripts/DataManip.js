@@ -5,6 +5,7 @@ function initializeGods() {
     const GodMenu = document.querySelector('#GodList');
     GodMenu.innerHTML = '';
     for (God of English.Gods) {
+        if (!God.Name.toLowerCase().includes(SiteData.SearchQuery)) continue;
         if (God[Filter] != SiteData.Filter && SiteData.Filter) continue;
         const newGod = document.createElement('div');
         newGod.classList.add('god');
@@ -54,7 +55,6 @@ function displayGod(name) {
         document.querySelectorAll('#GodDetails .type')[0].innerHTML = `${God.Type} ${God.Role}`;
         document.querySelectorAll('#GodDetails .ico')[0].style.backgroundImage = `url("${God.Icon}")`;
         document.querySelectorAll('.pantheon_ico')[0].style.backgroundImage = `url("Assets/Icons/${PantheonData.Icon}")`;
-        print(`${name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
         break;
     }
 }
@@ -66,4 +66,5 @@ function appendGod(God) {
     GodIcon.innerHTML = '';
     GodIcon.style.backgroundImage = `url(${God.Icon})`;
     SiteData.PlayerData[player - 1].God = God;
+    print(`${God.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
 }

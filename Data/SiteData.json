@@ -4,6 +4,7 @@ let SiteData = {
     "ActivePlayerIndex": 1,
     "Options": [0, 0],
     "Filter": null,
+    "SearchQuery": "",
     "Flags": {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,
@@ -120,7 +121,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -130,7 +149,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -140,7 +177,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -150,7 +205,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -160,7 +233,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -170,7 +261,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -180,7 +289,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -190,7 +317,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -200,7 +345,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         },
         {
             "God": null,
@@ -210,7 +373,25 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
-            "Stats": { }
+            "Stats": { 
+                "Speed": 0,
+                "Power": 0,
+                "BasicAttackDamage": 0,
+                "Health": 0,
+                "Mana": 0,
+                "HP5": 0,
+                "MP5": 0,
+                "CCR": 0,
+                "DamageReduction": 0,
+                "PhysicalProtections": 0,
+                "MagicalProtections": 0,
+                "Penetration": 0,
+                "PercentPenetration": 0,
+                "CriticalStrike": 0,
+                "CDR": 0,
+                "Lifesteal": 0,
+                "EHP": 0
+            }
         }
     ]
 }

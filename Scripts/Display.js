@@ -3,6 +3,18 @@
 const MenuFlags = SiteData.Flags
 let touchValue = 0;
 
+const AboutMenu = document.querySelector('#AboutMenu');
+const NewsMenu = document.querySelector('#NewsMenu');
+const AlertMenu = document.querySelector('#AlertMenu');
+const InfoMenu = document.querySelector('#InfoMenu');
+const OptionsMenu = document.querySelector('#OptionsMenu');
+const GodFilters = document.querySelector('#GodFilters');
+const GodSearch = document.querySelector('#GodSearch Input');
+const Warning = document.querySelector('#Warning');
+const SwipeNotif = document.querySelector('#SwipeNotif');
+const GlobalOptions = document.querySelector('#GlobalOptions');
+const Backdrop = document.querySelector('#MenuBackdrop');
+
 /*//// Utility ////*/
 
 function createTextEvent(item, text) {
@@ -16,7 +28,6 @@ function createTextEvent(item, text) {
 
 function print(str, warn) { 
     if (warn) {
-        const Warning = document.querySelector('#Warning');
         console.log('[SmiteBuildMaker] [WARNING] ' + str);
         Warning.innerHTML = str;
         Warning.style.opacity = 1;
@@ -29,18 +40,14 @@ function print(str, warn) {
 
 window.onload = function() {
     TerminalInput.value = '';
-    const AboutMenu = document.querySelector('#AboutMenu');
-    const NewsMenu = document.querySelector('#NewsMenu');
-    const AlertMenu = document.querySelector('#AlertMenu');
-    const InfoMenu = document.querySelector('#InfoMenu');
-    const OptionsMenu = document.querySelector('#OptionsMenu');
-    const GodFilters = document.querySelector('#GodFilters');
 
     // Reset Scroll and Initial Values 
     InfoMenu.scrollTop = 0;
     OptionsMenu.scrollTop = 0;
     GodFilters.scrollTop = 0;
 
+
+    GodSearch.value = '';
     document.querySelector('#GodMenu select').value = 'Role';
 
     // Initialize Touch Controls
@@ -74,8 +81,8 @@ window.onload = function() {
     })
 
     // Play Swipe Animation
-    document.querySelector('#SwipeNotif').style.opacity = 1;
-    setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 0; }, 1000)
+    SwipeNotif.style.opacity = 1;
+    setTimeout(function() { SwipeNotif.style.opacity = 0; }, 1000)
 
     // Initialize About Menu
     for (item of AboutContent) {
@@ -125,16 +132,15 @@ window.onload = function() {
 /*//// Event Triggered Functions ////*/
 
 function toggleGlobalOptions() {
-    const target = document.querySelector('#GlobalOptions');
 
     if (MenuFlags.GlobalOptionsOpen ) {
         print('Global Options Menu Opened');
-        target.style.top = '-60vh';
+        GlobalOptions.style.top = '-60vh';
         MenuFlags.GlobalOptionsOpen = false;
         MenuFlags.MenuOpen = false;6
     } else if (!MenuFlags.MenuOpen) {
         print('Global Options Menu Closed');
-        target.style.top = '45vh';
+        GlobalOptions.style.top = '45vh';
         MenuFlags.GlobalOptionsOpen = true;
         MenuFlags.MenuOpen = true;
     }
@@ -165,7 +171,7 @@ function toggleBuildNumbering() {
 
 function displayMenu(context, override) {
 
-    if (context != document.querySelector('#GlobalOptions') && MenuFlags.GlobalOptionsOpen) return;
+    if (context != GlobalOptions && MenuFlags.GlobalOptionsOpen) return;
     
     if (context == document.querySelector('#OptionsMenu')) {
         document.querySelector('#LevelSlider').value = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
@@ -179,20 +185,18 @@ function displayMenu(context, override) {
     if (MenuFlags.MenuOpen && SiteData.ActiveMenu != context && !override) displayMenu(SiteData.ActiveMenu, 1);
     try { clearInterval(AlertInterval); document.querySelector('#Alert').style.color = 'rgb(168, 168, 168)'; } catch(e) { }
     
-    let backdrop = document.querySelector('#MenuBackdrop');
-    let GOptions = document.querySelector('#GlobalOptions');
     if (!MenuFlags.MenuOpen) {
         context.style.left = '0vw';
-        backdrop.style.opacity = 1;
-        GOptions.style.opacity = 0;
-        backdrop.style.pointerEvents = "auto";
+        Backdrop.style.opacity = 1;
+        GlobalOptions.style.opacity = 0;
+        Backdrop.style.pointerEvents = "auto";
         SiteData.ActiveMenu = context;
         MenuFlags.MenuOpen = true;
     } else {
         context.style.left = '200vw';
-        backdrop.style.opacity = 0;
-        GOptions.style.opacity = 1;
-        backdrop.style.pointerEvents = "none";
+        Backdrop.style.opacity = 0;
+        GlobalOptions.style.opacity = 1;
+        Backdrop.style.pointerEvents = "none";
         SiteData.ActiveMenu = null;
         MenuFlags.MenuOpen = false;
     }
@@ -286,6 +290,11 @@ function updateFilters() {
                 Names.innerHTML += `<button onclick="setFilter('${subItem}');">${subItem}</button>`;
             return;
         }
+}
+
+function updateSearch() {
+    SiteData.SearchQuery = GodSearch.value.toLowerCase();
+    initializeGods();
 }
 
 /*//// Persistent Functions ////*/

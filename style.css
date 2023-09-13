@@ -730,6 +730,34 @@ body {
 #ResetFilter { color: var(--DarkGrayed) !important; }
 #ResetFilter:hover { color: white !important; }
 
+#GodMenu #GodSearch {
+    position: absolute;
+    top: 0; left: 15%;
+    margin: auto;
+    height: 5vw;
+    width: 100%;
+    z-index: -5;
+    text-align: center;
+    height: 1em;
+    width: 60%;
+    font-size: 2.5vw;
+}
+
+#GodSearch Input {
+    display: inline;
+    background-color: #070a24;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: var(--Grayed);
+    position: absolute;
+    top: 0; left: 0;
+    font-size: inherit;
+    padding: 1vw;
+    font-family: 'Nova Square', cursive;
+}
+
 #GodMenu #GodList {
     width: 60%;
     height: 100%;
@@ -743,6 +771,7 @@ body {
     scrollbar-width: none;
     position: absolute; margin: auto;
     left: -9vw; right: 0;
+    top: 5vw;
 } #GodList::-webkit-scrollbar { display: none; }
 
 #GodList .god {
@@ -949,7 +978,7 @@ body {
     background-size: cover;
 } 
 #App .icon:hover { color: var(--BrightGold); border-color: var(--BrightGold); }
-#App #Order .icon { transform: scale(-1, 1) translateX(.5vw); }
+#App #Order .icon { transform: scale(-1, 1) translateX(.5vw); box-shadow: -.4vh .4vh .75vh black }
 
 #App .item_cont {
     position: absolute; margin: auto;
@@ -959,6 +988,7 @@ body {
     display: flex;
     justify-content: space-around;
     box-shadow: none !important;
+    overflow: visible;
 } #App #Order .item_cont { left: 21.75vh; }
 
 #App .item {
@@ -976,7 +1006,7 @@ body {
     pointer-events: auto;
 } 
 
-#App #Order .item { transform: rotateY(180deg); }
+#App #Order .item { transform: rotateY(180deg); box-shadow: -.4vh .4vh .75vh black}
 #App .item:hover { color: var(--BrightGold); border-color: var(--BrightGold); }
 
 #App .item .build_num { 
