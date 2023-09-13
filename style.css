@@ -965,13 +965,13 @@ body {
     background-color: var(--AppBlue);
     border: solid .3vh var(--DarkGold);
     border-radius: .4vw;
-    height: 6vh;
-    width: 6vh;
+    height: 3vw;
+    width: 3vw;
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--BrightGold);
-    font-size: 7vh;
+    font-size: 3.5vw;
     cursor: pointer;
     pointer-events: auto;
 } 
@@ -1349,6 +1349,73 @@ body {
         font-size: 1.5vh;
     } 
     #GodExtraInfo { display: none; }
+
+    #GodMenu #GodFilters {
+        top: 0; left: 0; right: 0;
+        width: 50%;
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        align-items: center;
+        padding-bottom: 1vh;
+    }
+
+    #GodFilters .label { 
+        height: 10vh !important;
+        width: 40%;
+        font-size: 4vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #GodFilters Select {
+        width: 100%;
+        height: 3vh;
+        font-size: 2vh;
+    }
+
+    #GodFilters #GodFilterNames {
+        width: 100% !important;
+        height: max-content;
+    }
+
+    #GodFilters #ResetFilter {
+        width: 100%;
+        font-size: 2vh;
+    }
+
+    #GodFilters #GodFilterNames button { font-size: 2vh; }
+
+    #GodMenu #GodDetails {
+        right: 0; left: auto; top: 0;
+        width: 50%; height: 40%;
+        padding-bottom: 1vh;
+    }
+
+    #GodDetails .title { font-size: 2vh; }
+    #GodDetails .subtitle { font-size: 1.8vh; }
+    #GodDetails .label { font-size: 1.8vh; }
+    #GodDetails .ico { height: 6vh; width: 6vh; }
+    #GodDetails .type { font-size: 1.5vh; }
+    #GodDetails .desc { font-size: 1.7vh; } 
+
+    #GodMenu #GodList { 
+        width: 100% !important;
+        height: 60% !important;
+        bottom: -2vh; top: auto; right: 0 !important; left: 0 !important;
+        margin: auto;
+        justify-content: center;
+        z-index: -2;
+    }
+
+    #GodList .god { 
+        height: 7vh; 
+        width: 7vh;
+        border-width: .1vh;
+    }
 
     /* App */
 

@@ -34,10 +34,13 @@ window.onload = function() {
     const AlertMenu = document.querySelector('#AlertMenu');
     const InfoMenu = document.querySelector('#InfoMenu');
     const OptionsMenu = document.querySelector('#OptionsMenu');
+    const GodFilters = document.querySelector('#GodFilters');
 
     // Reset Scroll and Initial Values 
     InfoMenu.scrollTop = 0;
     OptionsMenu.scrollTop = 0;
+    GodFilters.scrollTop = 0;
+
     document.querySelector('#GodMenu select').value = 'Role';
 
     // Initialize Touch Controls
