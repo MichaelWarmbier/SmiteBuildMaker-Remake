@@ -19,8 +19,6 @@
     --TitleFont: 'Nova Square', cursive;
 }
 
-html { width: 100vw; }
-
 body {
     padding: 0;
     margin: 0;
@@ -242,10 +240,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
+    overflow: auto;
     padding: 2vh 0 2vh 0;
     z-index: 150;
 } .menu a { color: var(--DarkGold); }
+
+*::-webkit-scrollbar,
+*::-moz-scrollbar,
+*::-o-scrollbar { display: none !important; }
 
 .menu .header { 
     font-family: var(--BrandFont);
@@ -672,21 +674,20 @@ body {
 #GodStats .stat_bar .stat_amount { float: left; }
 #GodStats .stat_bar .stat_cap { float: right; }
 
-#GodMenu { 
+#GodMenu, #ItemMenu { 
     text-shadow: .3vw .3vw .5vw black;
     overflow: hidden;
 }
 
-#GodMenu #GodFilters {
+#GodMenu #GodFilters, #ItemMenu #ItemFilters {
     position: absolute;
     left: 0; top: 0;
     height: 100%;
     width: 15%;
     background-color: var(--DarkButton);
-    overflow-y: scroll;
 }
 
-#GodFilters .label {
+#GodFilters .label, #ItemFilters .label {
     font-size: 2vw;
     text-align: center;
     display: inline-block;
@@ -696,7 +697,7 @@ body {
     padding: 2vh 0 2vh 0;
 }
 
-#GodFilters Select {
+#GodFilters Select, #ItemFilters Select {
     width: 100%;
     border: none;
     outline: none;
@@ -708,12 +709,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-#GodFilters #GodFilterNames {
+#GodFilters #GodFilterNames, #ItemFilters #ItemFilterNames {
     width: 100%;
     height: max-content;
 }
 
-#GodFilters button {
+#GodFilters button, #ItemFilters button {
     outline: none;
     border: none;
     background-color: transparent;
@@ -723,14 +724,17 @@ body {
     width: 100%;
     cursor: pointer;
     margin-top: 1vh;
+    z-index: 32;
 } 
 
-#GodFilterNames button:focus { color: white; }
-#GodFilterNames button:hover { color: white; }
-#ResetFilter { color: var(--DarkGrayed) !important; }
-#ResetFilter:hover { color: white !important; }
+#ItemFilters button { font-size: 1.1vw !important; margin-top: -.05vh !important; }
 
-#GodMenu #GodSearch {
+#GodFilterNames button:focus, #ItemFilterNames button:focus { color: white; }
+#GodFilterNames button:hover, #ItemFilterNames button:hover { color: white; }
+.reset_filter { color: var(--DarkGrayed) !important; }
+.reset_filter:hover { color: white !important; }
+
+#GodMenu #GodSearch, #ItemMenu #ItemSearch {
     position: absolute;
     top: 0; left: 15%;
     margin: auto;
@@ -743,14 +747,14 @@ body {
     font-size: 2.5vw;
 }
 
-#GodSearch Input {
+#GodSearch Input, #ItemSearch Input {
     display: inline;
-    background-color: #070a24;
+    background-color: var(--DarkButton);
     width: 100%;
     height: 100%;
     border: none;
     outline: none;
-    color: var(--Grayed);
+    color: RGBA(150, 150, 150, .4);
     position: absolute;
     top: 0; left: 0;
     font-size: inherit;
@@ -758,7 +762,7 @@ body {
     font-family: 'Nova Square', cursive;
 }
 
-#GodMenu #GodList {
+#GodMenu #GodList, #ItemMenu #ItemList {
     width: 60%;
     height: 100%;
     display: flex;
@@ -770,11 +774,11 @@ body {
     -ms-overflow-style: none; 
     scrollbar-width: none;
     position: absolute; margin: auto;
-    left: -9vw; right: 0;
+    left: -10vw; right: 0;
     top: 5vw;
 } #GodList::-webkit-scrollbar { display: none; }
 
-#GodList .god {
+#GodList .god, #ItemList .item_elem {
     width: 7vw;
     height: 7vw;
     border-radius: .6vw;
@@ -784,14 +788,15 @@ body {
     cursor: pointer;
     margin: 1vw;
     align-self: start;
+    transform: translateX(.5vw);
 } 
 
-#GodList .god:hover { 
+#GodList .god:hover, #ItemList .item_elem:hover { 
     border-color: var(--BrightGold); 
     box-shadow: .1vw .1vw .5vw white, -.1vw -.1vw .5vw white, -.1vw .1vw .5vw white, .1vw -.1vw .5vw white;
 }
 
-#GodDetails {
+#GodDetails, #ItemDetails {
     background-color: var(--DarkButton);
     height: 95%;
     padding-bottom: 5%;
@@ -802,7 +807,31 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 32;
 }
+
+#ItemTierFilter {
+    width: 60%;
+    height: 7vh;
+    position: absolute;
+    background-color: var(--DarkButton);
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 14vw;
+    top: 68vh;
+}
+
+.tier_filter {
+    width: 10%;
+    height: 50%;
+    color: var(--DarkGrayed);
+    font-family: var(--TitleFont);
+    cursor: pointer;
+    font-size: 1.5vw;
+    text-shadow: .2vw .2vw .4vw .4vw black;
+} .tier_filter:hover { color: white; }
 
 #GodDetails .title {
     font-size: 3vw;
@@ -1226,6 +1255,7 @@ body {
         align-items: center;
         height: 60vh;
         padding-top: 10vh;
+        overflow: scroll !important;
     }
 
     #OptionsMenu .divider { display: none; }
@@ -1306,7 +1336,7 @@ body {
     #InfoMenu { 
         overflow-y: scroll !important;
         overflow-x: hidden !important;
-    }
+    } #InfoMenu::-webkit-scrollbar { display: none; }
 
     #InfoMenu img { margin: 0 1vw 0 1vw; }
 
@@ -1380,7 +1410,7 @@ body {
     } 
     #GodExtraInfo { display: none; }
 
-    #GodMenu #GodFilters {
+    #GodMenu #GodFilters, #ItemMenu #ItemFilters {
         top: 0; left: 0; right: 0;
         width: 50%;
         height: 40%;
@@ -1392,7 +1422,7 @@ body {
         padding-bottom: 1vh;
     }
 
-    #GodFilters .label { 
+    #GodFilters .label, #ItemFilters .label { 
         height: 10vh !important;
         width: 40%;
         font-size: 4vh;
@@ -1401,25 +1431,26 @@ body {
         justify-content: center;
     }
 
-    #GodFilters Select {
+    #GodFilters Select, #ItemFilters Select {
         width: 100%;
         height: 3vh;
         font-size: 2vh;
     }
 
-    #GodFilters #GodFilterNames {
+    #GodFilters #GodFilterNames, #ItemFilters #ItemFilterNames {
         width: 100% !important;
         height: max-content;
     }
 
-    #GodFilters #ResetFilter {
+    #GodFilters .reset_filter, #ItemFilters .reset_filter {
         width: 100%;
-        font-size: 2vh;
+        font-size: 2vh !important;
     }
 
-    #GodFilters #GodFilterNames button { font-size: 2vh; }
+    #GodFilters #GodFilterNames button,
+    #ItemFilters #ItemFilterNames button { font-size: 2vh !important; }
 
-    #GodMenu #GodDetails {
+    #GodMenu #GodDetails, #ItemMenu #ItemDetails {
         right: 0; left: auto; top: 0;
         width: 50%; height: 40%;
         padding-bottom: 1vh;
@@ -1432,7 +1463,7 @@ body {
     #GodDetails .type { font-size: 1.5vh; }
     #GodDetails .desc { font-size: 1.7vh; } 
 
-    #GodMenu #GodList { 
+    #GodMenu #GodList, #ItemMenu #ItemList { 
         width: 100% !important;
         height: 60% !important;
         bottom: -2vh; top: auto; right: 0 !important; left: 0 !important;
@@ -1441,11 +1472,14 @@ body {
         z-index: -2;
     }
 
-    #GodList .god { 
+    #GodList .god, #ItemList .item_elem { 
         height: 7vh; 
         width: 7vh;
         border-width: .1vh;
     }
+
+    #ItemTierFilter { width: 100%; left: 0 !important; }
+    .tier_filter {font-size: 4.5vw; width: 20%;} 
 
     /* App */
 

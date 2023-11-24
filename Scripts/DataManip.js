@@ -1,7 +1,7 @@
 /*//// Initialization Functions ////*/
 
 function initializeGods() {
-    const Filter = document.querySelectorAll('select')[0].value;
+    const Filter = SiteData.Filter;
     const GodMenu = document.querySelector('#GodList');
     GodMenu.innerHTML = '';
     for (God of English.Gods) {
@@ -17,11 +17,35 @@ function initializeGods() {
     }
 }
 
+function initializeItems() {
+    const PLAYER = SiteData.ActivePlayerIndex;
+    const God = SiteData.PlayerData[PLAYER - 1].God;
+    const Filter = SiteData.Filter;
+    const ItemMenu = document.querySelector('#ItemList');
+    ItemMenu.innerHTML = '';
+    for (Item of English.Items) {
+        if (!Item.Name.toLowerCase().includes(SiteData.SearchQuery)) continue;
+        if (!Item.Filters.includes(Filter) && Filter) continue;
+        if (Item.RestrictedRoles.includes(God.Role.toLowerCase())) continue;
+        if ((Item.Name.toLowerCase()).includes('acorn') && God.Name != 'Ratatoskr') continue;
+        if (Item.DamageType != 'Neutral' && Item.DamageType != God.Type) continue;
+        if (SiteData.TierFilter && SiteData.TierFilter != Item.Tier) continue;
+        const newItem = document.createElement('div');
+        newItem.classList.add('item_elem');
+        newItem.style.backgroundImage = `url("${Item.URL}")`
+        const thisItem = Item;
+        newItem.onclick = function() { displayItem(thisItem.Name); }
+        newItem.ondblclick = function() { appendItem(thisItem); }
+        ItemMenu.appendChild(newItem);
+    }
+}
+
 /*//// Utility Functions ////*/
 
 function setFilter(name) { 
     SiteData.Filter = name; print(`Set filter to ${name}`);
     initializeGods();
+    initializeItems();
 }
 
 function appendInfo() {
@@ -60,11 +84,31 @@ function displayGod(name) {
 }
 
 function appendGod(God) {
-    const player = SiteData.ActivePlayerIndex;
-    const GodIcon = document.querySelectorAll('#App .icon')[player - 1];
+    const PLAYER = SiteData.ActivePlayerIndex;
+    const GodIcon = document.querySelectorAll('#App .icon')[PLAYER - 1];
     displayMenu(document.querySelector('#GodMenu'));
     GodIcon.innerHTML = '';
     GodIcon.style.backgroundImage = `url(${God.Icon})`;
-    SiteData.PlayerData[player - 1].God = God;
+    SiteData.PlayerData[PLAYER - 1].God = God;
     print(`${God.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+}
+
+function displayItem(name) {
+    for (Item of English.Items) if (Item.Name === name) {
+        
+        //
+        
+        break;
+    }
+}
+
+function appendItem(Item) {
+    const PLAYER = SiteData.ActivePlayerIndex;
+    const ITEM = SiteData.ActiveItemIndex;
+    //const GodIcon = document.querySelectorAll('#App .icon')[player - 1];
+    displayMenu(document.querySelector('#ItemMenu'));
+    //ItemIcon.innerHTML = '';
+    //GodIcon.style.backgroundImage = `url(${God.Icon})`;
+    SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1] = Item;
+    print(`${Item.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
 }

@@ -2,9 +2,11 @@ let SiteData = {
     "SiteAlert": "",
     "ActiveMenu": null,
     "ActivePlayerIndex": 1,
+    "ActiveItemIndex": 1,
     "Options": [0, 0],
     "Filter": null,
     "SearchQuery": "",
+    "TierFilter": 0,
     "Flags": {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,
