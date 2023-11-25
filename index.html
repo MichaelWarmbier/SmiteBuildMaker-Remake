@@ -58,14 +58,14 @@
             <span class="option">Spanish/Española Latinoamericana</span>
         </div>
         <div id="InfoMenu" class="menu">
-            <div id="GodCard" onhover="displayExtraInfo()"></div>
+            <div id="GodCard"></div>
             <div class="item_cont">
-                <div class="item_disp" onhover="displayExtraInfo()"></div>
-                <div class="item_disp" onhover="displayExtraInfo()"></div>
-                <div class="item_disp" onhover="displayExtraInfo()"></div>
-                <div class="item_disp" onhover="displayExtraInfo()"></div>
-                <div class="item_disp" onhover="displayExtraInfo()"></div>
-                <div class="item_disp" onhover="displayExtraInfo()"></div>
+                <div class="item_disp"></div>
+                <div class="item_disp"></div>
+                <div class="item_disp"></div>
+                <div class="item_disp"></div>
+                <div class="item_disp"></div>
+                <div class="item_disp"></div>
                 <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
                 <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
                 <div class="item_price">0  <img src="Assets/Icons/Gold.png"></div>
@@ -186,9 +186,6 @@
                     </div>
                 </span>
             </div>
-            <div id="GodExtraInfo">
-                <span>🛈</span>
-            </div>
         </div>
         <div id="OptionsMenu" class="menu">
             <span class="header"></span>
@@ -301,12 +298,19 @@
             </div>
             <div id="ItemList"></div>
             <div id="ItemTierFilter">
-                <div class="tier_filter" onclick="SiteData.TierFilter = 1; initializeItems();">Tier I</div>
-                <div class="tier_filter" onclick="SiteData.TierFilter = 2; initializeItems();">Tier II</div>
-                <div class="tier_filter" onclick="SiteData.TierFilter = 3; initializeItems();">Tier III</div>
-                <div class="tier_filter" onclick="SiteData.TierFilter = 4; initializeItems();">Tier IV</div>
+                <div class="tier_filter" onclick="setTier(1); initializeItems();">Tier I</div>
+                <div class="tier_filter" onclick="setTier(2); initializeItems();">Tier II</div>
+                <div class="tier_filter" onclick="setTier(3); initializeItems();" style="color: var(--DarkGold)">Tier III</div>
+                <div class="tier_filter" onclick="setTier(4); initializeItems();">Tier IV</div>
             </div>
-            <div id="ItemDetails"></div>
+            <div id="ItemDetails">
+                <span class="title">Item Name</span>
+                <span class="subtitle">Item Description</span>
+                <div class="ico"></div>
+                <span class="label">Price</span>
+                <span class="type">Other Price</span>
+                <span class="desc">Double-Tap to Select!</span>
+            </div>
         </div>
         
         <!-- App -->

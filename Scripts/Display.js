@@ -283,13 +283,12 @@ function openGodMenu(pIndex, side) {
 }
 
 function openItemMenu(iIndex, pIndex, side) {
-    SiteData.TierFilter = 0;
     if (!SiteData.PlayerData[pIndex + 5 * (side == 'Order') - 1].God) { print('A Character Must Be Selected First', 1); return; }
     SiteData.Filter = '';
     SiteData.SearchQuery = '';
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     SiteData.ActiveItemIndex = iIndex;
-    //if (!SiteData.PlayerData[pIndex].God) displayGod('Zeus');
+    if (!SiteData.PlayerData[pIndex].God) displayItem('Breastplate of Valor');
     initializeItems();
     displayMenu(document.querySelector('#ItemMenu'));
 }

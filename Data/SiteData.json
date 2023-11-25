@@ -6,7 +6,7 @@ let SiteData = {
     "Options": [0, 0],
     "Filter": null,
     "SearchQuery": "",
-    "TierFilter": 0,
+    "TierFilter": 3,
     "Flags": {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,
@@ -123,6 +123,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -151,6 +152,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -179,6 +181,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -207,6 +210,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -235,6 +239,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -263,6 +268,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -291,6 +297,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -319,6 +326,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -347,6 +355,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -375,6 +384,7 @@ let SiteData = {
             "Items": [null, null, null, null, null, null],
             "GlyphIndex": -1,
             "StarterIndex": -1,
+            "RecipeIndex": -1,
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,

@@ -1,9 +1,18 @@
 /*//// Initialization Functions ////*/
 
 function initializeGods() {
-    const Filter = SiteData.Filter;
+    const Filter = document.querySelectorAll('select')[0].value;
     const GodMenu = document.querySelector('#GodList');
     GodMenu.innerHTML = '';
+
+    // Create trash element
+    const newGod = document.createElement('div');
+    newGod.classList.add('god');
+    newGod.style.backgroundImage = `url("Assets/Icons/Trash.png")`
+    newGod.ondblclick = function() { removeGod(); displayMenu(document.querySelector('#GodMenu')); }
+    GodMenu.appendChild(newGod);
+
+    // Create God elements
     for (God of English.Gods) {
         if (!God.Name.toLowerCase().includes(SiteData.SearchQuery)) continue;
         if (God[Filter] != SiteData.Filter && SiteData.Filter) continue;
@@ -12,7 +21,7 @@ function initializeGods() {
         newGod.style.backgroundImage = `url("${God.Icon}")`
         const thisGod = God;
         newGod.onclick = function() { displayGod(thisGod.Name); }
-        newGod.ondblclick = function() { appendGod(thisGod); }
+        newGod.ondblclick = function() { removeGod(); appendGod(thisGod); }
         GodMenu.appendChild(newGod);
     }
 }
@@ -22,14 +31,24 @@ function initializeItems() {
     const God = SiteData.PlayerData[PLAYER - 1].God;
     const Filter = SiteData.Filter;
     const ItemMenu = document.querySelector('#ItemList');
+
+    // Create trash element
     ItemMenu.innerHTML = '';
+    const newItem = document.createElement('div');
+    newItem.classList.add('item_elem');
+    newItem.style.backgroundImage = `url("Assets/Icons/Trash.png")`
+    newItem.ondblclick = function() { removeItem(SiteData.ActiveItemIndex); }
+    ItemMenu.appendChild(newItem);
+
+    // Create item elements
     for (Item of English.Items) {
+        if (Filter == 'Starter' && !Item.Starter) continue;
         if (!Item.Name.toLowerCase().includes(SiteData.SearchQuery)) continue;
         if (!Item.Filters.includes(Filter) && Filter) continue;
         if (Item.RestrictedRoles.includes(God.Role.toLowerCase())) continue;
         if ((Item.Name.toLowerCase()).includes('acorn') && God.Name != 'Ratatoskr') continue;
         if (Item.DamageType != 'Neutral' && Item.DamageType != God.Type) continue;
-        if (SiteData.TierFilter && SiteData.TierFilter != Item.Tier) continue;
+        if (Filter != 'Starter' && Filter != 'Recipe' && SiteData.TierFilter && SiteData.TierFilter != Item.Tier) continue;
         const newItem = document.createElement('div');
         newItem.classList.add('item_elem');
         newItem.style.backgroundImage = `url("${Item.URL}")`
@@ -49,20 +68,39 @@ function setFilter(name) {
 }
 
 function appendInfo() {
-    const player = SiteData.ActivePlayerIndex;
-    const God = SiteData.PlayerData[player - 1].God;
-    const PantheonData = getPantheon(God.Pantheon);
-    document.querySelector('#GodCard').style.backgroundImage = `url("${God.CardArt}")`;
-    document.querySelector('#GodName').innerHTML = God.Name;
-    document.querySelector('#GodTitle').innerHTML = God.Title;
-    document.querySelector('#GodPantheon').innerHTML = `<span style="color:${PantheonData.Color}"><img src="Assets/Icons/${PantheonData.Icon}">${PantheonData.Name}</span>`;
-    document.querySelector('#GodLevel').innerHTML = `Level: ${SiteData.PlayerData[player - 1].Level}`;
-    if (!SiteData.PlayerData[player - 1].Buffs.length) document.querySelector('#GodBuffs').innerHTML = 'No Buffs Selected';
+    const PLAYER = SiteData.ActivePlayerIndex;
+    const GOD = SiteData.PlayerData[PLAYER - 1].God;
+    const PANTHEONDATA = getPantheon(GOD.Pantheon);
+    document.querySelector('#GodCard').style.backgroundImage = `url("${GOD.CardArt}")`;
+
+    // Patch for broken God art
+    if (GOD.Name == 'Mercury' || GOD.Name == 'Maui'  || GOD.Name == 'Hun Batz')
+        document.querySelector('#GodCard').style.backgroundImage = `url(Assets/Art/${GOD.Name.replace(' ', '')}.png)`;
+
+    document.querySelector('#GodName').innerHTML = GOD.Name;
+    document.querySelector('#GodTitle').innerHTML = GOD.Title;
+    document.querySelector('#GodPantheon').innerHTML = `<span style="color:${PANTHEONDATA.Color}"><img src="Assets/Icons/${PANTHEONDATA.Icon}">${PANTHEONDATA.Name}</span>`;
+    document.querySelector('#GodLevel').innerHTML = `Level: ${SiteData.PlayerData[PLAYER - 1].Level}`;
+    if (!SiteData.PlayerData[PLAYER - 1].Buffs.length) document.querySelector('#GodBuffs').innerHTML = 'No Buffs Selected';
     else {
         document.querySelector('#GodBuffs').innerHTML = '';
-        for (buff of SiteData.PlayerData[player - 1].Buffs)
+        for (buff of SiteData.PlayerData[PLAYER - 1].Buffs)
         document.querySelector('#GodBuffs').innerHTML += buff;
     }
+    let ItemIndex = 0;
+    let totalBuildPrice = 0;
+    for (ITEM of SiteData.PlayerData[PLAYER - 1].Items) {
+        ItemIndex++;
+        if (!ITEM) {
+            document.querySelectorAll('.item_disp')[ItemIndex - 1].style.backgroundImage = '';
+            document.querySelectorAll('.item_price')[ItemIndex - 1].innerHTML = '0 <img src="Assets/Icons/Gold.png">';
+            continue;
+        }
+        document.querySelectorAll('.item_disp')[ItemIndex - 1].style.backgroundImage = `url("${ITEM.URL}")`;
+        document.querySelectorAll('.item_price')[ItemIndex - 1].innerHTML = ITEM.Gold + '<img src="Assets/Icons/Gold.png">';
+        totalBuildPrice += ITEM.Gold;
+    }
+    document.querySelector('#BuildPrice').innerHTML = totalBuildPrice + '<img src="Assets/Icons/Gold.png">';
 }
 
 function getPantheon(name) { for (item of SiteData.PantheonData) if (item.Name === name) return item; }
@@ -86,18 +124,21 @@ function displayGod(name) {
 function appendGod(God) {
     const PLAYER = SiteData.ActivePlayerIndex;
     const GodIcon = document.querySelectorAll('#App .icon')[PLAYER - 1];
-    displayMenu(document.querySelector('#GodMenu'));
     GodIcon.innerHTML = '';
-    GodIcon.style.backgroundImage = `url(${God.Icon})`;
+    if (God) GodIcon.style.backgroundImage = `url(${God.Icon})`;
+    else { GodIcon.style.backgroundImage = ''; GodIcon.innerHTML = '?' }
     SiteData.PlayerData[PLAYER - 1].God = God;
-    print(`${God.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+    if (God) print(`${God.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+    displayMenu(document.querySelector('#GodMenu'));
 }
 
 function displayItem(name) {
     for (Item of English.Items) if (Item.Name === name) {
-        
-        //
-        
+        document.querySelectorAll('#ItemDetails .title')[0].innerHTML = Item.Name;
+        document.querySelectorAll('#ItemDetails .subtitle')[0].innerHTML = Item.Description;
+        document.querySelectorAll('#ItemDetails .label')[0].innerHTML = `</div><span style="color:#B5A672;">${Item.Gold}</span>`;
+        document.querySelectorAll('#ItemDetails .type')[0].innerHTML = `</div><span style="#A8A8A8">${Item.SelfGold}</span>`;
+        document.querySelectorAll('#ItemDetails .ico')[0].style.backgroundImage = `url("${Item.URL}")`;
         break;
     }
 }
@@ -105,10 +146,57 @@ function displayItem(name) {
 function appendItem(Item) {
     const PLAYER = SiteData.ActivePlayerIndex;
     const ITEM = SiteData.ActiveItemIndex;
-    //const GodIcon = document.querySelectorAll('#App .icon')[player - 1];
-    displayMenu(document.querySelector('#ItemMenu'));
-    //ItemIcon.innerHTML = '';
-    //GodIcon.style.backgroundImage = `url(${God.Icon})`;
+    let Starter = SiteData.PlayerData[PLAYER - 1].StarterIndex;
+    let Glyph = SiteData.PlayerData[PLAYER - 1].GlyphIndex;
+    let Recipe = SiteData.PlayerData[PLAYER - 1].RecipeIndex;
+
+    // Item checks
+    if (Item && SiteData.PlayerData[PLAYER - 1].Items.includes(Item)) { print('Item already selected', 1); return; }
+    if (Starter != -1 && Item.Starter && ITEM != Starter) { print('Cannot select two starter items', 1); return; }
+    if (Glyph != -1 && Item.isGlyph && ITEM != Glyph) { print('Cannot select two glyph items', 1); return; }
+    if (Recipe != -1 && Item.Filters.includes('Recipe') && ITEM != Recipe) { print('Cannot select two recipes', 1); return; }
+
+    // Item appending
+    let ItemIcon = document.querySelectorAll('.item')[((PLAYER - 1) * 6) + ITEM - 1];
+    ItemIcon.replaceWith(ItemIcon.cloneNode(true));
+    ItemIcon = document.querySelectorAll('.item')[((PLAYER - 1) * 6) + ITEM - 1];
     SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1] = Item;
-    print(`${Item.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+    if (Item && Item.Starter) SiteData.PlayerData[PLAYER - 1].StarterIndex = ITEM;
+    if (Item && Item.isGlyph) SiteData.PlayerData[PLAYER - 1].GlyphIndex = ITEM;
+    if (Item && Item.Filters.includes('Recipe')) SiteData.PlayerData[PLAYER - 1].RecipeIndex = ITEM;
+
+    if (Item) {
+        ItemIcon.innerHTML = '';
+        ItemIcon.style.backgroundImage = `url(${SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1].URL})`;
+        createTextEvent(ItemIcon, Item.Description);
+    }
+    else {
+        ItemIcon.innerHTML = '+'
+        ItemIcon.style.backgroundImage = '';
+        createTextEvent(ItemIcon, 'Select an Item');
+    }
+
+    displayMenu(document.querySelector('#ItemMenu'));
+    if (Item) print(`${Item.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+}
+
+function removeItem(item) {
+    SiteData.ActiveItemIndex = item + 1;
+    appendItem(null);
+    SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Items[item - 1] = null;
+    print(`Item ${item} removed for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+}
+
+function removeGod() {
+    for (let itemIndex = 0; itemIndex < 6; itemIndex++) removeItem(itemIndex);
+    appendGod(null);
+    SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].God = null;
+    print(`God removed for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+}
+
+function setTier(tier) {
+    SiteData.TierFilter = tier;
+    let TierButtons = document.querySelectorAll('.tier_filter');
+    for (Button of TierButtons) Button.style.color = 'var(--DarkGrayed)';
+    TierButtons[tier - 1].style.color = 'var(--DarkGold)';
 }

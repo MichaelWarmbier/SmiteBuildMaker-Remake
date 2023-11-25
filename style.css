@@ -575,7 +575,7 @@ body {
     width: 2em;
     height: 2em;
     background-size: cover;
-    transform: translateY(.5em);
+    transform: translate(.5em, .6em) scale(75%);
     margin-right: .5vw;
 }
 
@@ -598,6 +598,7 @@ body {
     width: 7.5vw;
     height: 7.5vw;
     cursor: help;
+    background-size: cover;
 }
 
 #InfoMenu .item_cont .item_price {
@@ -798,8 +799,8 @@ body {
 
 #GodDetails, #ItemDetails {
     background-color: var(--DarkButton);
-    height: 95%;
-    padding-bottom: 5%;
+    height: 110%;
+    transform: translateY(2.5%);
     width: 25vw;
     position: absolute;
     right: 0; bottom: 0;
@@ -833,21 +834,25 @@ body {
     text-shadow: .2vw .2vw .4vw .4vw black;
 } .tier_filter:hover { color: white; }
 
-#GodDetails .title {
+#GodDetails .title,
+#ItemDetails .title {
     font-size: 3vw;
     color: var(--DarkGrayed);
     text-align: center;
     max-width: 95%;
 }
 
-#GodDetails .subtitle {
+#GodDetails .subtitle,
+#ItemDetails .subtitle {
     font-size: 2.5vw;
     color: var(--Grayed);
     text-align: center;
     margin-top: 1vh;
-}
+    width: 95%;
+} #ItemDetails .subtitle { font-size: 1.2vw !important; }
 
-#GodDetails .label {
+#GodDetails .label,
+#ItemDetails .label {
     font-size: 2vw;
     color: var(--Grayed);
     text-align: center;
@@ -857,14 +862,16 @@ body {
     align-items: center;
 }
 
-#GodDetails .type {
+#GodDetails .type,
+#ItemDetails .type {
     font-size: 2vw;
     color: var(--Grayed);
     text-align: center;
     margin-top: 1vh;
 }
 
-#GodDetails .ico {
+#GodDetails .ico,
+#ItemDetails .ico {
     width: 9vw;
     height: 9vw;
     border-radius: 1vw;
@@ -879,7 +886,8 @@ body {
     background-size: cover;
 }
 
-#GodDetails .desc {
+#GodDetails .desc,
+#ItemDetails .desc {
     font-size: 1.5vw;
     color: white;
     text-align: center;
@@ -1033,6 +1041,7 @@ body {
     font-size: 3.5vw;
     cursor: pointer;
     pointer-events: auto;
+    background-size: cover;
 } 
 
 #App #Order .item { transform: rotateY(180deg); box-shadow: -.4vh .4vh .75vh black}
@@ -1456,12 +1465,12 @@ body {
         padding-bottom: 1vh;
     }
 
-    #GodDetails .title { font-size: 2vh; }
-    #GodDetails .subtitle { font-size: 1.8vh; }
-    #GodDetails .label { font-size: 1.8vh; }
-    #GodDetails .ico { height: 6vh; width: 6vh; }
-    #GodDetails .type { font-size: 1.5vh; }
-    #GodDetails .desc { font-size: 1.7vh; } 
+    #GodDetails .title, #ItemDetails .title { font-size: 2vh; }
+    #GodDetails .subtitle, #ItemDetails .subtitle { font-size: 1.8vh; }
+    #GodDetails .label, #ItemDetails .label { font-size: 1.8vh; }
+    #GodDetails .ico, #ItemDetails .ico { height: 6vh; width: 6vh; }
+    #GodDetails .type, #ItemDetails .type { font-size: 1.5vh; }
+    #GodDetails .desc, #ItemDetails .desc { font-size: 1.7vh; } 
 
     #GodMenu #GodList, #ItemMenu #ItemList { 
         width: 100% !important;
