@@ -233,9 +233,9 @@
             <div class="divider"></div>
             <div id="RandomList">
                 <span class="title">Randomize ⚄</span>
-                <div class="button">Randomize Everything</div>
-                <div class="button">Randomize Gods</div>
-                <div class="button">Randomize Items</div>
+                <div class="button" onclick="randomGod(); randomItems()">Randomize Everything</div>
+                <div class="button" onclick="randomGod()">Randomize God</div>
+                <div class="button" onclick="randomItems();">Randomize Items</div>
             </div>
         </div>
         <div id="GodMenu" class="menu">
@@ -514,10 +514,10 @@
         <script src="Data/News.json"></script>
 
         <!-- Scripts -->
-        <script src="Scripts/ElementStorage.js"></script>
         <script src="Scripts/DataManip.js"></script>
         <script src="Scripts/Display.js"></script>
         <script src="Scripts/Terminal.js"></script>
+        <script src="Scripts/ExtraFeatures.js"></script>
 
     </body>
 </html>

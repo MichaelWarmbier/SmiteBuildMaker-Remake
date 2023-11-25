@@ -639,27 +639,6 @@ body {
     transform: translateY(-.75vh);
 } #InfoMenu .item_cont .item_price img { display: inline-block; }
 
-#InfoMenu #GodExtraInfo {
-    background-color: #0a2047;
-    width: 50vh;
-    height: 35vh;
-    border-radius: .8vh;
-    left: 40vw; top: 6vw;
-    text-align: center;
-    opacity: 0;
-    transition-property: opacity;
-    transition-duration: .4s;
-}
-
-#InfoMenu #GodExtraInfo Span {
-    font-size: 3vw;
-    color: var(--Grayed);
-}
-
-#InfoMenu .item_cont:hover ~ #GodExtraInfo {
-    opacity: 1;
-}
-
 #GodStats {
     height: 100%;
     width: 40%;
@@ -942,6 +921,7 @@ body {
     color: var(--DarkGrayed);
     opacity: 0;
     pointer-events: none;
+    z-index: 200;
 }
 
 #App #ExtraInfo Span {
@@ -1446,7 +1426,6 @@ body {
     #GodStats .stat_name { 
         font-size: 1.5vh;
     } 
-    #GodExtraInfo { display: none; }
 
     #GodMenu #GodFilters, #ItemMenu #ItemFilters {
         top: 0; left: 0; right: 0;

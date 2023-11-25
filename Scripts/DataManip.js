@@ -53,7 +53,8 @@ function initializeItems() {
         if (Filter != 'Starter' && Filter != 'Recipe' && SiteData.TierFilter && SiteData.TierFilter != Item.Tier) continue;
         const newItem = document.createElement('div');
         newItem.classList.add('item_elem');
-        newItem.style.backgroundImage = `url("${Item.URL}")`
+        newItem.style.backgroundImage = `url("${Item.URL}")`;
+        newItem.lang = Item.Name;
         const thisItem = Item;
         newItem.onclick = function() { displayItem(thisItem.Name); }
         newItem.ondblclick = function() { appendItem(thisItem); }
@@ -147,7 +148,7 @@ function displayItem(name) {
     }
 }
 
-function appendItem(Item) {
+function appendItem(Item, RandomProcess=false) {
     const PLAYER = SiteData.ActivePlayerIndex;
     const ITEM = SiteData.ActiveItemIndex;
     let Starter = SiteData.PlayerData[PLAYER - 1].StarterIndex;
@@ -155,10 +156,10 @@ function appendItem(Item) {
     let Recipe = SiteData.PlayerData[PLAYER - 1].RecipeIndex;
 
     // Item checks
-    if (Item && SiteData.PlayerData[PLAYER - 1].Items.includes(Item)) { print('Item already selected', 1); return; }
-    if (Starter != -1 && Item.Starter && ITEM != Starter) { print('Cannot select two starter items', 1); return; }
-    if (Glyph != -1 && Item.isGlyph && ITEM != Glyph) { print('Cannot select two glyph items', 1); return; }
-    if (Recipe != -1 && Item.Filters.includes('Recipe') && ITEM != Recipe) { print('Cannot select two recipes', 1); return; }
+    if (Item && SiteData.PlayerData[PLAYER - 1].Items.includes(Item)) { if (!RandomProcess) print('Item already selected', 1); return; }
+    if (Item && Starter != -1 && Item.Starter && ITEM != Starter) { if (!RandomProcess) print('Cannot select two starter items', 1); return; }
+    if (Item && Glyph != -1 && Item.isGlyph && ITEM != Glyph) { if (!RandomProcess) print('Cannot select two glyph items', 1); return; }
+    if (Item && Recipe != -1 && Item.Filters.includes('Recipe') && ITEM != Recipe) { if (!RandomProcess) print('Cannot select two recipes', 1); return; }
 
     // Item appending
     let ItemIcon = document.querySelectorAll('.item')[((PLAYER - 1) * 6) + ITEM - 1];
@@ -172,7 +173,7 @@ function appendItem(Item) {
     if (Item) {
         ItemIcon.innerHTML = '';
         ItemIcon.style.backgroundImage = `url(${SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1].URL})`;
-        createTextEvent(ItemIcon, Item.Description);
+        createTextEvent(ItemIcon, `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}`);
     }
     else {
         ItemIcon.innerHTML = '+'
@@ -180,8 +181,9 @@ function appendItem(Item) {
         createTextEvent(ItemIcon, 'Select an Item');
     }
 
-    displayMenu(document.querySelector('#ItemMenu'));
-    if (Item) print(`${Item.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+    if (SiteData.ActiveMenu == ItemMenu) displayMenu(document.querySelector('#ItemMenu'));
+    if (Item) print(`${Item.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`);
+    return ['SUCCESS', Item];
 }
 
 function removeItem(item) {
@@ -196,6 +198,7 @@ function removeGod() {
     appendGod(null);
     SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].God = null;
     print(`God removed for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+    displayMenu(SiteData.ActiveMenu);
 }
 
 function setTier(tier) {
