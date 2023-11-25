@@ -3,6 +3,12 @@
 const MenuFlags = SiteData.Flags
 let touchValue = 0;
 
+const About = document.querySelector('#About');
+const News = document.querySelector('#News');
+const Alert = document.querySelector('#Alert');
+const Info = document.querySelector('#Info');
+const Lang = document.querySelector('#Lang');
+const _File = document.querySelector('#File');
 const AboutMenu = document.querySelector('#AboutMenu');
 const NewsMenu = document.querySelector('#NewsMenu');
 const AlertMenu = document.querySelector('#AlertMenu');
@@ -15,16 +21,28 @@ const Warning = document.querySelector('#Warning');
 const SwipeNotif = document.querySelector('#SwipeNotif');
 const GlobalOptions = document.querySelector('#GlobalOptions');
 const Backdrop = document.querySelector('#MenuBackdrop');
+const GodInfo = document.querySelector('#GodInfo');
+const GodCard = document.querySelector('#GodCard');
+const GodStats = document.querySelector('#GodStats');
+const LevelSlider = document.querySelector('#LevelSlider');
+const LevelValue = document.querySelector('#LevelValue');
+const BuffValue = document.querySelector('#BuffValue');
+const GodMenu = document.querySelector('#GodMenu');
+const ItemMenu = document.querySelector('#ItemMenu');
+const GodFilterNames = document.querySelector('#GodFilterNames');
+const ExtraInfo = document.querySelector('#ExtraInfo');
+const QuickChange = document.querySelector('#QuickChange');
 
+/////////////////////
 /*//// Utility ////*/
+/////////////////////
 
 function createTextEvent(item, text) {
-    Info = document.querySelector('#ExtraInfo');
     item.addEventListener('mouseover', function() {
-        Info.innerHTML = '<span>🛈</span>' + text;
-        Info.style.opacity = '1';
+        ExtraInfo.innerHTML = '<span>🛈</span>' + text;
+        ExtraInfo.style.opacity = '1';
     })
-    item.addEventListener('mouseout', function() { Info.style.opacity = '0'; })
+    item.addEventListener('mouseout', function() { ExtraInfo.style.opacity = '0'; })
 }
 
 function print(str, warn) { 
@@ -47,7 +65,6 @@ window.onload = function() {
     OptionsMenu.scrollTop = 0;
     GodFilters.scrollTop = 0;
 
-
     GodSearch.value = '';
     document.querySelector('#GodMenu select').value = 'Role';
 
@@ -63,19 +80,19 @@ window.onload = function() {
         if (dir < 0) { 
             if (!MenuFlags.MenuOpen) { left.style.left = '-105%'; right.style.left = '1%'; }
             if (SiteData.ActiveMenu == InfoMenu) {
-                document.querySelector('#GodInfo').style.left = '-300vw';
-                document.querySelector('#GodCard').style.left = '-300vw';
+                GodInfo.style.left = '-300vw';
+                GodCard.style.left = '-300vw';
                 document.querySelector('#InfoMenu .item_cont').style.left = '-300vw';
-                document.querySelector('#GodStats').style.left = '0vw';
+                GodStats.style.left = '0vw';
                 InfoMenu.scrollTop = 0;
             }
         } if (dir > 0) { 
             if (!MenuFlags.MenuOpen) { left.style.left = '0'; right.style.left = '105%'; }
             if (SiteData.ActiveMenu == InfoMenu) {
-                document.querySelector('#GodInfo').style.left = '0vw';
-                document.querySelector('#GodCard').style.left = '0vw';
+                GodInfo.style.left = '0vw';
+                GodCard.style.left = '0vw';
                 document.querySelector('#InfoMenu .item_cont').style.left = '0vw';
-                document.querySelector('#GodStats').style.left = '300vw';
+                GodStats.style.left = '300vw';
             }
         }
 
@@ -122,15 +139,17 @@ window.onload = function() {
     document.querySelectorAll('.information').forEach((i) => { createTextEvent(i, 'View Character Information'); })
     document.querySelectorAll('.preferences').forEach((i) => { createTextEvent(i, 'Modify Character Preferences'); })
     document.querySelectorAll('.tab').forEach((i) => { createTextEvent(i, 'Modify Global Preferences'); })
-    createTextEvent(document.querySelector('#About'), 'Learn More About SmiteBuildMaker');
-    createTextEvent(document.querySelector('#News'), 'View Recent SmiteBuildMaker News');
-    createTextEvent(document.querySelector('#Alert'), 'View SmiteBuildMaker Announcements');
-    createTextEvent(document.querySelector('#File'), 'Load Local Save Data');
-    createTextEvent(document.querySelector('#Lang'), 'Select Site Language');
+    createTextEvent(About, 'Learn More About SmiteBuildMaker');
+    createTextEvent(News, 'View Recent SmiteBuildMaker News');
+    createTextEvent(Alert, 'View SmiteBuildMaker Announcements');
+    createTextEvent(Lang, 'Load Local Save Data');
+    createTextEvent(_File, 'Select Site Language');
     print('Finished Initializing Site Display');
 }
 
+///////////////////////////////////////
 /*//// Event Triggered Functions ////*/
+///////////////////////////////////////
 
 function toggleGlobalOptions() {
 
@@ -174,17 +193,19 @@ function displayMenu(context, override) {
 
     if (context != GlobalOptions && MenuFlags.GlobalOptionsOpen) return;
     
-    if (context == document.querySelector('#OptionsMenu')) {
-        document.querySelector('#LevelSlider').value = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
-        document.querySelector('#LevelValue').innerHTML = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
+    if (context == OptionsMenu) {
+        LevelSlider.value = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
+        LevelValue.innerHTML = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].Level;
         updateBuffs('or');
+        if (window.matchMedia("(orientation: portrait)").matches) QuickChange.style.top = '27vw';
+        else QuickChange.style.top = '7.25vw';
     }
 
-    if (context == document.querySelector('#InfoMenu')) { appendInfo(); }
+    if (context == InfoMenu) { appendInfo(); QuickChange.style.top = '7.25vw'; }
 
     if (MenuFlags.MenuOpen && !context && override) { displayMenu(SiteData.ActiveMenu, 1); return; }
     if (MenuFlags.MenuOpen && SiteData.ActiveMenu != context && !override) displayMenu(SiteData.ActiveMenu, 1);
-    try { clearInterval(AlertInterval); document.querySelector('#Alert').style.color = 'rgb(168, 168, 168)'; } catch(e) { }
+    try { clearInterval(AlertInterval); Alert.style.color = 'rgb(168, 168, 168)'; } catch(e) { }
     
     if (!MenuFlags.MenuOpen) {
         context.style.left = '0vw';
@@ -200,6 +221,7 @@ function displayMenu(context, override) {
         Backdrop.style.pointerEvents = "none";
         SiteData.ActiveMenu = null;
         MenuFlags.MenuOpen = false;
+        QuickChange.style.top = '-20vw';
     }
 }
 
@@ -210,37 +232,37 @@ function toggleGOption(option) {
     else optionElem.innerHTML = '';
 }
 
-function displayOptions(obj, pIndex, side) {
+function displayOptions(pIndex, side) {
     print(`Opening Options for Player ${(pIndex)} of ${side}`);
-    SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
-    Menu = document.querySelector('#OptionsMenu');
+    SiteData.ActivePlayerIndex = pIndex;
+    Menu = OptionsMenu;
     Title = Menu.getElementsByClassName('header')[0];
     Title.innerHTML = `Modify Player ${pIndex} of ${side}`;
     displayMenu(Menu);
 }
 
-function displayInfo(obj, pIndex, side) {
-    if (!SiteData.PlayerData[pIndex + 5 * (side == 'Order') - 1].God) { print('A Character Must Be Selected First', 1); return; }
+function displayInfo(pIndex, side) {
+    if (!SiteData.PlayerData[pIndex - 1].God) { print('A Character Must Be Selected First', 1); return; }
     
-    setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 1; }, 500)
-    setTimeout(function() { document.querySelector('#SwipeNotif').style.opacity = 0; }, 1500)
+    setTimeout(function() { SwipeNotif.style.opacity = 1; }, 500)
+    setTimeout(function() { SwipeNotif.style.opacity = 0; }, 1500)
 
     print(`Opening Information for Player ${(pIndex)} of ${side}`);
-    SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
-    Menu = document.querySelector('#InfoMenu');
+    SiteData.ActivePlayerIndex = pIndex;
+    Menu = InfoMenu;
     displayMenu(Menu);
 }
 
 function updateLevelSlider() { 
     let player = SiteData.ActivePlayerIndex;
-    let newLevel = document.querySelector('#LevelSlider').value;
-    document.querySelector('#LevelValue').innerHTML = newLevel;
+    let newLevel = LevelSlider.value;
+    LevelValue.innerHTML = newLevel;
     SiteData.PlayerData[player - 1].Level = newLevel;
     print(`Level set to ${newLevel} for player ${player % 5} on side ${player <= 4 ? 'Chaos':'Order'}`)
  }
 
 function updateBuffs(buffName, type, hex) {
-    let buffValue = document.querySelector('#BuffValue');
+    let buffValue = BuffValue;
     let Player = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1];
     let override = buffName == 'or';
     if (!hex) hex = '#FFFFFF';
@@ -278,8 +300,9 @@ function openGodMenu(pIndex, side) {
     SiteData.SearchQuery = '';
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     if (!SiteData.PlayerData[pIndex].God) displayGod('Zeus');
+    GodSearch.value = '';
     initializeGods();
-    displayMenu(document.querySelector('#GodMenu'));
+    displayMenu(GodMenu);
 }
 
 function openItemMenu(iIndex, pIndex, side) {
@@ -289,13 +312,14 @@ function openItemMenu(iIndex, pIndex, side) {
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     SiteData.ActiveItemIndex = iIndex;
     if (!SiteData.PlayerData[pIndex].God) displayItem('Breastplate of Valor');
+    ItemSearch.value = '';
     initializeItems();
-    displayMenu(document.querySelector('#ItemMenu'));
+    displayMenu(ItemMenu);
 }
 
 function updateFilters() {
     const Filter = document.querySelector('#GodFilters select');
-    const Names = document.querySelector('#GodFilterNames');
+    const Names = GodFilterNames;
 
     for (item of SiteData.GodCategories) 
         if (item.Name === Filter.value) {
@@ -307,20 +331,51 @@ function updateFilters() {
 }
 
 function updateSearch() {
-    if (SiteData.ActiveMenu == document.querySelector('#GodMenu'))
+    if (SiteData.ActiveMenu == GodMenu)
         SiteData.SearchQuery = GodSearch.value.toLowerCase();
-        if (SiteData.ActiveMenu == document.querySelector('#ItemMenu'))
+        if (SiteData.ActiveMenu == ItemMenu)
         SiteData.SearchQuery = ItemSearch.value.toLowerCase();
     initializeGods();
     initializeItems();
 }
 
+function changeMenu(sign) {
+    const MENU = SiteData.ActiveMenu;
+    const PLAYER = SiteData.ActivePlayerIndex;
+    if ((sign == '+' && PLAYER + 1 > 10) || (sign != '+' && PLAYER - 1 < 1)) return;
+    if (MENU != OptionsMenu && MENU != InfoMenu) return;
+    if (MENU == OptionsMenu)  {
+        SiteData.ActivePlayerIndex += 1 - (2 * (sign != '+'));
+        displayMenu(MENU);
+        setTimeout(displayOptions(SiteData.ActivePlayerIndex, SiteData.ActivePlayerIndex <= 5 ? 'Chaos' : 'Order'), 400); 
+        return;
+    }
+
+    else if (sign == '+') for (let playerIndex = 0; playerIndex < 10; playerIndex++) { 
+        if (SiteData.PlayerData[playerIndex].God && playerIndex > PLAYER - 1) {
+            SiteData.ActivePlayerIndex = playerIndex + 1;
+            break;
+        } 
+    }
+    else for (let playerIndex = 9; playerIndex >= 0; playerIndex--) { 
+        if (SiteData.PlayerData[playerIndex].God && playerIndex < PLAYER - 1) {
+            SiteData.ActivePlayerIndex = playerIndex + 1;
+            break;
+        } 
+    }
+
+    displayMenu(MENU); 
+    setTimeout(displayMenu(MENU), 400);
+}
+
+//////////////////////////////////
 /*//// Persistent Functions ////*/
+//////////////////////////////////
 
 const AlertInterval = setInterval(function() {
     if (!SiteData.SiteAlert) clearInterval(AlertInterval);
     else {
-        AlertButton = document.querySelector('#Alert');
+        AlertButton = Alert;
         AlertColor = window.getComputedStyle(AlertButton).color;
         if (AlertColor == 'rgb(168, 168, 168)') AlertButton.style.color = '#d17524';
         else AlertButton.style.color = 'rgb(168, 168, 168)';

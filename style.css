@@ -8,6 +8,7 @@
     --HeaderBlue: #10254A;
     --BodyBlue: #1C2B47;
     --MenuBlue: #0B1B36;
+    --MidwayBlue: #22385e;
     --BrightGold: #B5A672;
     --DarkGold: #6C6445;
     --Grayed: #757171;
@@ -37,7 +38,7 @@ body {
     align-items: center;
     float: left;
     position: relative;
-    z-index: 150;
+    z-index: 152;
 } 
 
 #Header #HeaderBody { 
@@ -213,6 +214,31 @@ body {
     box-shadow: 0 0 RGBA(0, 0, 0, 0);
 }
 
+#QuickChange {
+    position: absolute; margin: auto;
+    background-color: var(--MenuBlue);
+    left: 0; right: 0;
+    top: -20vw;
+    width: 30%;
+    height: 4vh;
+    border-radius: 0 0 1vw 1vw;
+    transition: top .5s;
+    z-index: 151;
+    display: flex;
+    overflow: hidden;
+}
+
+#QuickChange div {
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+    color: var(--DarkGrayed);
+    font-size: 2vw;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+} #QuickChange div:hover { background-color: var(--MidwayBlue); color: white; }
+
 /*//// Menus ////*/
 
 #MenuBackdrop {
@@ -242,7 +268,7 @@ body {
     align-items: center;
     overflow: auto;
     padding: 2vh 0 2vh 0;
-    z-index: 150;
+    z-index: 151;
 } .menu a { color: var(--DarkGold); }
 
 *::-webkit-scrollbar,
@@ -1221,8 +1247,10 @@ body {
         padding: 0 !important;
         font-size: 5vw !important;
         line-height: 9vw;
-    
     }
+
+    #QuickChange { width: 50%; }
+    #QuickChange div { font-size: 6vw; } 
 
     .menu .header { font-size: 6vw; }
     .menu .title { font-size: 5vw; }
@@ -1274,6 +1302,7 @@ body {
     #OptionsMenu .title { 
         width: 100%;
         font-size: 7vw;
+        margin-top: 0;
     }
 
     #OptionsMenu .header { 
@@ -1463,12 +1492,15 @@ body {
         right: 0; left: auto; top: 0;
         width: 50%; height: 40%;
         padding-bottom: 1vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 
     #GodDetails .title, #ItemDetails .title { font-size: 2vh; }
-    #GodDetails .subtitle, #ItemDetails .subtitle { font-size: 1.8vh; }
+    #GodDetails .subtitle { font-size: 1.8vh; }
+    #ItemDetails .subtitle { font-size: 1.3vh !important; }
     #GodDetails .label, #ItemDetails .label { font-size: 1.8vh; }
-    #GodDetails .ico, #ItemDetails .ico { height: 6vh; width: 6vh; }
+    #GodDetails .ico, #ItemDetails .ico { height: 6vh; width: 6vh; flex-shrink: 0 !important; }
     #GodDetails .type, #ItemDetails .type { font-size: 1.5vh; }
     #GodDetails .desc, #ItemDetails .desc { font-size: 1.7vh; } 
 

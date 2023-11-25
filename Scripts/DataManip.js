@@ -1,4 +1,6 @@
+//////////////////////////////////////
 /*//// Initialization Functions ////*/
+//////////////////////////////////////
 
 function initializeGods() {
     const Filter = document.querySelectorAll('select')[0].value;
@@ -59,7 +61,9 @@ function initializeItems() {
     }
 }
 
+///////////////////////////////
 /*//// Utility Functions ////*/
+///////////////////////////////
 
 function setFilter(name) { 
     SiteData.Filter = name; print(`Set filter to ${name}`);
