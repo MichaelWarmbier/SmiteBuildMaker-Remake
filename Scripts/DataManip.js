@@ -66,6 +66,18 @@ function initializeItems() {
 /*//// Utility Functions ////*/
 ///////////////////////////////
 
+function toggleGOption(option) {
+    const optionElem = document.querySelectorAll('.c')[option];
+    SiteData.Options[option] = !SiteData.Options[option];
+    if (SiteData.Options[option]) optionElem.innerHTML = '✓';
+    else optionElem.innerHTML = '';
+}
+
+function toggleSaveFile(file) {
+    SiteData.SaveNumber = file;
+    loadData();
+}
+
 function setFilter(name) { 
     SiteData.Filter = name; print(`Set filter to ${name}`);
     initializeGods();
@@ -151,6 +163,8 @@ function displayItem(name) {
 function appendItem(Item, RandomProcess=false) {
     const PLAYER = SiteData.ActivePlayerIndex;
     const ITEM = SiteData.ActiveItemIndex;
+    const CURR_ITEMS = SiteData.PlayerData[PLAYER - 1].Items;
+    const PAIRS = SiteData.GlyphPairs;
     let Starter = SiteData.PlayerData[PLAYER - 1].StarterIndex;
     let Glyph = SiteData.PlayerData[PLAYER - 1].GlyphIndex;
     let Recipe = SiteData.PlayerData[PLAYER - 1].RecipeIndex;
@@ -160,6 +174,10 @@ function appendItem(Item, RandomProcess=false) {
     if (Item && Starter != -1 && Item.Starter && ITEM != Starter) { if (!RandomProcess) print('Cannot select two starter items', 1); return; }
     if (Item && Glyph != -1 && Item.isGlyph && ITEM != Glyph) { if (!RandomProcess) print('Cannot select two glyph items', 1); return; }
     if (Item && Recipe != -1 && Item.Filters.includes('Recipe') && ITEM != Recipe) { if (!RandomProcess) print('Cannot select two recipes', 1); return; }
+    for (checkItem of CURR_ITEMS) for (pair of PAIRS) {
+        if (Item && checkItem && pair.Pair.includes(Item.Name) && pair.Pair.includes(checkItem.Name) && checkItem != CURR_ITEMS[ITEM - 1])  
+        { if (!RandomProcess) print('Cannot select Tier IV and its respective Tier III', 1); return; }
+    }
 
     // Item appending
     let ItemIcon = document.querySelectorAll('.item')[((PLAYER - 1) * 6) + ITEM - 1];
@@ -171,12 +189,12 @@ function appendItem(Item, RandomProcess=false) {
     if (Item && Item.Filters.includes('Recipe')) SiteData.PlayerData[PLAYER - 1].RecipeIndex = ITEM;
 
     if (Item) {
-        ItemIcon.innerHTML = '';
+        if (!SiteData.BuildNumbers) ItemIcon.innerHTML = '';
         ItemIcon.style.backgroundImage = `url(${SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1].URL})`;
         createTextEvent(ItemIcon, `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}`);
     }
     else {
-        ItemIcon.innerHTML = '+'
+        if (!SiteData.BuildNumbers) ItemIcon.innerHTML = '+'
         ItemIcon.style.backgroundImage = '';
         createTextEvent(ItemIcon, 'Select an Item');
     }
@@ -198,7 +216,7 @@ function removeGod() {
     appendGod(null);
     SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].God = null;
     print(`God removed for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
-    displayMenu(SiteData.ActiveMenu);
+    displayMenu(document.querySelector('#GodMenu'));
 }
 
 function setTier(tier) {

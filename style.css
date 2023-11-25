@@ -30,6 +30,22 @@ body {
 
 /*//// Header ////*/
 
+#LoadingScreen {
+    width: 100vw;
+    height: 100vh;
+    font-size: 500%;
+    color: var(--DarkGold);
+    font-family: var(--BrandFont);
+    pointer-events: none;
+    transition: opacity .5s;
+    position: absolute;
+    z-index: 500;
+    background-color: var(--AppBlue);   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #Header {
     width: 100vw;
     height: 7.25vw;
@@ -357,8 +373,8 @@ body {
     text-align: center;
 }
 
-#FileMenu .option { width: 4vw; }
-#LangMenu .option { width: 60%; }
+#FileMenu .option { width: 4vw; cursor: pointer; }
+#LangMenu .option { width: 60%; cursor: pointer; }
 
 #OptionsMenu {
     display: flex;
@@ -543,6 +559,40 @@ body {
     box-shadow: .4vh .4vh 1vh black;
 }
 
+#InfoMenu #PassiveButton {
+    position: absolute;
+    right: 2vw; top: 2vw;
+    height: 3vw; width: 3vw;
+    border: solid .3vh var(--DarkGold);
+    background: url('Assets/Icons/Info.png');
+    border-radius: .6vw;
+    background-size: cover;
+    cursor: help;
+    z-index: 100;
+} #PassiveButton:hover ~ #PassiveDisplay { opacity: 1; }
+
+#InfoMenu #PassiveDisplay {
+    background-color: var(--MenuBlue);
+    height: calc(90% - 6vw); width: 80%;
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+    font-size: 2.3vw;
+    padding: 0 3vw 0 3vw;
+    font-family: 'Roboto', sans-serif;
+    overflow-y: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+    position: absolute;
+    margin: auto;
+    left: 0; right: 0; top: 0; bottom: 0;
+}  #PassiveDisplay Span { font-size: 2vw; box-shadow: 0 !important; }
+#PassiveDisplay::-webkit-scrollbar { display: none; }
+
 #InfoMenu #GodCard {
     height: 50vh;
     width: 25vh;
@@ -552,6 +602,7 @@ body {
     left: 3vw; top: 2vh;
     cursor: help;
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
 }
 
@@ -770,7 +821,7 @@ body {
 
 #GodMenu #GodList, #ItemMenu #ItemList {
     width: 60%;
-    height: 100%;
+    height: 82%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -854,7 +905,7 @@ body {
     text-align: center;
     margin-top: 1vh;
     width: 95%;
-} #ItemDetails .subtitle { font-size: 1.2vw !important; }
+} #ItemDetails .subtitle { font-size: 1vw !important; }
 
 #GodDetails .label,
 #ItemDetails .label {
@@ -875,8 +926,7 @@ body {
     margin-top: 1vh;
 }
 
-#GodDetails .ico,
-#ItemDetails .ico {
+#GodDetails .ico {
     width: 9vw;
     height: 9vw;
     border-radius: 1vw;
@@ -1048,6 +1098,8 @@ body {
     cursor: pointer;
     pointer-events: auto;
     background-size: cover;
+    font-family: var(--BrandFont);
+    text-shadow: .15vw .15vw  black !important;
 } 
 
 #App #Order .item { transform: rotateY(180deg); box-shadow: -.4vh .4vh .75vh black}
@@ -1191,7 +1243,6 @@ body {
     }
 
     /* Menu */
-
 
     #GlobalOptions .tab {
         height: 10vw;
@@ -1355,6 +1406,31 @@ body {
         overflow-y: scroll !important;
         overflow-x: hidden !important;
     } #InfoMenu::-webkit-scrollbar { display: none; }
+
+    #InfoMenu #PassiveButton {
+        right: 4vw; top: 4vw;
+        height: 8vw !important; width: 8vw !important;
+        border-radius: .8vw;
+    } 
+
+    #InfoMenu #PassiveDisplay {
+        border-radius: 2vw;
+        font-size: 4.5vw;
+    }  #PassiveDisplay Span { font-size: 4vw; }
+    
+    #InfoMenu #GodCard {
+        height: 50vh;
+        width: 25vh;
+        background-color: var(--DarkButton);
+        border-radius: .8vw;
+        position: absolute;
+        left: 3vw; top: 2vh;
+        cursor: help;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
 
     #InfoMenu img { margin: 0 1vw 0 1vw; }
 

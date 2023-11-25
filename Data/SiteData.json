@@ -7,6 +7,8 @@ let SiteData = {
     "Filter": null,
     "SearchQuery": "",
     "TierFilter": 3,
+    "BuildNumbers": false,
+    "SaveNumber": 1,
     "Flags": {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,
@@ -113,6 +115,19 @@ let SiteData = {
             "Name": "Type",
             "Choices": ["Magical", "Physical"]
         }
+    ],
+    "GlyphPairs": [
+        { "Pair": ["Bewitched Dagger", "Eldritch Dagger", "Relic Dagger"] },
+        { "Pair": ["Bancroft's Claw", "Nimble Bancroft's Talon", "Bancroft's Talon"] },
+        { "Pair": ["Breastplate of Determination", "Breastplate of Vigilance", "Breastplate of Valor"] },
+        { "Pair": ["Magi's Shelter", "Magi's Revenge", "Magi's Cloak"] },
+        { "Pair": ["Amulet of Silence", "Amulet of the Stronghold", "Heartward Amulet"] },
+        { "Pair": ["Calamitous Rod of Tahuti", "Perfected Rod of Tahuti", "Rod of Tahuti"] },
+        { "Pair": ["Glorious Pridwen", "Reverent Pridwen", "Pridwen"] },
+        { "Pair": ["The Heavy Executioner", "The Ferocious Executioner", "The Executioner"] },
+        { "Pair": ["Jotunn's Vigor", "Jotunn's Cunning", "Jotunn's Wrath"] },
+        { "Pair": ["Malicious Deathbringer", "Envenomed Deathbringer", "Deathbringer"] },
+        { "Pair": ["Flameforged Hammer", "Runebreaking Hammer", "Runeforged Hammer"] }
     ],
     "PlayerData": [
         {

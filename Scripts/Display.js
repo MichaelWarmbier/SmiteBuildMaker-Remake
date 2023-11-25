@@ -37,10 +37,12 @@ const QuickChange = document.querySelector('#QuickChange');
 /*//// Utility ////*/
 /////////////////////
 
+function isMenuOpen() { return ((SiteData.ActiveMenu && SiteData.ActiveMenu.style.left == '0vw') || SiteData.Flags.GlobalOptionsOpen); }
+
 function createTextEvent(item, text) {
     item.addEventListener('mouseover', function() {
         ExtraInfo.innerHTML = '<span>🛈</span>' + text;
-        ExtraInfo.style.opacity = '1';
+        if (!isMenuOpen()) ExtraInfo.style.opacity = '1';
     })
     item.addEventListener('mouseout', function() { ExtraInfo.style.opacity = '0'; })
 }
@@ -55,7 +57,9 @@ function print(str, warn) {
     } else { console.log('[SmiteBuildMaker] ' + str); }
 }
 
+////////////////////////////////
 /*//// Display Initialize ////*/
+////////////////////////////////
 
 window.onload = function() {
     TerminalInput.value = '';
@@ -142,14 +146,18 @@ window.onload = function() {
     createTextEvent(About, 'Learn More About SmiteBuildMaker');
     createTextEvent(News, 'View Recent SmiteBuildMaker News');
     createTextEvent(Alert, 'View SmiteBuildMaker Announcements');
-    createTextEvent(Lang, 'Load Local Save Data');
-    createTextEvent(_File, 'Select Site Language');
+    createTextEvent(Lang, 'Select Site Language');
+    createTextEvent(_File, 'Switch Local Save File');
     print('Finished Initializing Site Display');
 }
 
 ///////////////////////////////////////
 /*//// Event Triggered Functions ////*/
 ///////////////////////////////////////
+
+window.addEventListener('load', function () {
+    document.querySelector('#LoadingScreen').style.opacity = '0';
+})
 
 function toggleGlobalOptions() {
 
@@ -166,29 +174,6 @@ function toggleGlobalOptions() {
     }
 }
 
-function toggleBuildNumbering() {
-    let players = document.querySelectorAll('.player');
-    let items = document.querySelectorAll('.item');
-
-    for (let player = 0; player < players.length; player++)
-        for (let item = 0; item < 6; item++) {
-            let curr = (player * 6) + item;
-            switch (SiteData.Options[0]) {
-                case false:
-                    print('Build Numbering ON');
-                    items[curr].innerHTML = '<span class="build_num">' + item + '</span>+';
-                    items[curr].style.fontSize = '5vh';
-                break;
-                case true:
-                    print('Build Numbering OFF');
-                    items[curr].innerHTML = '+';
-                    items[curr].style.fontSize = '7vh';
-                break;
-            }
-        }
-    toggleGOption(0);
-}
-
 function displayMenu(context, override) {
 
     if (context != GlobalOptions && MenuFlags.GlobalOptionsOpen) return;
@@ -201,12 +186,16 @@ function displayMenu(context, override) {
         else QuickChange.style.top = '7.25vw';
     }
 
-    if (context == InfoMenu) { appendInfo(); QuickChange.style.top = '7.25vw'; }
+    if (context == InfoMenu) { 
+        clearPassiveText(); 
+        appendInfo(); 
+        QuickChange.style.top = '7.25vw'; 
+    }
 
     if (MenuFlags.MenuOpen && !context && override) { displayMenu(SiteData.ActiveMenu, 1); return; }
     if (MenuFlags.MenuOpen && SiteData.ActiveMenu != context && !override) displayMenu(SiteData.ActiveMenu, 1);
     try { clearInterval(AlertInterval); Alert.style.color = 'rgb(168, 168, 168)'; } catch(e) { }
-    
+
     if (!MenuFlags.MenuOpen) {
         context.style.left = '0vw';
         Backdrop.style.opacity = 1;
@@ -223,13 +212,6 @@ function displayMenu(context, override) {
         MenuFlags.MenuOpen = false;
         QuickChange.style.top = '-20vw';
     }
-}
-
-function toggleGOption(option) {
-    const optionElem = document.querySelectorAll('.c')[option];
-    SiteData.Options[option] = !SiteData.Options[option];
-    if (SiteData.Options[option]) optionElem.innerHTML = '✓';
-    else optionElem.innerHTML = '';
 }
 
 function displayOptions(pIndex, side) {
@@ -367,6 +349,9 @@ function changeMenu(sign) {
     displayMenu(MENU); 
     setTimeout(displayMenu(MENU), 400);
 }
+
+function addPassiveText(text) { document.querySelector('#PassiveDisplay').innerHTML += '<br>' + text; }
+function clearPassiveText() { document.querySelector('#PassiveDisplay').innerHTML = '<span>🛈</span><br>No Passive Effects Active'; }
 
 //////////////////////////////////
 /*//// Persistent Functions ////*/
