@@ -68,7 +68,7 @@ function initializeItems() {
 
 function toggleGOption(option) {
     const optionElem = document.querySelectorAll('.c')[option];
-    SiteData.Options[option] = !SiteData.Options[option];
+    if (option) SiteData.Options[option] = !SiteData.Options[option];
     if (SiteData.Options[option]) optionElem.innerHTML = '✓';
     else optionElem.innerHTML = '';
 }

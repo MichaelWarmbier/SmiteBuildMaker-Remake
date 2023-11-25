@@ -81,6 +81,7 @@ function toggleBuildNumbers() {
             ITEMS[itemIndex].style.color = 'var(--BrightGold)';
         }
     }
+    toggleGOption(0);
     print('Toggled Build Numbers');
 }
 
