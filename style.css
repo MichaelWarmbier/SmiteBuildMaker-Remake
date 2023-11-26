@@ -1020,13 +1020,14 @@ body {
     transition: left .3s;
 }
 
-#App #Chaos { left: 0; }
-#App #Order { right: 0; }
+#App #Chaos { left: 0; pointer-events: none; }
+#App #Order { right: 0; pointer-events: none; }
 
 #App .player { 
     width: 100%;
     position: absolute;
     height: 20%;
+    pointer-events: none;
 } #App #Order { transform: rotateY(180deg); } 
 
 
@@ -1081,6 +1082,7 @@ body {
     cursor: pointer;
     pointer-events: auto;
     background-size: cover;
+    z-index: 2;
 } 
 #App .icon:hover { color: var(--BrightGold); border-color: var(--BrightGold); }
 #App #Order .icon { transform: scale(-1, 1) translateX(.5vw); box-shadow: -.4vh .4vh .75vh black }
@@ -1112,6 +1114,7 @@ body {
     background-size: cover;
     font-family: var(--BrandFont);
     text-shadow: .15vw .15vw  black !important;
+    z-index: 3;
 } 
 
 #App #Order .item { transform: rotateY(180deg); box-shadow: -.4vh .4vh .75vh black}
@@ -1130,19 +1133,34 @@ body {
     border: solid .2vw var(--DarkGold);
     width: calc(65% - 21.5vh);
     height: 4vh;
-    z-index: -1;
+    z-index: 1;
+    pointer-events: all !important;
+    user-select: none;
 } #App #Order .bar { left: 19.5vh; }
 
 #App .health,
 #App .mana {
     width: 100%;
     height: 50%;
+    cursor: pointer;
     box-shadow: none !important;
-}
+    font-weight: bold;
+    color: white;
+    text-shadow: .2vw .2vw black;
+    font-family: 'Roboto', sans-serif;
+    font-size: .85vw;
+    transition: box-shadow .3s;
+} 
 
 #App .health { background-color: #3cb038; }
-
 #App .mana { background-color: #4054ad; }
+
+#App .health:active, #App .mana:active { 
+    box-shadow: inset .2vw .2vw .5vw  white, inset -.2vw -.2vw .5vw white !important;
+}
+
+#Chaos .health, #Chaos .mana { text-align: right; }
+#Order .health, #Order .mana { text-align: left; transform: scaleX(-1); }
 
 /*//// Terminal ////*/
 
@@ -1682,6 +1700,8 @@ body {
 
     #Order .bar { left: 15.5vh !important; }
     #Order .item_cont { left: 16.5vh !important; }
+
+    #App .health, #App .mana { font-size: 2.7vw; }
 
     /* Terminal */
 

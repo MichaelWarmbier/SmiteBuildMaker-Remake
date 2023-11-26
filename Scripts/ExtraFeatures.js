@@ -152,3 +152,29 @@ function generateShareLink() {
     setTimeout(function() { document.querySelector('#ShareButton').innerHTML = 'Create Share Link'; }, 1500);
     print(`Generated sharable link`)
 }
+
+//////////////////////////////
+/*//// Passived Related ////*/
+//////////////////////////////
+
+let mouseInterval = null;
+let xPos = -1;
+document.onmousemove = function(event) { xPos = event.pageX; }
+
+function updateHealthMana(elem, event) {
+    const BOX = elem.getBoundingClientRect();
+    mouseInterval = setInterval(function() {
+        const X_OFFSET = xPos - BOX.left;
+        let Percent = X_OFFSET / (elem.offsetWidth) * 100;
+        if (Percent < 10) Percent = 0;
+        if (Percent > 95) Percent = 100;
+        if (elem.className === 'health') elem.style.background = 'linear-gradient(to right, #3cb038 ' + Percent + '%, #292929 ' + Percent + '%)';
+        else elem.style.background = 'linear-gradient(to right, #4054ad ' + Percent + '%, #292929 ' + Percent + '%)';
+        elem.innerHTML = Math.floor(Percent) + '%&nbsp;';
+    }, 100);
+}
+
+function clearHMUpdate() { 
+    const INTERVAL_ID = setInterval(function() {}, 10_000); 
+    for (let intervalIndex = 0; intervalIndex <= INTERVAL_ID; intervalIndex++) window.clearInterval(intervalIndex);
+}
