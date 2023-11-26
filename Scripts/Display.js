@@ -241,7 +241,7 @@ function updateLevelSlider() {
     LevelValue.innerHTML = newLevel;
     SiteData.PlayerData[player - 1].Level = newLevel;
     print(`Level set to ${newLevel} for player ${player % 5} on side ${player <= 4 ? 'Chaos':'Order'}`)
- }
+}
 
 function updateBuffs(buffName, type, hex) {
     let buffValue = BuffValue;
@@ -272,7 +272,7 @@ function updateBuffs(buffName, type, hex) {
         }
         buffValue.innerHTML = 'Current Buffs:';
         for (buff of Player.Buffs)
-            buffValue.innerHTML += ' ' + buff.replace('_', ' ');
+            buffValue.innerHTML += ' ' + buff.replace(/_/g, ' ');
         buffValue.innerHTML = buffValue.innerHTML.slice(0, -2);
     }
 }
@@ -350,7 +350,12 @@ function changeMenu(sign) {
     setTimeout(displayMenu(MENU), 400);
 }
 
-function addPassiveText(title, text) { document.querySelector('#PassiveDisplay').innerHTML += `<span class="passive_title">${title}</span><br>${text}`; }
+function addPassiveText(title, text) { 
+    let PassiveDisplay = document.querySelector('#PassiveDisplay');
+    if (PassiveDisplay.innerHTML === '<span>🛈</span><br>No Passive Effects Active') PassiveDisplay.innerHTML = '<span>🛈</span>';
+    PassiveDisplay.innerHTML += `<span class="passive_title">${title}</span><br>${text}`;
+}
+
 function clearPassiveText() { document.querySelector('#PassiveDisplay').innerHTML = '<span>🛈</span><br>No Passive Effects Active'; }
 
 //////////////////////////////////

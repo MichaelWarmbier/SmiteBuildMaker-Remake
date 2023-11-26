@@ -39,7 +39,7 @@ function initializeItems() {
     const newItem = document.createElement('div');
     newItem.classList.add('item_elem');
     newItem.style.backgroundImage = `url("Assets/Icons/Trash.png")`
-    newItem.ondblclick = function() { removeItem(SiteData.ActiveItemIndex); }
+    newItem.ondblclick = function() { removeItem(SiteData.ActiveItemIndex - 1); }
     ItemMenu.appendChild(newItem);
 
     // Create item elements
@@ -51,6 +51,7 @@ function initializeItems() {
         if ((Item.Name.toLowerCase()).includes('acorn') && God.Name != 'Ratatoskr') continue;
         if (Item.DamageType != 'Neutral' && Item.DamageType != God.Type) continue;
         if (Filter != 'Starter' && Filter != 'Recipe' && SiteData.TierFilter && SiteData.TierFilter != Item.Tier) continue;
+        if (Filter != 'Recipe' && Item.Tier == 3 && Item.Filters.includes('Recipe')) continue;
         const newItem = document.createElement('div');
         newItem.classList.add('item_elem');
         newItem.style.backgroundImage = `url("${Item.URL}")`;
@@ -102,7 +103,8 @@ function appendInfo() {
     else {
         document.querySelector('#GodBuffs').innerHTML = '';
         for (buff of SiteData.PlayerData[PLAYER - 1].Buffs)
-        document.querySelector('#GodBuffs').innerHTML += buff;
+        document.querySelector('#GodBuffs').innerHTML += buff.replace(/_/g, ' ');
+        document.querySelector('#GodBuffs').innerHTML = document.querySelector('#GodBuffs').innerHTML.slice(0, -2);
     }
     let ItemIndex = 0;
     let totalBuildPrice = 0;
@@ -195,7 +197,6 @@ function appendItem(Item, RandomProcess=false) {
         ItemIcon.style.backgroundImage = `url(${SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1].URL})`;
         let statString = '<span class="extra_stats">';
         for (Stat of Item.Stats) statString += `${Stat.StatName} ${Stat.Value}<br>`;
-        console.log(statString);
         createTextEvent(ItemIcon, `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}<br><br>${statString}</span>`);
     }
     else {

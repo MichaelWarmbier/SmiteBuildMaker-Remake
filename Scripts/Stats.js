@@ -9,14 +9,13 @@ function updateStats(player) {
     calculateBaseStats(PLAYER_DATA);
     clearPassiveText();
     addItemStats(PLAYER_DATA);
-    document.querySelector('#PassiveDisplay').innerHTML = '<span>🛈</span>';
     /*
     addGodPassiveStats(side);
     addItemPassiveStats(side);
-    addBuffStats(side);
     */
     addNonConquestBalance(PLAYER_DATA);
     calculateBasicAttackDamage(PLAYER_DATA);
+    addBuffStats(PLAYER_DATA);
     displayStats(PLAYER_DATA);
 }
 
@@ -70,18 +69,10 @@ function addItemStats(player) {
             if (Nicknames.Crit.includes(ItemStat.StatName)) PlayerStats.CriticalStrike += StatValue;
             if (ItemStat.Value.includes('%') && Nicknames.Pen.includes(ItemStat.StatName)) PlayerStats.PercentPenetration += StatValue;
             if (!ItemStat.Value.includes('%') && Nicknames.Pen.includes(ItemStat.StatName)) PlayerStats.Penetration += StatValue;
-            if (Nicknames.AttackSpeed.includes(ItemStat.StatName)) PlayerStats.AttackSpeed += StatValue;
+            if (Nicknames.AttackSpeed.includes(ItemStat.StatName)) PlayerStats.AttackSpeed += PlayerStats.AttackSpeed * (StatValue / 100);
             if (Nicknames.DamageRed.includes(ItemStat.StatName)) PlayerStats.DamageRed += StatValue;
         }
     }
-}
-
-function calculateBasicAttackDamage(player) {
-    let PlayerStats = player.Stats;
-    const GOD_STATS = player.God;
-    if (GOD_STATS.Name == 'Olorun') PlayerStats.BasicAttackDamage += (GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level)) * .25;
-    else if (GOD_STATS.Type == 'Magical') PlayerStats.BasicAttackDamage += (GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level)) * .20;
-    else if (GOD_STATS.Name == 'Physical') PlayerStats.BasicAttackDamage += (GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level));
 }
 
 function addNonConquestBalance(player) {
@@ -117,6 +108,107 @@ function addNonConquestBalance(player) {
         addPassiveText('Non-Conquest ' + Entries.Type, Entries.Effect);
 }
 
+function addBuffStats(player) {
+    const REGEX = />([^<]+)/;
+    const TYPE = player.God.Type;
+    const GOD = player.God;
+    let PlayerStats = player.Stats;
+
+    for (buff of player.Buffs) {
+        let buffName = REGEX.exec(buff)[1];
+        switch (buffName) {
+            case ('Power_Buff'): 
+                if (TYPE == 'Physical') PlayerStats.Power += 5;
+                if (TYPE == 'Magical') PlayerStats.Power += 10;
+                PlayerStats.Power += PlayerStats.Power * .10;
+                addPassiveText('Power Buff', '10% Damage + 5 Physical/10 Magical');
+                break;
+            case ('Mana_Buff'): 
+                PlayerStats.MP5 += 20;
+                addPassiveText('Mana Buff', '20 MP5; 2% Restore Mana on Ability God Damage');
+                break;
+            case ('Health_Buff'): 
+                PlayerStats.Health += 100 + (30 * Math.round((PlayerStats.PhysicalProtections + PlayerStats.MagicalProtections - (GOD.PhysProt + (GOD.PhysProtPL * player.Level) + GOD.MagProtPL + (GOD.MagProtPL * player.Level))) / 50));
+                PlayerStats.Mana += 100;
+                PlayerStats.HP5 += 10;
+                PlayerStats.MP5 += 10;
+                addPassiveText('Health Buff', '100 Health/Mana + 30 per 50 protections from items; 10 HP5/MP5');
+                break;
+            case ('Void_Buff'): 
+                PlayerStats.AttackSpeed += PlayerStats.AttackSpeed * .10;
+                if (TYPE == 'Physical') PlayerStats.BasicAttackDamage += 12;
+                if (TYPE == 'Magical') PlayerStats.BasicAttackDamage += 10;
+                addPassiveText('Void Buff', '10% Attack Speed + 10 Magical Basic Damage/12 Physical Basic Damage');
+                break;
+            case ('Speed_Buff'): 
+                PlayerStats.Speed += PlayerStats.Speed * .10;
+                // TBA Stacks
+                addPassiveText('Speed Buff', '10% Speed + 2% per Camp Kill/Assists; 3 Stacks');
+                break;
+            case ('Attack_Speed_Buff'): 
+                PlayerStats.AttackSpeed += PlayerStats.AttackSpeed * .15;
+                if (TYPE == 'Physical') PlayerStats.BasicAttackDamage += 12;
+                if (TYPE == 'Magical') PlayerStats.BasicAttackDamage += 15;
+                addPassiveText('Attack Speed Buff', '15% Attack Speed + 15 Magical Basic Damage/12 Physical Basic Damage');
+                break;
+            case ('Fire_Giant'): 
+                if (TYPE == 'Physical') PlayerStats.Power += 65;
+                if (TYPE == 'Magical') PlayerStats.Power += 100;
+                PlayerStats.MP5 += PlayerStats.MP5 * .02;
+                PlayerStats.HP5 += PlayerStats.HP5 * .03;
+                addPassiveText('Fire Giant Buff', '100 Magical Power/65 Physical Power; 3% HP5 + 2% MP5');
+                break;
+            case ('Slash_Buff'): 
+                PlayerStats.MP5 += PlayerStats.MP5 * .02;
+                PlayerStats.HP5 += PlayerStats.HP5 * .04;
+                addPassiveText('Apophis Buff', '4% HP5 + 2% MP5');
+                break;
+            case ('Joust_Buff'): 
+                PlayerStats.MP5 += PlayerStats.MP5 * .02;
+                PlayerStats.HP5 += PlayerStats.HP5 * .04;
+                addPassiveText('Bull Demon Buff', '4% HP5 + 2% MP5');
+                break;
+            case ('Silver_Buff'): 
+                PlayerStats.CDR += 5 + (.75 * player.Level);
+                addPassiveText('Silver Buff', '5% CDR + .75% per level');
+                break;
+            case ('Gold_Buff'): 
+                // TBA 50 Shield + 20 per level
+                PlayerStats.PhysicalProtections += 5 + (.5 * player.Level);
+                PlayerStats.MagicalProtections += 5 + (.5 * player.Level);
+                addPassiveText('Gold Buff', '5 Protections + .5 per level');
+                break;
+            case ('Power_Potion'): 
+                if (TYPE == 'Physical') PlayerStats.Power += 40;
+                if (TYPE == 'Magical') PlayerStats.Power += 70;
+                PlayerStats.CDR += 10;
+                addPassiveText('Power Potion', '40 Physical Power/70 Magical Power; 10% CDR');
+                break;
+            case ('Power_Elixir'): 
+                if (TYPE == 'Physical') PlayerStats.Power += PlayerStats.Power * .25;
+                if (TYPE == 'Magical') PlayerStats.PercentPenetration += 10;
+                addPassiveText('Power Elixir', '25% Power; 10% Penetration');
+                break;
+            case ('Defense_Elixir'):
+                PlayerStats.CCR += 20;
+                PlayerStats.PhysicalProtections += 50;
+                PlayerStats.MagicalProtections += 50;
+                PlayerStats.DamageReduction += 10;
+                addPassiveText('Power Elixir', '25% Power; 10% Penetration');
+                break;
+        }
+    }
+}
+
+function calculateBasicAttackDamage(player) {
+    let PlayerStats = player.Stats;
+    const GOD_STATS = player.God;
+    if (GOD_STATS.Name == 'Olorun') PlayerStats.BasicAttackDamage += (PlayerStats.Power + GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level)) * .25;
+    else if (GOD_STATS.Type == 'Magical') PlayerStats.BasicAttackDamage += (PlayerStats.Power + GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level)) * .20;
+    else if (GOD_STATS.Type == 'Physical') PlayerStats.BasicAttackDamage += (PlayerStats.Power + GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level));
+}
+
+
 function displayStats(player) {
     let PlayerStats = player.Stats;
     let StatDisplays = document.querySelectorAll('#GodStats .stat .stat_amount');
@@ -126,6 +218,7 @@ function displayStats(player) {
     for (key of Object.keys(PlayerStats)) {
         let Percent = PlayerStats[key] / StatCaps[StatIndex].innerHTML * 100;
         if (!PlayerStats[key]) Percent = 0;
+        if (PlayerStats[key] > StatCaps[StatIndex].innerHTML) PlayerStats[key] = StatCaps[StatIndex].innerHTML;
         StatDisplays[StatIndex].innerHTML = Math.round(PlayerStats[key] * 100) / 100;
         StatBars[StatIndex].style.background = 'linear-gradient(to right, #827751 ' + Percent + '%, #111821 ' + Percent + '%)';
         StatIndex++;

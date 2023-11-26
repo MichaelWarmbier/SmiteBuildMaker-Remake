@@ -591,7 +591,8 @@ body {
     position: absolute;
     margin: auto;
     left: 0; right: 0; top: 0; bottom: 0;
-}  #PassiveDisplay Span { font-size: 2vw; box-shadow: 0 !important; }
+    padding-top: 3vw;
+}  #PassiveDisplay Span { font-size: 4vw; box-shadow: 0 !important; }
 #PassiveDisplay::-webkit-scrollbar { display: none; }
 #PassiveDisplay .passive_title { font-size: 2.5vw; color: white; }
 

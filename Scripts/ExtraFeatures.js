@@ -24,20 +24,25 @@ function randomItems() {
     ItemList.reverse(); ItemList.pop(); 
 
     let StarterList = [];
-    for (Item of English.Items) if (Item.Starter) StarterList.push(Item.Name);
+    if (SiteData.PlayerData[PLAYER - 1].God.Name === 'Ratatoskr')
+        for (Item of English.Items) if (Item.Ratatoskr) StarterList.push(Item.Name);
+    if (SiteData.PlayerData[PLAYER - 1].God.Name !== 'Ratatoskr')
+        for (Item of English.Items) if (Item.Starter) StarterList.push(Item.Name);
+    console.log(StarterList);
 
     let status = '';
     while (SiteData.ActiveItemIndex < 7) {
        let ChoosenItem = ItemList[Math.floor(Math.random() * (ItemList.length))];
        let ChoosenStarter = StarterList[Math.floor(Math.random() * (StarterList.length))];
-       for (Item of English.Items)
-        if ((SiteData.ActiveItemIndex != 1 && Item.Name == ChoosenItem) || SiteData.ActiveItemIndex == 1 && Item.Name == ChoosenStarter) 
-        { status = appendItem(Item, true); break; } 
+       for (Item of English.Items) {
+            if ((SiteData.ActiveItemIndex != 1 && Item.Name == ChoosenItem) || (SiteData.ActiveItemIndex == 1 && Item.Name == ChoosenStarter)) 
+            { status = appendItem(Item, true); break; } 
+       }
 
-       //if (status && !status[1].Filters.includes('Recipe')) status[0] = undefined;
        if (status && status[0] == 'SUCCESS') SiteData.ActiveItemIndex++;
     }
     SiteData.TierFilter = 3;
+    displayMenu(SiteData.ActiveMenu);
 }
 
 ////////////////////////////
