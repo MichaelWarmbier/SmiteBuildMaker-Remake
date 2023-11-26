@@ -15,6 +15,7 @@
     --DarkGrayed: #A8A8A8;
     --DarkButton: #051124;
     --AppBlue: #1D2938;
+    --GoodGreen: #4eb561;
     /* Global Fonts */
     --BrandFont: Penumbra, sans-serif;
     --TitleFont: 'Nova Square', cursive;
@@ -80,7 +81,7 @@ body {
 }
 
 #Header .subtitle {
-    color: var(--Grayed);
+    color: var(--DarkGrayed);
     font-family: 'Roboto', sans-serif;
     font-size: 1.75vw;
     margin-top: 2vw;
@@ -592,6 +593,7 @@ body {
     left: 0; right: 0; top: 0; bottom: 0;
 }  #PassiveDisplay Span { font-size: 2vw; box-shadow: 0 !important; }
 #PassiveDisplay::-webkit-scrollbar { display: none; }
+#PassiveDisplay .passive_title { font-size: 2.5vw; color: white; }
 
 #InfoMenu #GodCard {
     height: 50vh;
@@ -721,15 +723,17 @@ body {
     width: 50%;
     display: inline-block;
     background-color: #111821;
-    padding: 0 1vw 0 1vw;
+    padding: .5em 1vw 0 1vw;
     transform: translateY(1em);
     height: 1em;
-    line-height: 75%;
+    text-shadow: .1vw .1vw black !important;
+    font-weight: bold;
+    border-radius: .4vw;
 }
 
 #GodStats .stat_bar Span { display: inline-block; }
-#GodStats .stat_bar .stat_amount { float: left; }
-#GodStats .stat_bar .stat_cap { float: right; }
+#GodStats .stat_bar .stat_amount { float: left; height: max-content; }
+#GodStats .stat_bar .stat_cap { float: right; height: max-content; }
 
 #GodMenu, #ItemMenu { 
     text-shadow: .3vw .3vw .5vw black;
@@ -904,8 +908,10 @@ body {
     color: var(--Grayed);
     text-align: center;
     margin-top: 1vh;
-    width: 95%;
+    width: 93%;
 } #ItemDetails .subtitle { font-size: 1vw !important; }
+
+#ItemDetails .statlist { color: var(--GoodGreen); }
 
 #GodDetails .label,
 #ItemDetails .label {
@@ -964,7 +970,7 @@ body {
     transition-duration: .4s;
     color: white;
     font-family: 'Nova Square', cursive;
-    font-size: 1.5vw;
+    font-size: 1.3vw;
     text-shadow: .2vw .2vw black;
     display: flex; 
     flex-direction: column;
@@ -979,6 +985,11 @@ body {
     color: var(--Grayed);
     width: 100%;
     margin-bottom: 2vh;
+}
+
+#App #ExtraInfo .extra_stats {
+    font-size: 1.3vw;
+    color: var(--GoodGreen);
 }
 
 #App #SwipeNotif { display: none; }
@@ -1417,6 +1428,7 @@ body {
         border-radius: 2vw;
         font-size: 4.5vw;
     }  #PassiveDisplay Span { font-size: 4vw; }
+    #PassiveDisplay .passive_title { font-size: 4.3vw; }
     
     #InfoMenu #GodCard {
         height: 50vh;

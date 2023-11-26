@@ -129,6 +129,126 @@ let SiteData = {
         { "Pair": ["Malicious Deathbringer", "Envenomed Deathbringer", "Deathbringer"] },
         { "Pair": ["Flameforged Hammer", "Runebreaking Hammer", "Runeforged Hammer"] }
     ],
+    "StatNicknames": {
+        "Speed": ["Movement Speed"],
+        "MagPower": ["Magical Power", "Magical power"],
+        "PhysPower": ["Physical Power", "Physical power"],
+        "Health": ["Health", "Maximum Health"],
+        "Mana": ["Mana"],
+        "HP5": ["HP5", "HP5 & MP5"],
+        "MP5": ["MP5", "HP5 & MP5"],
+        "Lifesteal": ["Magical Lifesteal", "Physical Lifesteal"],
+        "PhysicalProtections": ["Physical Protections", "Physical protections.", "Physical Protection", "Physical protection"],
+        "MagicalProtections": ["Magical Protections", "Magical protections.", "Magical Protection", "Magical protection", "Magical Protection "],
+        "CCR": ["Crowd Control Reduction", "Crowd Control Reduction:"],
+        "CDR": ["Cooldown Reduction"],
+        "Crit": ["Physical Critical Strike Chance", "Critical Strike Chance"],
+        "Pen": ["Physical Penetration", "Magical Penetration", "Penetration"],
+        "AttackSpeed": ["Attack Speed"],
+        "DamageRed": ["Damage Reduction"]
+    },
+    "NonConquest": [
+        {
+            "God": "Aphrodite",
+            "Type": "Nerf",
+            "Effect": "+10% Non-Ultimate Cooldowns<br>+20% Ultimate Cooldowns",
+        },
+        {
+            "God": "Ao Kuang",
+            "Type": "Buff",
+            "Effect": "-5% Damage Taken</br>-10% Non-Ultimate Cooldowns</br>-10% Ultimate Cooldowns",
+        },
+        {
+            "God": "Arachne",
+            "Type": "Buff",
+            "Effect": "-10% Damage Taken</br>-10% Ultimate Cooldown",
+        },
+        {
+            "God": "Bakasura",
+            "Type": "Buff",
+            "Effect": "-10% Damage Taken</br>-10% Ultimate Cooldown",
+        },
+        {
+            "God": "Camazotz",
+            "Type": "Buff",
+            "Effect": "-10% Non-Ultimate Cooldowns</br>-10% Ultimate Cooldown",
+        },
+        {
+            "God": "Kuzenbo",
+            "Type": "Nerf",
+            "Effect": "-5% Damage Dealt to Gods<br>+5% Non-Ultimate Cooldowns",
+        },
+        {
+            "God": "Horus",
+            "Type": "Nerf",
+            "Effect": "+5% Damage Taken",
+        },
+        {
+            "God": "Atlas",
+            "Type": "Nerf",
+            "Effect": "+5% Non-Ultimate cooldowns</br>+10% ultimate cooldown",
+        },
+        {
+            "God": "Nemesis",
+            "Type": "Buff",
+            "Effect": "-5% Damage Taken</br>-10% non-ultimate cooldown",
+        },
+        {
+            "God": "Set",
+            "Type": "Buff",
+            "Effect": "+5% Damage to Minions</br>-5% damage taken</br>-5% non-ultimate cooldowns",
+        },
+        {
+            "God": "Nox",
+            "Type": "Nerf",
+            "Effect": "+10% Longer Cooldown",
+        },
+        {
+            "God": "Ganesha",
+            "Type": "Nerf",
+            "Effect": "+5% Non-Ultimate Cooldowns<br>+10% Ultimate Cooldowns",
+        },
+        {
+            "God": "Sobek",
+            "Type": "Nerf",
+            "Effect": "+10% Non-Ultimate Cooldowns",
+        },
+        {
+            "God": "Odin",
+            "Type": "Nerf",
+            "Effect": "+15% Ultimate Cooldowns",
+        },
+        {
+            "God": "Chernobog",
+            "Type": "Buff",
+            "Effect": "-15% Ultimate Cooldowns",
+        },
+        {
+            "God": "Hun Batz",
+            "Type": "Buff",
+            "Effect": "-10% Damage Taken<br>-10% Non-Ultimate Cooldowns",
+        },
+        {
+            "God": "Da Ji",
+            "Type": "Buff",
+            "Effect": "-10% Damage Taken",
+        },
+        {
+            "God": "The Morrigan",
+            "Type": "Buff",
+            "Effect": "-10% Ultimate Cooldown",
+        },
+        {
+            "God": "Ares",
+            "Type": "Nerf",
+            "Effect": "+30% Ultimate Cooldown",
+        },
+        {
+            "God": "Khepri",
+            "Type": "Nerf",
+            "Effect": "+5% Damage Taken</br>+5% Non-Ultimate Cooldowns</br>+15% Ultimate Cooldown",
+        }
+    ],
     "PlayerData": [
         {
             "God": null,
@@ -142,6 +262,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -171,6 +292,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -200,6 +322,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -229,6 +352,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -258,6 +382,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -287,6 +412,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -316,6 +442,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -345,6 +472,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -374,6 +502,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,
@@ -403,6 +532,7 @@ let SiteData = {
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
+                "AttackSpeed": 0,
                 "BasicAttackDamage": 0,
                 "Health": 0,
                 "Mana": 0,

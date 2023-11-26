@@ -187,7 +187,6 @@ function displayMenu(context, override) {
     }
 
     if (context == InfoMenu) { 
-        clearPassiveText(); 
         appendInfo(); 
         QuickChange.style.top = '7.25vw'; 
     }
@@ -212,6 +211,7 @@ function displayMenu(context, override) {
         MenuFlags.MenuOpen = false;
         QuickChange.style.top = '-20vw';
     }
+    updateStats(SiteData.ActivePlayerIndex);
 }
 
 function displayOptions(pIndex, side) {
@@ -332,7 +332,6 @@ function changeMenu(sign) {
         setTimeout(displayOptions(SiteData.ActivePlayerIndex, SiteData.ActivePlayerIndex <= 5 ? 'Chaos' : 'Order'), 400); 
         return;
     }
-
     else if (sign == '+') for (let playerIndex = 0; playerIndex < 10; playerIndex++) { 
         if (SiteData.PlayerData[playerIndex].God && playerIndex > PLAYER - 1) {
             SiteData.ActivePlayerIndex = playerIndex + 1;
@@ -346,11 +345,12 @@ function changeMenu(sign) {
         } 
     }
 
+    updateStats(PLAYER);
     displayMenu(MENU); 
     setTimeout(displayMenu(MENU), 400);
 }
 
-function addPassiveText(text) { document.querySelector('#PassiveDisplay').innerHTML += '<br>' + text; }
+function addPassiveText(title, text) { document.querySelector('#PassiveDisplay').innerHTML += `<span class="passive_title">${title}</span><br>${text}`; }
 function clearPassiveText() { document.querySelector('#PassiveDisplay').innerHTML = '<span>🛈</span><br>No Passive Effects Active'; }
 
 //////////////////////////////////

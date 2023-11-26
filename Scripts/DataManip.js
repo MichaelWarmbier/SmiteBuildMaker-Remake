@@ -150,12 +150,14 @@ function appendGod(God) {
 }
 
 function displayItem(name) {
+    document.querySelectorAll('#ItemDetails .subtitle')[1].innerHTML = '';
     for (Item of English.Items) if (Item.Name === name) {
         document.querySelectorAll('#ItemDetails .title')[0].innerHTML = Item.Name;
         document.querySelectorAll('#ItemDetails .subtitle')[0].innerHTML = Item.Description;
+        for (ItemInfo of Item.Stats)
+            document.querySelectorAll('#ItemDetails .subtitle')[1].innerHTML += `${ItemInfo.StatName} ${ItemInfo.Value}<br>`;
         document.querySelectorAll('#ItemDetails .label')[0].innerHTML = `</div><span style="color:#B5A672;">${Item.Gold}</span>`;
         document.querySelectorAll('#ItemDetails .type')[0].innerHTML = `</div><span style="#A8A8A8">${Item.SelfGold}</span>`;
-        document.querySelectorAll('#ItemDetails .ico')[0].style.backgroundImage = `url("${Item.URL}")`;
         break;
     }
 }
@@ -191,7 +193,10 @@ function appendItem(Item, RandomProcess=false) {
     if (Item) {
         if (!SiteData.BuildNumbers) ItemIcon.innerHTML = '';
         ItemIcon.style.backgroundImage = `url(${SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1].URL})`;
-        createTextEvent(ItemIcon, `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}`);
+        let statString = '<span class="extra_stats">';
+        for (Stat of Item.Stats) statString += `${Stat.StatName} ${Stat.Value}<br>`;
+        console.log(statString);
+        createTextEvent(ItemIcon, `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}<br><br>${statString}</span>`);
     }
     else {
         if (!SiteData.BuildNumbers) ItemIcon.innerHTML = '+'
