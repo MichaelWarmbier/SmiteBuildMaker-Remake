@@ -248,6 +248,11 @@ let SiteData = {
             "Effect": "+5% Damage Taken</br>+5% Non-Ultimate Cooldowns</br>+15% Ultimate Cooldown",
         }
     ],
+    "ItemPassives": {
+        "Active": [],
+        "Stack": [],
+        "Health": [],
+    },
     "PlayerData": [
         {
             "God": null,
