@@ -89,6 +89,7 @@ function appendInfo() {
     const PLAYER = SiteData.ActivePlayerIndex;
     const GOD = SiteData.PlayerData[PLAYER - 1].God;
     const PANTHEONDATA = getPantheon(GOD.Pantheon);
+    const ITEM_PRICE = document.querySelectorAll('.item_price');
     document.querySelector('#GodCard').style.backgroundImage = `url("${GOD.CardArt}")`;
 
     // Patch for broken God art
@@ -106,18 +107,26 @@ function appendInfo() {
         document.querySelector('#GodBuffs').innerHTML += buff.replace(/_/g, ' ');
         document.querySelector('#GodBuffs').innerHTML = document.querySelector('#GodBuffs').innerHTML.slice(0, -2);
     }
+
+    let ItemDisp = document.querySelectorAll('.item_disp');
+    for (Item of ItemDisp) Item.replaceWith(Item.cloneNode(true));
+    ItemDisp = document.querySelectorAll('.item_disp');
+
     let ItemIndex = 0;
     let totalBuildPrice = 0;
-    for (ITEM of SiteData.PlayerData[PLAYER - 1].Items) {
+    for (Item of SiteData.PlayerData[PLAYER - 1].Items) {
         ItemIndex++;
-        if (!ITEM) {
-            document.querySelectorAll('.item_disp')[ItemIndex - 1].style.backgroundImage = '';
-            document.querySelectorAll('.item_price')[ItemIndex - 1].innerHTML = '0 <img src="Assets/Icons/Gold.png">';
+        if (!Item) {
+            ItemDisp[ItemIndex - 1].style.backgroundImage = '';
+            ITEM_PRICE[ItemIndex - 1].innerHTML = '0 <img src="Assets/Icons/Gold.png">';
             continue;
         }
-        document.querySelectorAll('.item_disp')[ItemIndex - 1].style.backgroundImage = `url("${ITEM.URL}")`;
-        document.querySelectorAll('.item_price')[ItemIndex - 1].innerHTML = ITEM.Gold + '<img src="Assets/Icons/Gold.png">';
-        totalBuildPrice += ITEM.Gold;
+        ItemDisp[ItemIndex - 1].style.backgroundImage = `url("${Item.URL}")`;
+        let statString = '<span class="extra_stats">';
+        for (Stat of Item.Stats) statString += `${Stat.StatName} ${Stat.Value}<br>`;
+        createTextEvent(ItemDisp[ItemIndex - 1], `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}<br><br>${statString}</span>`);
+        ITEM_PRICE[ItemIndex - 1].innerHTML = Item.Gold + '<img src="Assets/Icons/Gold.png">';
+        totalBuildPrice += Item.Gold;
     }
     document.querySelector('#BuildPrice').innerHTML = totalBuildPrice + '<img src="Assets/Icons/Gold.png">';
 }
@@ -193,14 +202,14 @@ function appendItem(Item, RandomProcess=false) {
     if (Item && Item.Filters.includes('Recipe')) SiteData.PlayerData[PLAYER - 1].RecipeIndex = ITEM;
 
     if (Item) {
-        if (!SiteData.BuildNumbers) ItemIcon.innerHTML = '';
+        if (!SiteData.Options[0]) ItemIcon.innerHTML = '';
         ItemIcon.style.backgroundImage = `url(${SiteData.PlayerData[PLAYER - 1].Items[ITEM - 1].URL})`;
         let statString = '<span class="extra_stats">';
         for (Stat of Item.Stats) statString += `${Stat.StatName} ${Stat.Value}<br>`;
         createTextEvent(ItemIcon, `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}<br><br>${statString}</span>`);
     }
     else {
-        if (!SiteData.BuildNumbers) ItemIcon.innerHTML = '+'
+        if (!SiteData.Options[0]) ItemIcon.innerHTML = '+'
         ItemIcon.style.backgroundImage = '';
         createTextEvent(ItemIcon, 'Select an Item');
     }

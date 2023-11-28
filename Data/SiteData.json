@@ -7,7 +7,6 @@ let SiteData = {
     "Filter": null,
     "SearchQuery": "",
     "TierFilter": 3,
-    "BuildNumbers": false,
     "SaveNumber": 1,
     "Flags": {
         "MenuOpen": false,

@@ -1115,6 +1115,7 @@ body {
     font-family: var(--BrandFont);
     text-shadow: .15vw .15vw  black !important;
     z-index: 3;
+    flex-shrink: 0;
 } 
 
 #App #Order .item { transform: rotateY(180deg); box-shadow: -.4vh .4vh .75vh black}

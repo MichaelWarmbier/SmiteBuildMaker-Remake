@@ -20,15 +20,14 @@ function randomItems() {
     SiteData.SearchQuery = '';
     initializeItems();
     let ItemList = [];
-    for (elem of document.querySelectorAll('.item_elem')) ItemList.push(elem.lang);
+    for (elem of document.querySelectorAll('.item_elem')) if (!elem.lang.includes('Acorn')) ItemList.push(elem.lang);
     ItemList.reverse(); ItemList.pop(); 
 
     let StarterList = [];
     if (SiteData.PlayerData[PLAYER - 1].God.Name === 'Ratatoskr')
-        for (Item of English.Items) if (Item.Ratatoskr) StarterList.push(Item.Name);
+        for (Item of English.Items) if (Item.Ratatoskr && Item.Tier == 3) StarterList.push(Item.Name);
     if (SiteData.PlayerData[PLAYER - 1].God.Name !== 'Ratatoskr')
         for (Item of English.Items) if (Item.Starter) StarterList.push(Item.Name);
-    console.log(StarterList);
 
     let status = '';
     while (SiteData.ActiveItemIndex < 7) {
@@ -42,7 +41,7 @@ function randomItems() {
        if (status && status[0] == 'SUCCESS') SiteData.ActiveItemIndex++;
     }
     SiteData.TierFilter = 3;
-    displayMenu(SiteData.ActiveMenu);
+    if (SiteData.Activemenu) displayMenu(SiteData.ActiveMenu);
 }
 
 ////////////////////////////
@@ -54,7 +53,6 @@ function toggleBuildNumbers() {
     const ITEMS = document.querySelectorAll('.item');
     for (let itemIndex = 0; itemIndex < 60; itemIndex++) {
         if (!SiteData.Options[0]) {
-            if (itemIndex == 59) SiteData.Options[0] = true;
             ITEMS[itemIndex].innerHTML = (itemIndex % 6) + 1;
             if (!MOBILE) {
                 ITEMS[itemIndex].style.fontSize = '1.25vw';
@@ -86,6 +84,7 @@ function toggleBuildNumbers() {
             ITEMS[itemIndex].style.color = 'var(--BrightGold)';
         }
     }
+    SiteData.Options[0] = true;
     toggleGOption(0);
     print('Toggled Build Numbers');
 }
@@ -174,7 +173,4 @@ function updateHealthMana(elem, event) {
     }, 100);
 }
 
-function clearHMUpdate() { 
-    const INTERVAL_ID = setInterval(function() {}, 10_000); 
-    for (let intervalIndex = 0; intervalIndex <= INTERVAL_ID; intervalIndex++) window.clearInterval(intervalIndex);
-}
+function clearHMUpdate() { clearInterval(mouseInterval); }

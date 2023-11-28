@@ -32,6 +32,7 @@ const ItemMenu = document.querySelector('#ItemMenu');
 const GodFilterNames = document.querySelector('#GodFilterNames');
 const ExtraInfo = document.querySelector('#ExtraInfo');
 const QuickChange = document.querySelector('#QuickChange');
+let currentWarning = null;
 
 /////////////////////
 /*//// Utility ////*/
@@ -42,7 +43,7 @@ function isMenuOpen() { return ((SiteData.ActiveMenu && SiteData.ActiveMenu.styl
 function createTextEvent(item, text) {
     item.addEventListener('mouseover', function() {
         ExtraInfo.innerHTML = '<span>🛈</span>' + text;
-        if (!isMenuOpen()) ExtraInfo.style.opacity = '1';
+        if (!isMenuOpen() || SiteData.ActiveMenu == InfoMenu) ExtraInfo.style.opacity = '1';
     })
     item.addEventListener('mouseout', function() { ExtraInfo.style.opacity = '0'; })
 }
@@ -52,7 +53,7 @@ function print(str, warn) {
         console.log('[SmiteBuildMaker] [WARNING] ' + str);
         Warning.innerHTML = str;
         Warning.style.opacity = 1;
-        setTimeout(function() { Warning.style.opacity = 0; }, 1000)
+        currentWarning = setTimeout(function() { Warning.style.opacity = 0; }, 1000)
 
     } else { console.log('[SmiteBuildMaker] ' + str); }
 }
@@ -193,7 +194,7 @@ function displayMenu(context, override) {
 
     if (MenuFlags.MenuOpen && !context && override) { displayMenu(SiteData.ActiveMenu, 1); return; }
     if (MenuFlags.MenuOpen && SiteData.ActiveMenu != context && !override) displayMenu(SiteData.ActiveMenu, 1);
-    try { clearInterval(AlertInterval); Alert.style.color = 'rgb(168, 168, 168)'; } catch(e) { }
+    if (context == AlertMenu) try { clearInterval(ALERT_INTERVAL); Alert.style.color = 'rgb(168, 168, 168)'; } catch(e) { }
 
     if (!MenuFlags.MenuOpen) {
         context.style.left = '0vw';
@@ -362,8 +363,8 @@ function clearPassiveText() { document.querySelector('#PassiveDisplay').innerHTM
 /*//// Persistent Functions ////*/
 //////////////////////////////////
 
-const AlertInterval = setInterval(function() {
-    if (!SiteData.SiteAlert) clearInterval(AlertInterval);
+const ALERT_INTERVAL = setInterval(function() {
+    if (!SiteData.SiteAlert) clearInterval(ALERT_INTERVAL);
     else {
         AlertButton = Alert;
         AlertColor = window.getComputedStyle(AlertButton).color;
