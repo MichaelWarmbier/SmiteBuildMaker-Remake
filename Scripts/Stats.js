@@ -14,7 +14,7 @@ function updateStats(player) {
     */
     addItemPassiveStats(PLAYER_DATA);
     addNonConquestBalance(PLAYER_DATA);
-    calculateBasicAttackDamage(PLAYER_DATA);
+    calculateAfterEffects(PLAYER_DATA);
     addBuffStats(PLAYER_DATA);
     displayStats(PLAYER_DATA);
 }
@@ -69,7 +69,7 @@ function addItemStats(player) {
             if (Nicknames.Crit.includes(ItemStat.StatName)) PlayerStats.CriticalStrike += StatValue;
             if (ItemStat.Value.includes('%') && Nicknames.Pen.includes(ItemStat.StatName)) PlayerStats.PercentPenetration += StatValue;
             if (!ItemStat.Value.includes('%') && Nicknames.Pen.includes(ItemStat.StatName)) PlayerStats.Penetration += StatValue;
-            if (Nicknames.AttackSpeed.includes(ItemStat.StatName)) PlayerStats.AttackSpeed += PlayerStats.AttackSpeed * (StatValue / 100);
+            if (Nicknames.AttackSpeed.includes(ItemStat.StatName)) PlayerStats.AttackSpeed += GOD.AttackSpeed * (StatValue / 100);
             if (Nicknames.DamageRed.includes(ItemStat.StatName)) PlayerStats.DamageRed += StatValue;
         }
     }
@@ -135,7 +135,7 @@ function addBuffStats(player) {
                 addPassiveText('Health Buff', '100 Health/Mana + 30 per 50 protections from items; 10 HP5/MP5');
                 break;
             case ('Void_Buff'): 
-                PlayerStats.AttackSpeed += PlayerStats.AttackSpeed * .10;
+                PlayerStats.AttackSpeed += GOD.AttackSpeed * .10;
                 if (TYPE == 'Physical') PlayerStats.BasicAttackDamage += 12;
                 if (TYPE == 'Magical') PlayerStats.BasicAttackDamage += 10;
                 addPassiveText('Void Buff', '10% Attack Speed + 10 Magical Basic Damage/12 Physical Basic Damage');
@@ -146,7 +146,7 @@ function addBuffStats(player) {
                 addPassiveText('Speed Buff', '10% Speed + 2% per Camp Kill/Assists; 3 Stacks');
                 break;
             case ('Attack_Speed_Buff'): 
-                PlayerStats.AttackSpeed += PlayerStats.AttackSpeed * .15;
+                PlayerStats.AttackSpeed += GOD.AttackSpeed * .15;
                 if (TYPE == 'Physical') PlayerStats.BasicAttackDamage += 12;
                 if (TYPE == 'Magical') PlayerStats.BasicAttackDamage += 15;
                 addPassiveText('Attack Speed Buff', '15% Attack Speed + 15 Magical Basic Damage/12 Physical Basic Damage');
@@ -200,6 +200,7 @@ function addBuffStats(player) {
 }
 
 function addItemPassiveStats(player) {
+    const GOD = player.God;
     let PlayerStats = player.Stats;
     for (item of player.Items) if (item) switch (item.Name) {
         case "Heartward Amulet": 
@@ -213,7 +214,7 @@ function addItemPassiveStats(player) {
             addPassiveText('Sovereignty', '+15 Physical Protections; +25 HP5');
             break;
         case "Shogun's Kusari": 
-            PlayerStats.AttackSpeed += PlayerStats.AttackSpeed * .30;
+            PlayerStats.AttackSpeed += GOD.AttackSpeed * .30;
             addPassiveText('Shogun\'s Kusari', '+30% Attack Speed');
             break;
         case "Telkhines Ring": 
@@ -227,7 +228,7 @@ function addItemPassiveStats(player) {
             break;
         case "Caduceus Club": 
             PlayerStats.CCR += 10;
-            PlayerStats.Speed += PlayerStats.Speed * .03;
+            PlayerStats.Speed += GOD.Speed * .03;
             addPassiveText('Caduceus Club', '+10 Crowd Control Reduction; +3% Movement Speed');
             break;
         case "Book of Thoth": 
@@ -247,22 +248,25 @@ function addItemPassiveStats(player) {
             addPassiveText('Typhon\'s Fang', 'Increase Magical Protections by 15% of Physical Protections');
             break;
         case "Silverbranch Bow": 
-            //PlayerStats.Power += 3 * (PlayerStats.AttackSpeed > 2.5) * Math.floor((PlayerStats.AttackSpeed - 2.5) / .02);
+            let Bonus = Math.round((PlayerStats.AttackSpeed - 2.5) / .02);
+            if (Bonus > 120) Bonus = 120;
+            if (PlayerStats.AttackSpeed > 2.5) PlayerStats.Power += 3 * Bonus;
             addPassiveText('Silverbranch Bow', '+3 Power per .02 Attack Speed above 2.5');
             break;
         case "Nimble Bancroft's Talon": 
-            PlayerStats.AttackSpeed += (PlayerStats.AttackSpeed * .02) * Math.floor(PlayerStats.Power / 30);
+            PlayerStats.AttackSpeed += (GOD.AttackSpeed * .02) * Math.floor(PlayerStats.Power / 30);
             addPassiveText('Nimble Bancroft\'s Talon', '+2% Attack Speed per 30 Magical Power');
             break;
     }
 }
 
-function calculateBasicAttackDamage(player) {
+function calculateAfterEffects(player) {
     let PlayerStats = player.Stats;
     const GOD_STATS = player.God;
     if (GOD_STATS.Name == 'Olorun') PlayerStats.BasicAttackDamage += (PlayerStats.Power + GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level)) * .25;
     else if (GOD_STATS.Type == 'Magical') PlayerStats.BasicAttackDamage += (PlayerStats.Power + GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level)) * .20;
     else if (GOD_STATS.Type == 'Physical') PlayerStats.BasicAttackDamage += (PlayerStats.Power + GOD_STATS.Power + (GOD_STATS.PowerPL * player.Level));
+    PlayerStats.EHP = Math.round(PlayerStats.Health / (1 - (PlayerStats.DamageReduction / 100)));
 }
 
 

@@ -41,7 +41,7 @@ function randomItems() {
        if (status && status[0] == 'SUCCESS') SiteData.ActiveItemIndex++;
     }
     SiteData.TierFilter = 3;
-    if (SiteData.Activemenu) displayMenu(SiteData.ActiveMenu);
+    if (SiteData.ActiveMenu) displayMenu(SiteData.ActiveMenu);
 }
 
 ////////////////////////////
