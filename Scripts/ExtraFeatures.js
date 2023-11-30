@@ -187,20 +187,22 @@ function clearHMUpdate() { clearInterval(mouseInterval); }
 LookupMenu.addEventListener("keydown", function(event) {
     if (event.key !== 'Enter') return;
     const INPUT = document.querySelectorAll('#LookupMenu Input')[0];
-    const SECONDS = (new Date()).getSeconds();
+    const SECONDS = Date.now();
 
     if (SiteData.LastLookup !== -1 && SECONDS - SiteData.LastLookup < 10) { print('You are doing that too fast!', 1); return; }
     SiteData.LastLookup = SECONDS;
+    document.querySelector('#LookupWrap').innerHTML = '';
 
     LOAD_DISPLAYS[0].style.opacity = 1;
-    try { generateRecentGames(INPUT.value); }
+    const LIMIT = setTimeout(() => { LOAD_DISPLAYS[0].style.opacity = 0; print('Could not find player', 1); }, 5000);
+    try { generateRecentGames(INPUT.value, LIMIT); }
     catch (e) { print('Unable to load data', 1); LOAD_DISPLAYS[0].style.opacity = 0; }
     INPUT.value = '';
 }, false);
 
 let tempKey = '';
 
-async function generateRecentGames(player) {
+async function generateRecentGames(player, searchLimit) {
     await updateSession();
     let Request, Data = '';
     try { 
@@ -212,7 +214,6 @@ async function generateRecentGames(player) {
     catch (e) { print('Unable to retrieve match data', 1); return; }
 
     if (!Data || !Data[0].GodId) { print('Player not found', 1); return; }
-    console.log(Data);
 
     for (let recentIndex = 0; recentIndex < 10; recentIndex++) {
         const GAME = document.createElement('div');
@@ -230,9 +231,10 @@ async function generateRecentGames(player) {
         GAME.Lang = Data[recentIndex].Match;
         GAME.innerHTML += `<div class="game_duration">${Data[recentIndex].Match_Time}</div>`;
         GAME.ondblclick = function() { appendMatchData(GAME.Lang); displayMenu(SiteData.ActiveMenu); }
-        LookupMenu.appendChild(GAME);
+        document.querySelector('#LookupWrap').appendChild(GAME);
     }
     LOAD_DISPLAYS[0].style.opacity = 0;
+    clearTimeout(searchLimit);
 }
 
 async function appendMatchData(match) {
@@ -244,7 +246,7 @@ async function appendMatchData(match) {
     } catch (e) { print('Unable to fetch match data', 1); }
     const TEAM_SIZE = Data.length / 2;
     let playerIndex = 0;
-    console.log(Data);
+
     for (player of Data) {
         SiteData.ActivePlayerIndex = playerIndex + 1;
         appendGod(getGodData(player.GodId));
