@@ -21,6 +21,7 @@
                 <div id="Alert" class="button" onclick="displayMenu(document.querySelector('#AlertMenu'))">🕭</div>
                 <div id="File" class="button" onclick="displayMenu(document.querySelector('#FileMenu'))">🖿</div>
                 <div id="Lang" class="button" onclick="displayMenu(document.querySelector('#LangMenu'))">⛿</div>
+                <div id="Lookup" class="button" onclick="displayMenu(document.querySelector('#LookupMenu'))" style="line-height:0;">✱</div>
             </div>
             <!-- Global Option Menu -->
             <div id="GlobalOptions">
@@ -57,6 +58,15 @@
             <span class="option">German/Deutsch</span>
             <span class="option">Polish/Polski</span>
             <span class="option">Spanish/Española Latinoamericana</span>
+        </div>
+        <div id="LookupMenu">
+            <span>Search Player's Recent Games</span>
+            <input placeholder="Enter a player name">
+            <div class="loading">
+                <div class="dot" style="animation-delay: .2s"></div>
+                <div class="dot" style="animation-delay: .4s"></div>
+                <div class="dot" style="animation-delay: .6s"></div>
+            </div>
         </div>
         <div id="InfoMenu" class="menu">
             <div id="PassiveButton"></div>

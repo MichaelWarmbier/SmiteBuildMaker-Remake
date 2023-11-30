@@ -29,6 +29,32 @@ body {
     width: 200%;
 }
 
+* { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}  *::-webkit-scrollbar { display: none; }
+
+.loading {
+    height: max-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1vh;
+    transition: opacity .3s;
+    opacity: 0;
+}
+
+.loading .dot {
+    width: 2vw; height: 2vw;
+    border-radius: 100%;
+    animation-name: loading;
+    animation-duration: .3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    background-color: var(--DarkGrayed);
+}
+
 /*//// Header ////*/
 
 #LoadingScreen {
@@ -90,11 +116,10 @@ body {
 
 #Header #Nav {
     height: 100%;
-    width: 27vw;
+    width: 33vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding-left: 3vw;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -377,6 +402,82 @@ body {
 #FileMenu .option { width: 4vw; cursor: pointer; }
 #LangMenu .option { width: 60%; cursor: pointer; }
 
+#LookupMenu {
+    background-color: var(--MenuBlue);
+    width: max-content;
+    height: max-content;
+    max-height: 70vh;
+    border-radius: 2vw;
+    position: absolute;
+    margin: auto;
+    left: 200vw; right: 0; top: 15vh; bottom: 0;
+    transition-property: left;
+    transition-duration: 1s;
+    padding: 3vw;
+    z-index: 150; 
+    overflow-x: hidden;
+    overflow-y: scroll;
+} 
+
+#LookupMenu Span {
+    font-size: 2vw;
+    font-family: var(--TitleFont);
+    width: 100%;
+    text-align: center;
+    color: white;
+    display: block;
+    margin-bottom: 2vh;
+}
+
+#LookupMenu Input {
+    width: 35vw; height: 5vh;
+    background-color: var(--DarkButton);
+    color: white; 
+    font-family: 'Roboto';
+    padding: 0 1vw 0 1vw;
+    font-size: 2vw;
+    border: solid .1vw var(--BrightGold);
+}
+
+#LookupMenu .recent_game {
+    width: 35vw;
+    height: 10vh;
+    padding: 1vw;
+    background-color: var(--DarkButton);
+    margin-top: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    cursor: pointer;
+} 
+
+.recent_game:hover { 
+    box-shadow: .1vw .1vw .3vw white, -.1vw -.1vw .3vw white, -.1vw .1vw .3vw white, .1vw -.1vw .3vw white;
+}
+
+#LookupMenu .recent_game .game_god {
+    height: 10vh; width: 10vh;
+    border-radius: .3vw;
+    background-color: var(--DarkButton);
+}
+
+#LookupMenu .recent_game .game_item {
+    height: 5vh; width: 5vh;
+    border-radius: .3vw;
+    background-image: URL('Assets/Icons/Null.png');
+    background-size: cover;
+    background-color: var(--DarkButton);
+}
+
+#LookupMenu .recent_game .game_duration {
+    position: absolute;
+    right: 2vw; top: 1vh;
+    color: var(--DarkGold);
+    font-family: var(--BrandFont);
+    font-size: 1.5vw;
+}
+
 #OptionsMenu {
     display: flex;
     justify-content: center;
@@ -612,15 +713,17 @@ body {
 #GodInfo {
     float: left;
     width: max-content;
+    max-width: 27vw;
     height: 50vh;
     left: 25vw; top: 5.5vh;
     line-height: 6vh;
     box-shadow: none !important;
+    transform: translate(-3vw, -1.5vw);
 }
 
 #GodInfo #GodName {
     font-family: 'Nova Square', cursive;
-    font-size: 7vh;
+    font-size: 5vh;
     left: 0; right: 0; top: 2vh;
 }
 
@@ -1717,4 +1820,9 @@ body {
 @keyframes arrow {
     from { transform: translateX(2.5vw); }
     to { transform: translateX(-2.5vw); }
+}
+
+@keyframes loading {
+    from { transform: scale(.5); }
+    to { transform: scale(1); }
 }

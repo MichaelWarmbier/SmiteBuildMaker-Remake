@@ -133,8 +133,6 @@ function appendInfo() {
 
 function getPantheon(name) { for (item of SiteData.PantheonData) if (item.Name === name) return item; }
 
-/*//// God Functions ////*/
-
 function displayGod(name) {
     for (God of English.Gods) if (God.Name === name) {
         function getPantheon(name) { for (item of SiteData.PantheonData) if (item.Name === name) return item; }
@@ -240,3 +238,6 @@ function setTier(tier) {
     for (Button of TierButtons) Button.style.color = 'var(--DarkGrayed)';
     TierButtons[tier - 1].style.color = 'var(--DarkGold)';
 }
+
+function getGodData(id) { for (God of English.Gods) if (God.Id == id) return God; }
+function getItemData(id) { for (Item of English.Items) if (Item.Id == id) return Item; }

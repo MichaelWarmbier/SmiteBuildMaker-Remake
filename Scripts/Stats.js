@@ -47,6 +47,7 @@ function calculateBaseStats(player) {
 function addItemStats(player) {
     let PlayerStats = player.Stats;
     let PlayerItems = player.Items;
+    const GOD = player.God;
     const GOD_TYPE = player.God.Type;
     let Nicknames = SiteData.StatNicknames;
 
@@ -280,7 +281,7 @@ function displayStats(player) {
         let hasPercent = (StatCaps[StatIndex].innerHTML.includes('%'));
         let Percent = PlayerStats[key] / StatCaps[StatIndex].innerHTML.replace('%', '') * 100;
         if (!PlayerStats[key]) Percent = 0;
-        if (PlayerStats[key] > StatCaps[StatIndex].innerHTML) PlayerStats[key] = StatCaps[StatIndex].innerHTML;
+        if (PlayerStats[key] > StatCaps[StatIndex].innerHTML.replace('%', '')) PlayerStats[key] = StatCaps[StatIndex].innerHTML.replace('%', '');
         StatDisplays[StatIndex].innerHTML = (Math.round(PlayerStats[key] * 100) / 100);
         if (hasPercent) StatDisplays[StatIndex].innerHTML += '%';
         StatBars[StatIndex].style.background = 'linear-gradient(to right, #827751 ' + Percent + '%, #111821 ' + Percent + '%)';

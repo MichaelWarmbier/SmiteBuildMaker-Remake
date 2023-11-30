@@ -8,6 +8,7 @@ let SiteData = {
     "SearchQuery": "",
     "TierFilter": 3,
     "SaveNumber": 1,
+    "LastLookup": -1,
     "Flags": {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,

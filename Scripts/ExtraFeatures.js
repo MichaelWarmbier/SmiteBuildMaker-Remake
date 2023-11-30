@@ -13,7 +13,8 @@ function randomGod() {
 
 function randomItems() {
     const PLAYER = SiteData.ActivePlayerIndex;
-    if (!SiteData.PlayerData[PLAYER - 1].God) { print('A God must be selected first', 1); return; }
+    const GOD = SiteData.PlayerData[PLAYER - 1].God;
+    if (!GOD) { print('A God must be selected first', 1); return; }
     SiteData.ActiveItemIndex = 1;
     SiteData.TierFilter = 3;
     SiteData.Filter = '';
@@ -26,8 +27,10 @@ function randomItems() {
     let StarterList = [];
     if (SiteData.PlayerData[PLAYER - 1].God.Name === 'Ratatoskr')
         for (Item of English.Items) if (Item.Ratatoskr && Item.Tier == 3) StarterList.push(Item.Name);
-    if (SiteData.PlayerData[PLAYER - 1].God.Name !== 'Ratatoskr')
-        for (Item of English.Items) if (Item.Starter) StarterList.push(Item.Name);
+    if (SiteData.PlayerData[PLAYER - 1].God.Name !== 'Ratatoskr') {
+        for (Item of English.Items) if (Item.Starter && Item.Tier == 2 && (Item.DamageType == GOD.Type || Item.DamageType == 'Neutral')) 
+            StarterList.push(Item.Name);
+    }
 
     let status = '';
     while (SiteData.ActiveItemIndex < 7) {
@@ -174,3 +177,106 @@ function updateHealthMana(elem, event) {
 }
 
 function clearHMUpdate() { clearInterval(mouseInterval); }
+
+/////////////////////////
+/*//// Game Upload ////*/
+/////////////////////////
+
+// THIS SHOULD USE COOKIES IN THE LIVE VERSION, FOR NOW IT USES A TEMP VARIABLE
+
+LookupMenu.addEventListener("keydown", function(event) {
+    if (event.key !== 'Enter') return;
+    const INPUT = document.querySelectorAll('#LookupMenu Input')[0];
+    const SECONDS = (new Date()).getSeconds();
+
+    if (SiteData.LastLookup !== -1 && SECONDS - SiteData.LastLookup < 10) { print('You are doing that too fast!', 1); return; }
+    SiteData.LastLookup = SECONDS;
+
+    LOAD_DISPLAYS[0].style.opacity = 1;
+    try { generateRecentGames(INPUT.value); }
+    catch (e) { print('Unable to load data', 1); LOAD_DISPLAYS[0].style.opacity = 0; }
+    INPUT.value = '';
+}, false);
+
+let tempKey = '';
+
+async function generateRecentGames(player) {
+    await updateSession();
+    let Request, Data = '';
+    try { 
+        if (!player) { print('Please enter a player name', 1); return; }
+        Request = await fetch(`https://server-08.kirbout.repl.co/requestmatchhistory?ID=${tempKey}&USER=${player}`);
+        Data = await Request.json();
+        if (Data.ret_msg) throw new Error('');
+    }
+    catch (e) { print('Unable to retrieve match data', 1); return; }
+
+    if (!Data || !Data[0].GodId) { print('Player not found', 1); return; }
+    console.log(Data);
+
+    for (let recentIndex = 0; recentIndex < 10; recentIndex++) {
+        const GAME = document.createElement('div');
+        GAME.classList.add('recent_game');
+        const GOD = getGodData(Data[recentIndex].GodId);
+        GAME.innerHTML = `<div class="game_god" style="background:URL('${GOD.Icon}'); background-size: cover"></div>`;
+        for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
+            const ITEM_ID = Data[recentIndex]['ItemId' + parseInt(itemIndex + 1)];
+            let Item = getItemData(ITEM_ID);
+            if (Item) GAME.innerHTML += `<div class="game_item" style="background: URL('${Item.URL}'); background-size: cover"></div>`;
+            else GAME.innerHTML += `<div class="game_item"></div>`;
+        }
+        if (Data[recentIndex].Win_Status === 'Win') GAME.style.backgroundColor = 'RGB(5, 57, 36)';
+        else GAME.style.backgroundColor = 'RGB(45, 17, 36)';
+        GAME.Lang = Data[recentIndex].Match;
+        GAME.innerHTML += `<div class="game_duration">${Data[recentIndex].Match_Time}</div>`;
+        GAME.ondblclick = function() { appendMatchData(GAME.Lang); displayMenu(SiteData.ActiveMenu); }
+        LookupMenu.appendChild(GAME);
+    }
+    LOAD_DISPLAYS[0].style.opacity = 0;
+}
+
+async function appendMatchData(match) {
+    let Data = null;
+    try {
+        const REQUEST = await fetch(`https://server-08.kirbout.repl.co/requestmatch?ID=${tempKey}&MATCH_ID=${match}`)
+        Data = await REQUEST.json();
+        if (!Data || !Data[0].GodId) throw new Error('');
+    } catch (e) { print('Unable to fetch match data', 1); }
+    const TEAM_SIZE = Data.length / 2;
+    let playerIndex = 0;
+    console.log(Data);
+    for (player of Data) {
+        SiteData.ActivePlayerIndex = playerIndex + 1;
+        appendGod(getGodData(player.GodId));
+        SiteData.PlayerData[playerIndex].Level = player.Final_Match_Level;
+        for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
+            SiteData.ActiveItemIndex = itemIndex + 1;
+            if (!player['Item_Purch_' + parseInt(itemIndex + 1)]) continue;
+            const ITEM = getItemData(player['ItemId' + parseInt(itemIndex + 1)]);
+            appendItem(ITEM);
+            if (ITEM.isGlyph) SiteData.PlayerData[playerIndex].GlyphIndex = itemIndex;
+            if (ITEM.Starter) SiteData.PlayerData[playerIndex].StarterIndex = itemIndex;
+            if (ITEM.Filters.includes('Recipe')) SiteData.PlayerData[playerIndex].RecipeIndex = itemIndex;
+        }
+        if (playerIndex == TEAM_SIZE - 1) playerIndex = 5;
+        else playerIndex++;
+    }
+}
+
+async function updateSession() {
+    const STATUS = await checkSessionStatus();
+    if (!STATUS) { print('Unable to establish connection.', 1); return; }
+    else print('Connection estbalished under session ' + tempKey);
+}
+
+async function checkSessionStatus() {
+    let Request = await fetch('https://server-08.kirbout.repl.co/requestsession');
+    const NEW_SESSION = await Request.text();
+    if (NEW_SESSION.includes('Err')) return false;
+    try { Request = await fetch(`https://server-08.kirbout.repl.co/testsession?ID=${tempKey}`); }
+    catch(e) {  print(e); return false; }
+    let Data = await Request.json(); 
+    if (Data.Status !== 'Valid') tempKey = NEW_SESSION;
+    return true;
+}
+

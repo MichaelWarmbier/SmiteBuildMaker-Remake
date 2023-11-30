@@ -9,6 +9,7 @@ const Alert = document.querySelector('#Alert');
 const Info = document.querySelector('#Info');
 const Lang = document.querySelector('#Lang');
 const _File = document.querySelector('#File');
+const Lookup = document.querySelector('#Lookup');
 const AboutMenu = document.querySelector('#AboutMenu');
 const NewsMenu = document.querySelector('#NewsMenu');
 const AlertMenu = document.querySelector('#AlertMenu');
@@ -32,7 +33,7 @@ const ItemMenu = document.querySelector('#ItemMenu');
 const GodFilterNames = document.querySelector('#GodFilterNames');
 const ExtraInfo = document.querySelector('#ExtraInfo');
 const QuickChange = document.querySelector('#QuickChange');
-let currentWarning = null;
+const LOAD_DISPLAYS = document.querySelectorAll('.loading');
 
 /////////////////////
 /*//// Utility ////*/
@@ -149,6 +150,7 @@ window.onload = function() {
     createTextEvent(Alert, 'View SmiteBuildMaker Announcements');
     createTextEvent(Lang, 'Select Site Language');
     createTextEvent(_File, 'Switch Local Save File');
+    createTextEvent(Lookup, 'Upload Recent Game');
     print('Finished Initializing Site Display');
 }
 
@@ -290,7 +292,6 @@ function openGodMenu(pIndex, side) {
 
 function openItemMenu(iIndex, pIndex, side) {
     if (!SiteData.PlayerData[pIndex + 5 * (side == 'Order') - 1].God) { print('A Character Must Be Selected First', 1); return; }
-    SiteData.Filter = '';
     SiteData.SearchQuery = '';
     SiteData.ActivePlayerIndex = pIndex + 5 * (side == 'Order');
     SiteData.ActiveItemIndex = iIndex;
