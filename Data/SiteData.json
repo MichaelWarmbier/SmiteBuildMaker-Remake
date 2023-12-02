@@ -12,8 +12,6 @@ let SiteData = {
     "Flags": {
         "MenuOpen": false,
         "GlobalOptionsOpen": false,
-        "SelectionWindowOpen": false,
-        "InfoDisplayOpen": false,
         "TerminalOpen": false
     },
     "PantheonData": [

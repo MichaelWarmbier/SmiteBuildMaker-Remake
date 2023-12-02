@@ -1,5 +1,7 @@
 /*//// Data ////*/
 
+English = { ...ENGLISH_Items, ...ENGLISH_Gods };
+
 const MenuFlags = SiteData.Flags
 let touchValue = 0;
 
@@ -103,6 +105,12 @@ window.onload = function() {
         }
 
     })
+
+    // Check for link sharing
+    const QUERY = new URLSearchParams(window.location.search);
+    let QueryData = [[],[]];
+    for (key of QUERY.keys()) { QueryData[0].push(key); QueryData[1].push(QUERY.get(key)); }
+    if (QUERY.size > 0) loadData(QueryData);
 
     // Play Swipe Animation
     SwipeNotif.style.opacity = 1;

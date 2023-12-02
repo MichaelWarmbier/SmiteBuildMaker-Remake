@@ -76,7 +76,9 @@ function toggleGOption(option) {
 
 function toggleSaveFile(file) {
     SiteData.SaveNumber = file;
+    for(index of Array(10).keys()) removeGod(index + 1);
     loadData();
+    displayMenu(SiteData.ActiveMenu);
 }
 
 function setFilter(name) { 
@@ -147,7 +149,7 @@ function displayGod(name) {
     }
 }
 
-function appendGod(God) {
+function appendGod(God, preventDefault=false) {
     const PLAYER = SiteData.ActivePlayerIndex;
     const GodIcon = document.querySelectorAll('#App .icon')[PLAYER - 1];
     GodIcon.innerHTML = '';
@@ -155,7 +157,7 @@ function appendGod(God) {
     else { GodIcon.style.backgroundImage = ''; GodIcon.innerHTML = '?' }
     SiteData.PlayerData[PLAYER - 1].God = God;
     if (God) print(`${God.Name} selected for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
-    displayMenu(document.querySelector('#GodMenu'));
+    if (!preventDefault) displayMenu(document.querySelector('#GodMenu'));
 }
 
 function displayItem(name) {
@@ -171,7 +173,7 @@ function displayItem(name) {
     }
 }
 
-function appendItem(Item, RandomProcess=false) {
+function appendItem(Item, preventDefault=false) {
     const PLAYER = SiteData.ActivePlayerIndex;
     const ITEM = SiteData.ActiveItemIndex;
     const CURR_ITEMS = SiteData.PlayerData[PLAYER - 1].Items;
@@ -181,13 +183,13 @@ function appendItem(Item, RandomProcess=false) {
     let Recipe = SiteData.PlayerData[PLAYER - 1].RecipeIndex;
 
     // Item checks
-    if (Item && SiteData.PlayerData[PLAYER - 1].Items.includes(Item)) { if (!RandomProcess) print('Item already selected', 1); return; }
-    if (Item && Starter != -1 && Item.Starter && ITEM != Starter) { if (!RandomProcess) print('Cannot select two starter items', 1); return; }
-    if (Item && Glyph != -1 && Item.isGlyph && ITEM != Glyph) { if (!RandomProcess) print('Cannot select two glyph items', 1); return; }
-    if (Item && Recipe != -1 && Item.Filters.includes('Recipe') && ITEM != Recipe) { if (!RandomProcess) print('Cannot select two recipes', 1); return; }
+    if (Item && SiteData.PlayerData[PLAYER - 1].Items.includes(Item)) { if (!preventDefault) print('Item already selected', 1); return; }
+    if (Item && Starter != -1 && Item.Starter && ITEM != Starter) { if (!preventDefault) print('Cannot select two starter items', 1); return; }
+    if (Item && Glyph != -1 && Item.isGlyph && ITEM != Glyph) { if (!preventDefault) print('Cannot select two glyph items', 1); return; }
+    if (Item && Recipe != -1 && Item.Filters.includes('Recipe') && ITEM != Recipe) { if (!preventDefault) print('Cannot select two recipes', 1); return; }
     for (checkItem of CURR_ITEMS) for (pair of PAIRS) {
         if (Item && checkItem && pair.Pair.includes(Item.Name) && pair.Pair.includes(checkItem.Name) && checkItem != CURR_ITEMS[ITEM - 1])  
-        { if (!RandomProcess) print('Cannot select Tier IV and its respective Tier III', 1); return; }
+        { if (!preventDefault) print('Cannot select Tier IV and its respective Tier III', 1); return; }
     }
 
     // Item appending
@@ -224,7 +226,8 @@ function removeItem(item) {
     print(`Item ${item} removed for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
 }
 
-function removeGod() {
+function removeGod(manual=-1) {
+    if (manual != -1) SiteData.ActivePlayerIndex = manual;
     for (let itemIndex = 0; itemIndex < 6; itemIndex++) removeItem(itemIndex);
     appendGod(null);
     SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].God = null;

@@ -96,7 +96,7 @@ function toggleBuildNumbers() {
 /*//// Save/Share System ////*/
 ///////////////////////////////
 
-function setCookie(name, value ,days) {
+function setCookie(name, value, days) {
     var expires = "";
     if (days) {
         var date = new Date();
@@ -140,15 +140,44 @@ function saveData() {
     print(`Saved data to file ${SiteData.SaveNumber}`)
   }
 
-  function loadData() {
-    // ADD CODE LATER ON LIVE VERSION
+  function loadData(data) {
+    if (!data) {
+      const DATA = getCookie('save_' + SiteData.SaveNumber);
+      const SPLIT_DATA = DATA.split(/[&=]/g);
+      let parsedData = [[],[]];
+      for (let index = 0; index < SPLIT_DATA.length; index++)  {
+        if (index % 2 == 0) parsedData[0].push(SPLIT_DATA[index]);
+        else parsedData[1].push(SPLIT_DATA[index]);
+      }
+      data = parsedData;
+    }
+    let currPlayer = 0;
+    for (let dataIndex = 0; dataIndex < data[0].length; dataIndex++) {
+      if (data[0][dataIndex].includes('g')) {
+        currPlayer = parseInt(data[0][dataIndex][0]);
+        if (data[1][dataIndex] != 'N') {
+          SiteData.ActivePlayerIndex = currPlayer + 1;
+          appendGod(getGodData(data[1][dataIndex]), true);
+        }
+      }
+      if (currPlayer == data[0][dataIndex][0]) {
+        if (data[0][dataIndex].includes('l')) 
+          SiteData.PlayerData[currPlayer].Level = data[1][dataIndex];
+        if (data[0][dataIndex].includes('i') && data[1][dataIndex] != 'N') {
+          SiteData.ActiveItemIndex = parseInt(data[0][dataIndex][2]) + 1;
+          appendItem(getItemData(data[1][dataIndex]), true);
+        }
+      }
+      if (data[0][dataIndex] == 'bn' && (data[1][dataIndex] == 'true' || data[1][dataIndex] == '1'))
+        toggleBuildNumbers();
+    }
     document.querySelector('#LoadButton').innerHTML = '✓';
     setTimeout(function() { document.querySelector('#LoadButton').innerHTML = 'Load Local Save'; }, 1500);
     print(`Loaded file ${SiteData.SaveNumber}`)
 }
 
 function generateShareLink() {
-    const SITE_URL = 'dummy_websiteDOTcom';
+    const SITE_URL = 'https://smite-build-maker-50-kirbout.replit.app';
     navigator.clipboard.writeText(SITE_URL + '/?' + generateLink());
     document.querySelector('#ShareButton').innerHTML = '✓ Copied!';
     setTimeout(function() { document.querySelector('#ShareButton').innerHTML = 'Create Share Link'; }, 1500);
@@ -182,8 +211,6 @@ function clearHMUpdate() { clearInterval(mouseInterval); }
 /*//// Game Upload ////*/
 /////////////////////////
 
-// THIS SHOULD USE COOKIES IN THE LIVE VERSION, FOR NOW IT USES A TEMP VARIABLE
-
 LookupMenu.addEventListener("keydown", function(event) {
     if (event.key !== 'Enter') return;
     const INPUT = document.querySelectorAll('#LookupMenu Input')[0];
@@ -200,20 +227,21 @@ LookupMenu.addEventListener("keydown", function(event) {
     INPUT.value = '';
 }, false);
 
-let tempKey = '';
+let ID = getCookie('ID');
 
 async function generateRecentGames(player, searchLimit) {
     await updateSession();
     let Request, Data = '';
     try { 
         if (!player) { print('Please enter a player name', 1); return; }
-        Request = await fetch(`https://server-08.kirbout.repl.co/requestmatchhistory?ID=${tempKey}&USER=${player}`);
+        Request = await fetch(`https://server-08.kirbout.repl.co/requestmatchhistory?ID=${ID}&USER=${player}`);
         Data = await Request.json();
         if (Data.ret_msg) throw new Error('');
     }
     catch (e) { print('Unable to retrieve match data', 1); return; }
 
     if (!Data || !Data[0].GodId) { print('Player not found', 1); return; }
+    console.log(Data);
 
     for (let recentIndex = 0; recentIndex < 10; recentIndex++) {
         const GAME = document.createElement('div');
@@ -229,7 +257,7 @@ async function generateRecentGames(player, searchLimit) {
         if (Data[recentIndex].Win_Status === 'Win') GAME.style.backgroundColor = 'RGB(5, 57, 36)';
         else GAME.style.backgroundColor = 'RGB(45, 17, 36)';
         GAME.Lang = Data[recentIndex].Match;
-        GAME.innerHTML += `<div class="game_duration">${Data[recentIndex].Match_Time}</div>`;
+        GAME.innerHTML += `<div class="game_duration">${Data[recentIndex].Queue} | ${Data[recentIndex].Match_Time}</div>`;
         GAME.ondblclick = function() { appendMatchData(GAME.Lang); displayMenu(SiteData.ActiveMenu); }
         document.querySelector('#LookupWrap').appendChild(GAME);
     }
@@ -240,7 +268,7 @@ async function generateRecentGames(player, searchLimit) {
 async function appendMatchData(match) {
     let Data = null;
     try {
-        const REQUEST = await fetch(`https://server-08.kirbout.repl.co/requestmatch?ID=${tempKey}&MATCH_ID=${match}`)
+        const REQUEST = await fetch(`https://server-08.kirbout.repl.co/requestmatch?ID=${ID}&MATCH_ID=${match}`)
         Data = await REQUEST.json();
         if (!Data || !Data[0].GodId) throw new Error('');
     } catch (e) { print('Unable to fetch match data', 1); }
@@ -268,17 +296,16 @@ async function appendMatchData(match) {
 async function updateSession() {
     const STATUS = await checkSessionStatus();
     if (!STATUS) { print('Unable to establish connection.', 1); return; }
-    else print('Connection estbalished under session ' + tempKey);
+    else print('Connection estbalished under session ' + ID);
 }
 
 async function checkSessionStatus() {
     let Request = await fetch('https://server-08.kirbout.repl.co/requestsession');
     const NEW_SESSION = await Request.text();
     if (NEW_SESSION.includes('Err')) return false;
-    try { Request = await fetch(`https://server-08.kirbout.repl.co/testsession?ID=${tempKey}`); }
+    try { Request = await fetch(`https://server-08.kirbout.repl.co/testsession?ID=${ID}`); }
     catch(e) {  print(e); return false; }
     let Data = await Request.json(); 
-    if (Data.Status !== 'Valid') tempKey = NEW_SESSION;
+    if (Data.Status !== 'Valid') { ID = NEW_SESSION; setCookie('ID', NEW_SESSION, 1); }
     return true;
 }
-

@@ -450,6 +450,7 @@ body {
     justify-content: space-around;
     position: relative;
     cursor: pointer;
+    border: solid .2vw var(--BrightGold);
 } 
 
 .recent_game:hover { 
@@ -468,6 +469,7 @@ body {
     background-image: URL('Assets/Icons/Null.png');
     background-size: cover;
     background-color: var(--DarkButton);
+    transform: translateY(2vw);
 }
 
 #LookupMenu .recent_game .game_duration {
