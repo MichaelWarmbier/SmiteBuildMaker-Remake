@@ -121,6 +121,7 @@ function appendInfo() {
         if (!Item) {
             ItemDisp[ItemIndex - 1].style.backgroundImage = '';
             ITEM_PRICE[ItemIndex - 1].innerHTML = '0 <img src="Assets/Icons/Gold.png">';
+            ItemDisp[ItemIndex - 1].style.cursor = 'not-allowed';
             continue;
         }
         ItemDisp[ItemIndex - 1].style.backgroundImage = `url("${Item.URL}")`;
@@ -129,6 +130,10 @@ function appendInfo() {
         createTextEvent(ItemDisp[ItemIndex - 1], `<span style="color: var(--DarkGold)">${Item.Name}</span><br><br>${Item.Description}<br><br>${statString}</span>`);
         ITEM_PRICE[ItemIndex - 1].innerHTML = Item.Gold + '<img src="Assets/Icons/Gold.png">';
         totalBuildPrice += Item.Gold;
+        ItemDisp[ItemIndex - 1].lang = Item.Name;
+        const INDEX = ItemIndex - 1;
+        ItemDisp[ItemIndex - 1].onclick = function() { activateItem(INDEX); updateStats(); appendInfo(); }
+        ItemDisp[ItemIndex - 1].style.cursor = 'pointer';
     }
     document.querySelector('#BuildPrice').innerHTML = totalBuildPrice + '<img src="Assets/Icons/Gold.png">';
 }
@@ -227,19 +232,22 @@ function removeItem(item) {
 }
 
 function removeGod(manual=-1) {
-    if (manual != -1) SiteData.ActivePlayerIndex = manual;
-    for (let itemIndex = 0; itemIndex < 6; itemIndex++) removeItem(itemIndex);
-    appendGod(null);
-    SiteData.PlayerData[SiteData.ActivePlayerIndex - 1].God = null;
-    print(`God removed for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
-    displayMenu(document.querySelector('#GodMenu'));
+  if (manual != -1) SiteData.ActivePlayerIndex = manual;
+  const PLAYER = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1];
+  for (let itemIndex = 0; itemIndex < 6; itemIndex++) removeItem(itemIndex);
+  appendGod(null);
+  PLAYER.God = null;
+  PLAYER.Level = 1;
+  PLAYER.ActiveEffects = [];
+  print(`God removed for player ${SiteData.ActivePlayerIndex % 5} of ${SiteData.ActivePlayerIndex < 6 ? 'Chaos' : 'Order'}`)
+  displayMenu(document.querySelector('#GodMenu'));
 }
 
 function setTier(tier) {
-    SiteData.TierFilter = tier;
-    let TierButtons = document.querySelectorAll('.tier_filter');
-    for (Button of TierButtons) Button.style.color = 'var(--DarkGrayed)';
-    TierButtons[tier - 1].style.color = 'var(--DarkGold)';
+  SiteData.TierFilter = tier;
+  let TierButtons = document.querySelectorAll('.tier_filter');
+  for (Button of TierButtons) Button.style.color = 'var(--DarkGrayed)';
+  TierButtons[tier - 1].style.color = 'var(--DarkGold)';
 }
 
 function getGodData(id) { for (God of English.Gods) if (God.Id == id) return God; }

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>SmiteBuildMaker</title>
         <meta http-equiv="Content-Type" Content-Type="text/html; charset=utf-8" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Roboto&family=Roboto+Mono&family=Rubik+Burned&display=swap" rel="stylesheet">
         <link href="style.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" type="image/png" href="Assets/favicon.png" />
     </head>
     <body>
         <div id="LoadingScreen">Loading SmiteBuildMaker</div>
@@ -70,7 +72,7 @@
             </div>
         </div>
         <div id="InfoMenu" class="menu">
-            <div id="PassiveButton"></div>
+            <button id="PassiveButton" onclick="togglePassiveDisplay()"></button>
             <div id="GodCard"></div>
             <div class="item_cont">
                 <div class="item_disp"></div>
@@ -205,7 +207,7 @@
                     </div>
                 </span>
             </div>
-            <div id="PassiveDisplay"><span>🛈</span></div>
+            <div id="PassiveDisplay" onmouseout="togglePassiveDisplay()"><span>🛈</span></div>
         </div>
         <div id="OptionsMenu" class="menu">
             <span class="header"></span>
@@ -513,6 +515,7 @@
             <!-- Quick Change Menu -->
             <div id="QuickChange">
                 <div class="left" onclick="changeMenu('-')">←</div>
+                <div id="QuickSwap" onclick="swapMenu(SiteData.ActivePlayerIndex)">🗘</div>
                 <div class="right" onclick="changeMenu('+')">→</div>
             </div>
         </div>

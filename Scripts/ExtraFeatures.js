@@ -114,7 +114,7 @@ function generateLink() {
     const REGEX = />([^<]+)/;
     let link = '';
     for (let playerIndex = 0; playerIndex < 10; playerIndex++) {
-        if (!SiteData.PlayerData[playerIndex].God) link +=  playerIndex + 'g=N&';
+        if (!SiteData.PlayerData[playerIndex].God) continue;
         else link += playerIndex + 'g=' + SiteData.PlayerData[playerIndex].God.Id + '&';
         link += playerIndex + 'l=' + SiteData.PlayerData[playerIndex].Level + '&';
         for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
@@ -141,6 +141,7 @@ function saveData() {
   }
 
   function loadData(data) {
+    // Access Save Data
     if (!data) {
       const DATA = getCookie('save_' + SiteData.SaveNumber);
       const SPLIT_DATA = DATA.split(/[&=]/g);
@@ -151,6 +152,7 @@ function saveData() {
       }
       data = parsedData;
     }
+    // Access URL Data
     let currPlayer = 0;
     for (let dataIndex = 0; dataIndex < data[0].length; dataIndex++) {
       if (data[0][dataIndex].includes('g')) {
@@ -207,9 +209,9 @@ function updateHealthMana(elem, event) {
 
 function clearHMUpdate() { clearInterval(mouseInterval); }
 
-/////////////////////////
-/*//// Game Upload ////*/
-/////////////////////////
+/////////////////////
+/*//// Backend ////*/
+/////////////////////
 
 LookupMenu.addEventListener("keydown", function(event) {
     if (event.key !== 'Enter') return;

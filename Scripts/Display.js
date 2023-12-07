@@ -213,6 +213,7 @@ function displayMenu(context, override) {
         Backdrop.style.pointerEvents = "auto";
         SiteData.ActiveMenu = context;
         MenuFlags.MenuOpen = true;
+        GlobalOptions.style.pointerEvents = 'none';
     } else {
         context.style.left = '200vw';
         Backdrop.style.opacity = 0;
@@ -221,6 +222,7 @@ function displayMenu(context, override) {
         SiteData.ActiveMenu = null;
         MenuFlags.MenuOpen = false;
         QuickChange.style.top = '-20vw';
+        GlobalOptions.style.pointerEvents = 'auto';
     }
     updateStats(SiteData.ActivePlayerIndex);
 }
@@ -236,6 +238,8 @@ function displayOptions(pIndex, side) {
 
 function displayInfo(pIndex, side) {
     if (!SiteData.PlayerData[pIndex - 1].God) { print('A Character Must Be Selected First', 1); return; }
+
+    SiteData.PlayerData[pIndex - 1].ActiveEffects = [];
     
     setTimeout(function() { SwipeNotif.style.opacity = 1; }, 500)
     setTimeout(function() { SwipeNotif.style.opacity = 0; }, 1500)
@@ -243,6 +247,7 @@ function displayInfo(pIndex, side) {
     print(`Opening Information for Player ${(pIndex)} of ${side}`);
     SiteData.ActivePlayerIndex = pIndex;
     Menu = InfoMenu;
+    for (let displayItem of document.querySelectorAll('.item_disp')) displayItem.style.animationName = '';
     displayMenu(Menu);
 }
 
@@ -360,13 +365,38 @@ function changeMenu(sign) {
     setTimeout(displayMenu(MENU), 400);
 }
 
+function swapMenu(pIndex) {
+  let side = pIndex < 5 ? 'Chaos' : 'Order';
+  if (SiteData.ActiveMenu == InfoMenu) { displayMenu(SiteData.ActiveMenu); displayOptions(pIndex, side); }
+  else if (SiteData.ActiveMenu == OptionsMenu) { displayMenu(SiteData.ActiveMenu); displayInfo(pIndex, side); }
+}
+
 function addPassiveText(title, text) { 
     let PassiveDisplay = document.querySelector('#PassiveDisplay');
     if (PassiveDisplay.innerHTML === '<span>🛈</span><br>No Passive Effects Active') PassiveDisplay.innerHTML = '<span>🛈</span>';
-    PassiveDisplay.innerHTML += `<span class="passive_title">${title}</span><br>${text}`;
+    PassiveDisplay.innerHTML += `<span class="passive_title">${title}</span><p class="text">${text}</p>`;
 }
 
 function clearPassiveText() { document.querySelector('#PassiveDisplay').innerHTML = '<span>🛈</span><br>No Passive Effects Active'; }
+
+function activateItem(itemIndex) {
+  const ELEMENT = document.querySelectorAll('.item_disp')[itemIndex];
+  const PLAYER = SiteData.PlayerData[SiteData.ActivePlayerIndex - 1];
+  if (!PLAYER.ActiveEffects.includes(ELEMENT.lang)) {
+    ELEMENT.style.animationName = 'aura';
+    PLAYER.ActiveEffects.push(ELEMENT.lang);
+  }
+  else {
+    ELEMENT.style.animationName = '';
+    PLAYER.ActiveEffects.splice(PLAYER.ActiveEffects.indexOf(ELEMENT.lang), 1);
+  }
+}
+
+function togglePassiveDisplay() {
+  const DISPLAY = document.querySelector('#PassiveDisplay');
+  if (!DISPLAY.style.opacity) { DISPLAY.style.opacity = '1'; DISPLAY.style.pointerEvents = 'auto'; }
+  else { DISPLAY.style.opacity = ''; DISPLAY.style.pointerEvents = 'none'; }
+}
 
 //////////////////////////////////
 /*//// Persistent Functions ////*/

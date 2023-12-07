@@ -3,15 +3,13 @@
 ////////////////////////////////
 
 function updateStats(player) {
+    if (!player) player = SiteData.ActivePlayerIndex;
     const PLAYER_DATA = SiteData.PlayerData[player - 1];
     if (!PLAYER_DATA.God) return;
     resetStats(PLAYER_DATA);
     calculateBaseStats(PLAYER_DATA);
     clearPassiveText();
     addItemStats(PLAYER_DATA);
-    /*
-    addGodPassiveStats(side);
-    */
     addItemPassiveStats(PLAYER_DATA);
     addNonConquestBalance(PLAYER_DATA);
     calculateAfterEffects(PLAYER_DATA);
@@ -31,6 +29,7 @@ function resetStats(player) {
 function calculateBaseStats(player) {
     let PlayerStats = player.Stats;
     const GOD_STATS = player.God;
+    console.log(GOD_STATS)
     PlayerStats.Speed += (player.Level <= 7 ? GOD_STATS.Speed * (player.Level - 1 * .03) : GOD_STATS.Speed * .18);
     PlayerStats.AttackSpeed += GOD_STATS.AttackSpeed + (GOD_STATS.AttackSpeedPL * player.Level * GOD_STATS.AttackSpeed);
     PlayerStats.Health += GOD_STATS.Health + (GOD_STATS.HealthPL * player.Level);
@@ -203,61 +202,176 @@ function addBuffStats(player) {
 function addItemPassiveStats(player) {
     const GOD = player.God;
     let PlayerStats = player.Stats;
+    /* This section applies passive effects */
     for (item of player.Items) if (item) switch (item.Name) {
         case "Heartward Amulet": 
             PlayerStats.MagicalProtections += 15;
             PlayerStats.MP5 += 30;
-            addPassiveText('Heartward Amulet', '+15 Magical Protections; +30 MP5');
+            addPassiveText(`Passive: ${item.Name}`, '+15 Magical Protections; +30 MP5');
             break;
         case "Sovereignty": 
             PlayerStats.PhysicalProtections += 15;
             PlayerStats.HP5 += 25;
-            addPassiveText('Sovereignty', '+15 Physical Protections; +25 HP5');
+            addPassiveText(`Passive: ${item.Name}`, '+15 Physical Protections; +25 HP5');
             break;
         case "Shogun's Kusari": 
             PlayerStats.AttackSpeed += GOD.AttackSpeed * .30;
-            addPassiveText('Shogun\'s Kusari', '+30% Attack Speed');
+            addPassiveText(`Passive: ${item.Name}`, '+30% Attack Speed');
             break;
         case "Telkhines Ring": 
             PlayerStats.BasicAttackDamage += 5 + (3 * player.Level);
-            addPassiveText('Telkhines Ring', '+5 Basic Attack Damage +3 per level');
+            addPassiveText(`Passive: ${item.Name}`, '+5 Basic Attack Damage +3 per level');
             break;
         case "Pythagorem's Piece": 
             PlayerStats.Lifesteal += 8;
             PlayerStats.Power += 20;
-            addPassiveText('Pythagorem\'s Piece', '+8% Magical Lifesteal; +20 Magical Power');
+            addPassiveText(`Passive: ${item.Name}`, '+8% Magical Lifesteal; +20 Magical Power');
             break;
         case "Caduceus Club": 
             PlayerStats.CCR += 10;
             PlayerStats.Speed += GOD.Speed * .03;
-            addPassiveText('Caduceus Club', '+10 Crowd Control Reduction; +3% Movement Speed');
+            addPassiveText(`Passive: ${item.Name}`, '+10 Crowd Control Reduction; +3% Movement Speed');
             break;
         case "Book of Thoth": 
             PlayerStats.Power += PlayerStats.Mana * .04;
-            addPassiveText('Book of Thoth', '4% Mana Converted to Power; 7 Mana per Stack');
+            addPassiveText(`Passive: ${item.Name}`, '4% Mana Converted to Power; 7 Mana per Stack');
             break;
         case "Rod of Asclepius": 
             PlayerStats.CDR += 10;
-            addPassiveText('Rod of Asclepius', '+10% Cooldown Reduction');
+            addPassiveText(`Passive: ${item.Name}`, '+10% Cooldown Reduction');
             break;
         case "Typhon's Fang": 
             PlayerStats.Power += PlayerStats.Lifesteal * 2;
-            addPassiveText('Typhon\'s Fang', 'Magical Power increased by 2x Magical Lifesteal');
+            addPassiveText(`Passive: ${item.Name}`, 'Magical Power increased by 2x Magical Lifesteal');
             break;
         case "Amulet of the Stronghold": 
+            PlayerStats.MagicalProtections += 15;
+            PlayerStats.MP5 += 30;
             PlayerStats.MagicalProtections += PlayerStats.PhysicalProtections * .15;
-            addPassiveText('Typhon\'s Fang', 'Increase Magical Protections by 15% of Physical Protections');
+            addPassiveText(`Passive: ${item.Name}`, '+15 Magical Protections; +30 MP5<br>Increase Magical Protections by 15% of Physical Protections');
             break;
         case "Silverbranch Bow": 
             let Bonus = Math.round((PlayerStats.AttackSpeed - 2.5) / .02);
             if (Bonus > 120) Bonus = 120;
             if (PlayerStats.AttackSpeed > 2.5) PlayerStats.Power += 3 * Bonus;
-            addPassiveText('Silverbranch Bow', '+3 Power per .02 Attack Speed above 2.5');
+            addPassiveText(`Passive: ${item.Name}`, '+3 Power per .02 Attack Speed above 2.5');
             break;
         case "Nimble Bancroft's Talon": 
             PlayerStats.AttackSpeed += (GOD.AttackSpeed * .02) * Math.floor(PlayerStats.Power / 30);
-            addPassiveText('Nimble Bancroft\'s Talon', '+2% Attack Speed per 30 Magical Power');
+            addPassiveText(`Passive: ${item.Name}`, '+2% Attack Speed per 30 Magical Power');
             break;
+        case "Stone of Gaia": 
+            PlayerStats.HP5 += PlayerStats.HP5 * .20;
+            addPassiveText(`Passive: ${item.Name}`, '+20% HP5');
+            break;
+    }
+    /* This section applies active effects which are only present when toggled */
+    for (Active of player.ActiveEffects) {
+      switch (Active) {
+        case "Perfected Rod of Tahuti":
+          PlayerStats.Speed += GOD.Speed * .10;
+          addPassiveText(`Active: ${Active}`, '+10% Movement Speed');
+          break;
+        case "Breasteplate of Determination":
+          PlayerStats.Speed += GOD.Speed * .20;
+          PlayerStats.PhysicalProtections += 40;
+          PlayerStats.MagicalProtections += 40;
+          addPassiveText(`Active: ${Active}`, '+20% Movement Speed; +40 Protections');
+          break;
+        case "Eldritch Dagger":
+          PlayerStats.PhysicalProtections += PlayerStats.PhysicalProtections * .15;
+          PlayerStats.MagicalProtections += PlayerStats.MagicalProtections * .15;
+          addPassiveText(`Active: ${Active}`, '+20% Movement Speed; +15% Protections');
+          break;
+        case "Cyclopean Ring":
+          PlayerStats.BasicAttackDamage += PlayerStats.BasicAttackDamage * .08;
+          addPassiveText(`Active: ${Active}`, '+8% Basic Attack Damage');
+          break;
+        case "Bloodforge":
+          PlayerStats.Speed += GOD.Speed * .10;
+          addPassiveText(`Active: ${Active}`, '+10% Speed');
+          break;
+        case "Arondight":
+          PlayerStats.Speed += GOD.Speed * .20;
+          addPassiveText(`Active: ${Active}`, '+20% Speed');
+          break;
+        case "Obsidian Shard":
+          PlayerStats.PercentPenetration += 20;
+          addPassiveText(`Active: ${Active}`, '+20% Penetration');
+          break;
+        case "Titan's Bane":
+          PlayerStats.PercentPenetration += 20;
+          addPassiveText(`Active: ${Active}`, '+20% Penetration');
+          break;
+        case "Polynomicon":
+          PlayerStats.BasicAttackDamage += PlayerStats.Power * .75;
+          addPassiveText(`Active: ${Active}`, '+75% Magical Power on Basic Attack');
+          break
+        case "Spirit Robe":
+          PlayerStats.DamageReduction += 15;
+          addPassiveText(`Active: ${Active}`, '+15% Damage Reduction');
+          break;
+        case "Demon Blade":
+          PlayerStats.PercentPenetration += 8;
+          PlayerStats.AttackSpeed += GOD.AttackSpeed * .10;
+          addPassiveText(`Active: ${Active}`, '+8% Penetration; +10% Attack Speed');
+          break;
+        case "Dawnbringer":
+          PlayerStats.Speed += GOD.Speed * .05;
+          PlayerStats.PhysicalProtections += PlayerStats.PhysicalProtections * .05;
+          PlayerStats.MagicalProtections += PlayerStats.MagicalProtections * .05;
+          addPassiveText(`Active: ${Active}`, '+5% Speed; +5% Protections');
+          break;
+        case "Brawler's Beatstick":
+          PlayerStats.Power += 20 + (2 * player.Level);
+          addPassiveText(`Active: ${Active}`, '+20 Power + 2 Per Level');
+          break;
+        case "Manticore's Spikes":
+          PlayerStats.Power += PlayerStats.Health * .06;
+          addPassiveText(`Active: ${Active}`, '6% Health Converted to Power');
+          break;
+        case "Atalanta's Bow":
+          PlayerStats.AttackSpeed += GOD.AttackSpeed * .20;
+          addPassiveText(`Active: ${Active}`, '+20% Attack Speed');
+          break;
+        case "Breastplate of Regrowth":
+          PlayerStats.AttackSpeed += GOD.AttackSpeed * .20;
+          if (player.Type == 'Magical') PlayerStats.Power += 30;
+          if (player.Type == 'Physical') PlayerStats.Power += 15;
+          addPassiveText(`Active: ${Active}`, '+20% Attack Speed; +15 Physical Power/30 Magical Power');
+          break;
+        case "Erosion":
+          PlayerStats.AttackSpeed += GOD.AttackSpeed * .15;
+          addPassiveText(`Active: ${Active}`, '+15% Attack Speed');
+          break;
+        case "Shadowdrinker":
+          PlayerStats.AttackSpeed += GOD.AttackSpeed * .30;
+          addPassiveText(`Active: ${Active}`, '+30% Attack Speed');
+          break;
+        case "Bristlebush Acorn":
+          PlayerStats.Lifesteal += 15;
+          PlayerStats.BasicAttackDamage += PlayerStats.BasicAttackDamage * .20;
+          addPassiveText(`Active: ${Active}`, '+15% Lifesteal; +20% Basic Attack Damage');
+          break;
+        case "Winged Blade":
+          PlayerStats.Speed += GOD.Speed * .20;
+          addPassiveText(`Active: ${Active}`, '+20% Movement Speed');
+          break;
+        case "Lotus Sickle":
+          PlayerStats.MagicalProtections += 10;
+          PlayerStats.PhysicalProtections += 10;
+          addPassiveText(`Active: ${Active}`, '+10 Protections');
+          break;
+        case "Stone of Gaia":
+          if (player.Type == 'Magical') PlayerStats.Power += 25;
+          if (player.Type == 'Physical') PlayerStats.Power += 15;
+          addPassiveText(`Active: ${Active}`, '+15 Physical Power/25 Magical Power');
+          break;
+        case "Hydra's Lament":
+          PlayerStats.BasicAttackDamage += PlayerStats.BasicAttackDamage * .30;
+          addPassiveText(`Active: ${Active}`, '+30% Basic Attack Damage');
+          break;
+      }
     }
 }
 

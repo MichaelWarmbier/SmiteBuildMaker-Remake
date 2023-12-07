@@ -127,6 +127,31 @@ let SiteData = {
         { "Pair": ["Malicious Deathbringer", "Envenomed Deathbringer", "Deathbringer"] },
         { "Pair": ["Flameforged Hammer", "Runebreaking Hammer", "Runeforged Hammer"] }
     ],
+    "ActiveList": [
+      "Hydra's Lament", 
+      "Stone of Gaia", 
+      "Lotus Sickle", 
+      "Winged Blade", 
+      "Bristlebush Acorn", 
+      "Shadowdrinker", 
+      "Erosion", 
+      "Breastplate of Regrowth", 
+      "Atalanta's Bow",
+      "Manticore's Spike",
+      "Brawler's Beatstick",
+      "Dawnbringer",
+      "Demon Blade",
+      "Spirit Robe",
+      "Polynomicon",
+      "Titan's Bane",
+      "Obsidian Shard",
+      "Arondight",
+      "Bloodforge",
+      "Cyclopean Ring",
+      "Eldritch Dagger",
+      "Breastplate of Determination",
+      "Perfected Rod of Tahuti"
+    ],
     "StatNicknames": {
         "Speed": ["Movement Speed"],
         "MagPower": ["Magical Power", "Magical power"],
@@ -262,6 +287,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -292,6 +318,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -322,6 +349,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -352,6 +380,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -382,6 +411,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -412,6 +442,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -442,6 +473,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -472,6 +504,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -502,6 +535,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,
@@ -532,6 +566,7 @@ let SiteData = {
             "GlyphIndex": -1,
             "StarterIndex": -1,
             "RecipeIndex": -1,
+            "ActiveEffects": [],
             "Stats": { 
                 "Speed": 0,
                 "Power": 0,

@@ -270,7 +270,7 @@ body {
     overflow: hidden;
 }
 
-#QuickChange div {
+#QuickChange .left, #QuickChange .right {
     width: 50%;
     height: 100%;
     cursor: pointer;
@@ -280,6 +280,18 @@ body {
     justify-content: center; 
     align-items: center;
 } #QuickChange div:hover { background-color: var(--MidwayBlue); color: white; }
+
+#QuickChange #QuickSwap {
+    padding-bottom: 10%;
+    width: 20%;
+    height: 90%;
+    cursor: pointer;
+    color: var(--DarkGrayed);
+    font-size: 2vw;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
 
 /*//// Menus ////*/
 
@@ -673,7 +685,8 @@ body {
     background-size: cover;
     cursor: help;
     z-index: 100;
-} #PassiveButton:hover ~ #PassiveDisplay { opacity: 1; }
+    outline: none;
+}
 
 #InfoMenu #PassiveDisplay {
     background-color: var(--MenuBlue);
@@ -688,16 +701,15 @@ body {
     font-size: 2.3vw;
     padding: 0 3vw 0 3vw;
     font-family: 'Roboto', sans-serif;
-    overflow-y: scroll;
-    -ms-overflow-style: none; 
-    scrollbar-width: none;
+    overflow-x: hidden;
+    overflow-y: scroll !important;
     position: absolute;
     margin: auto;
     left: 0; right: 0; top: 0; bottom: 0;
     padding-top: 3vw;
 }  #PassiveDisplay Span { font-size: 4vw; box-shadow: 0 !important; }
-#PassiveDisplay::-webkit-scrollbar { display: none; }
-#PassiveDisplay .passive_title { font-size: 2.5vw; color: white; }
+#PassiveDisplay .passive_title { font-size: 2.5vw; color: white; text-align: center; width: 100% !important; }
+#PassiveDisplay p { width: 100%; text-align: center; }
 
 #InfoMenu #GodCard {
     height: 50vh;
@@ -782,8 +794,12 @@ body {
     border-radius: .5vw;
     width: 7.5vw;
     height: 7.5vw;
-    cursor: help;
+    cursor: not-allowed;
     background-size: cover;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
 }
 
 #InfoMenu .item_cont .item_price {
@@ -1341,6 +1357,8 @@ body {
 /*//// MOBILE ////*/
 
 @media (orientation: portrait) {
+
+    #LoadingScreen { font-size: 300%; text-align: center; }
     
     /* Header */
     
@@ -1713,7 +1731,24 @@ body {
 
     #ItemTierFilter { width: 100%; left: 0 !important; }
     .tier_filter {font-size: 4.5vw; width: 20%;} 
+  
+    #LookupMenu Span { font-size: 2vh; }
+  
+    #LookupMenu Input {
+        width: 70vw; height: 10vh;
+        font-size: 2vh;
+    }
+  
+    #LookupMenu .recent_game {
+        width: 70vw;
+        height: 10vh;
+    } 
 
+  
+    #LookupMenu .recent_game .game_god { height: 10vh; width: 10vh; }
+    #LookupMenu .recent_game .game_item { height: 5vh; width: 5vh; }
+    #LookupMenu .recent_game .game_duration { font-size: 1.5vh; }
+  
     /* App */
 
     #App #Warning { 
@@ -1827,4 +1862,13 @@ body {
 @keyframes loading {
     from { transform: scale(.5); }
     to { transform: scale(1); }
+}
+
+@keyframes aura {
+  from {
+    box-shadow: .05vw .05vw .3vw #883fb5, -.05vw -.05vw .3vw #883fb5, -.05vw .05vw .3vw #883fb5, .05vw -.05vw .3vw #883fb5;
+  }
+  to {
+    box-shadow: .1vw .1vw .3vw #bd3cb8, -.1vw -.1vw .3vw #bd3cb8, -.1vw .1vw .3vw #bd3cb8, .1vw -.1vw .3vw #bd3cb8;
+  }
 }
