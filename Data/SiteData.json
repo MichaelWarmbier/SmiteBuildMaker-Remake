@@ -1,5 +1,5 @@
 let SiteData = {
-    "SiteAlert": "",
+    "SiteAlert": "SBM for Smite V11.1 has been released!<br><br>WEBSITE IS IN ALPHA",
     "ActiveMenu": null,
     "ActivePlayerIndex": 1,
     "ActiveItemIndex": 1,
@@ -122,9 +122,9 @@ let SiteData = {
         { "Pair": ["Amulet of Silence", "Amulet of the Stronghold", "Heartward Amulet"] },
         { "Pair": ["Calamitous Rod of Tahuti", "Perfected Rod of Tahuti", "Rod of Tahuti"] },
         { "Pair": ["Glorious Pridwen", "Reverent Pridwen", "Pridwen"] },
-        { "Pair": ["The Heavy Executioner", "The Ferocious Executioner", "The Executioner"] },
+        { "Pair": ["Envenomed Executioner", "The Ferocious Executioner", "The Executioner"] },
         { "Pair": ["Jotunn's Vigor", "Jotunn's Cunning", "Jotunn's Wrath"] },
-        { "Pair": ["Malicious Deathbringer", "Envenomed Deathbringer", "Deathbringer"] },
+        { "Pair": ["Malicious Deathbringer", "Devoted Deathbringer", "Deathbringer"] },
         { "Pair": ["Flameforged Hammer", "Runebreaking Hammer", "Runeforged Hammer"] }
     ],
     "ActiveList": [

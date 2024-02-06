@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <!-- Google Analytics -->  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-92TXDFR3PZ"></script> 
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-92TXDFR3PZ');
+        </script>
         <title>SmiteBuildMaker</title>
         <meta http-equiv="Content-Type" Content-Type="text/html; charset=utf-8" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +24,7 @@
         <div id="Header">
             <div id="HeaderBody"></div>
             <span class="title">Smite Build Maker</span>
-            <span class="subtitle">V5.0.0 (Alpha)</span>
+            <span class="subtitle">V5.0.2 (Alpha) SMITE 11.1</span>
             <div id="Nav">
                 <div id="About" class="button" onclick="displayMenu(document.querySelector('#AboutMenu'))">?</div>
                 <div id="News" class="button" onclick="displayMenu(document.querySelector('#NewsMenu'))">!</div>
@@ -57,9 +65,9 @@
         <div id="LangMenu" class="list_menu">
             <span class="header">Select a Language</span>
             <span class="option">English</span>
-            <span class="option">German/Deutsch</span>
+            <!--<span class="option">German/Deutsch</span>
             <span class="option">Polish/Polski</span>
-            <span class="option">Spanish/Española Latinoamericana</span>
+            <span class="option">Spanish/Española Latinoamericana</span>-->
         </div>
         <div id="LookupMenu">
             <span>Search Player's Recent Games</span>
@@ -293,7 +301,6 @@
                 <span class="label">Filters</span>
                 <div id="ItemFilterNames">
                     <button onclick="setFilter('Starter')">Starter</button>
-                    <button onclick="setFilter('Recipe')">Recipe</button>
                     <button onclick="setFilter('Power')">Power</button>
                     <button onclick="setFilter('Attack Speed')">Attack Speed</button>
                     <button onclick="setFilter('Lifesteal')">Lifesteal</button>
@@ -425,6 +432,12 @@
                     </div>
                 </div>
             </div>
+            <div id="Advert">
+                Join my Official Discord to follow new updates and get in contact!
+                <img src="Assets/AdvertIcons/Discord.png">
+                <a href="https://discord.gg/ZDUrzSXrKp" target="_blank"></a>
+            </div>
+            <!-- Right Order Side -->
             <div id="Order" class="team">
                 <div class="player" style="top: calc(20% * 0)">
                     <div class="preferences" onclick="displayOptions(6, 'Order')">⛭</div>

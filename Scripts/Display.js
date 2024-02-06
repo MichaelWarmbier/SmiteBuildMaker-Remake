@@ -4,6 +4,29 @@ English = { ...ENGLISH_Items, ...ENGLISH_Gods };
 
 const MenuFlags = SiteData.Flags
 let touchValue = 0;
+let AdvertIndex = 0;
+let AdvertInfo = [
+    {
+        "Text": 'Join my Official Discord to follow new updates and get in contact!',
+        "SRC": 'Assets/AdvertIcons/Discord.png',
+        "URL": 'https://discord.gg/ZDUrzSXrKp'
+    },
+    {
+        "Text": 'Follow me on Twitch!<br> Development, Smite and other Streams',
+        "SRC": 'Assets/AdvertIcons/Twitch.png',
+        "URL": 'https://twitch.tv/Kirbout'
+    },
+    {
+        "Text": 'Supporting me helps keep SmiteBuildMaker and other projects live!',
+        "SRC": 'Assets/AdvertIcons/BMAC.png',
+        "URL": 'https://www.buymeacoffee.com/michaelwarmbier'
+    },
+    {
+        "Text": 'Check out my other projects on Github!',
+        "SRC": 'Assets/AdvertIcons/Github.png',
+        "URL": 'https://github.com/MichaelWarmbier/'
+    }
+]
 
 const About = document.querySelector('#About');
 const News = document.querySelector('#News');
@@ -199,7 +222,8 @@ function displayMenu(context, override) {
 
     if (context == InfoMenu) { 
         appendInfo(); 
-        QuickChange.style.top = '7.25vw'; 
+        if (window.matchMedia("(orientation: portrait)").matches) QuickChange.style.top = '27vw';
+        else QuickChange.style.top = '7.25vw';
     }
 
     if (MenuFlags.MenuOpen && !context && override) { displayMenu(SiteData.ActiveMenu, 1); return; }
@@ -402,7 +426,7 @@ function togglePassiveDisplay() {
 /*//// Persistent Functions ////*/
 //////////////////////////////////
 
-const ALERT_INTERVAL = setInterval(function() {
+const ALERT_INTERVAL = setInterval(() => {
     if (!SiteData.SiteAlert) clearInterval(ALERT_INTERVAL);
     else {
         AlertButton = Alert;
@@ -411,3 +435,17 @@ const ALERT_INTERVAL = setInterval(function() {
         else AlertButton.style.color = 'rgb(168, 168, 168)';
     }
 }, 750);
+
+const AD_INTERVAL = setInterval(() => {
+    AdvertIndex++;
+    if (AdvertIndex > AdvertInfo.length - 1) AdvertIndex = 0;
+    let temp = Advert.cloneNode(true)
+    temp.style.animationName = '';
+    temp.style.animationName = 'appear-ad';
+    Advert.replaceWith(temp);
+
+    setTimeout(() => { Advert.innerHTML = ''; }, 125)
+    setTimeout(() => { 
+        Advert.innerHTML = `${AdvertInfo[AdvertIndex].Text}<img src='${AdvertInfo[AdvertIndex].SRC}'><a target='_blank' href='${AdvertInfo[AdvertIndex].URL}'></a>`;
+    }, 375);
+}, 5000);

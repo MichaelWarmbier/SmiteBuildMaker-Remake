@@ -236,7 +236,7 @@ async function generateRecentGames(player, searchLimit) {
     let Request, Data = '';
     try { 
         if (!player) { print('Please enter a player name', 1); return; }
-        Request = await fetch(`https://server-08.kirbout.repl.co/requestmatchhistory?ID=${ID}&USER=${player}`);
+        Request = await fetch(`https://server-08-kirbout.replit.app/requestmatchhistory?ID=${ID}&USER=${player}`);
         Data = await Request.json();
         if (Data.ret_msg) throw new Error('');
     }
@@ -270,7 +270,7 @@ async function generateRecentGames(player, searchLimit) {
 async function appendMatchData(match) {
     let Data = null;
     try {
-        const REQUEST = await fetch(`https://server-08.kirbout.repl.co/requestmatch?ID=${ID}&MATCH_ID=${match}`)
+        const REQUEST = await fetch(`https://server-08-kirbout.replit.app/requestmatch?ID=${ID}&MATCH_ID=${match}`)
         Data = await REQUEST.json();
         if (!Data || !Data[0].GodId) throw new Error('');
     } catch (e) { print('Unable to fetch match data', 1); }
@@ -302,10 +302,10 @@ async function updateSession() {
 }
 
 async function checkSessionStatus() {
-    let Request = await fetch('https://server-08.kirbout.repl.co/requestsession');
+    let Request = await fetch('https://server-08-kirbout.replit.app/requestsession');
     const NEW_SESSION = await Request.text();
-    if (NEW_SESSION.includes('Err')) return false;
-    try { Request = await fetch(`https://server-08.kirbout.repl.co/testsession?ID=${ID}`); }
+    if (NEW_SESSION.includes('Err') || NEW_SESSION.includes('ERR')) return false;
+    try { Request = await fetch(`https://server-08-kirbout.replit.app/testsession?ID=${ID}`); }
     catch(e) {  print(e); return false; }
     let Data = await Request.json(); 
     if (Data.Status !== 'Valid') { ID = NEW_SESSION; setCookie('ID', NEW_SESSION, 1); }

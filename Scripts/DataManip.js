@@ -190,7 +190,6 @@ function appendItem(Item, preventDefault=false) {
     // Item checks
     if (Item && SiteData.PlayerData[PLAYER - 1].Items.includes(Item)) { if (!preventDefault) print('Item already selected', 1); return; }
     if (Item && Starter != -1 && Item.Starter && ITEM != Starter) { if (!preventDefault) print('Cannot select two starter items', 1); return; }
-    if (Item && Glyph != -1 && Item.isGlyph && ITEM != Glyph) { if (!preventDefault) print('Cannot select two glyph items', 1); return; }
     if (Item && Recipe != -1 && Item.Filters.includes('Recipe') && ITEM != Recipe) { if (!preventDefault) print('Cannot select two recipes', 1); return; }
     for (checkItem of CURR_ITEMS) for (pair of PAIRS) {
         if (Item && checkItem && pair.Pair.includes(Item.Name) && pair.Pair.includes(checkItem.Name) && checkItem != CURR_ITEMS[ITEM - 1])  

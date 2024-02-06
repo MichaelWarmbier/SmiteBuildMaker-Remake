@@ -1,7 +1,7 @@
 AboutContent =
 [{
   "Title": "What is SmiteBuildMaker?",
-  "Content": "SmiteBuildMaker is a personal fan-made project related to the video game SMITE that acts as a simulation of the in-game \"god builder\" with added features. It's design includes a single webpage that can be accessed cross-platform."
+  "Content": "SmiteBuildMaker is a personal fan-made project related to the video game SMITE that acts as a simulation of the in-game \"god builder\" with added features. It's design includes a single webpage that can be accessed cross-platform.<br>You can join the <a href='https://discord.gg/BYuUJ89CWq'>official Discord server here</a>."
   },
   {
     "Title": "Support The Development of This Website!",

@@ -1,5 +1,14 @@
 NewsContent =
-[{
+[
+  {
+  "Title": "Smite Season/Year 11 Patch",
+  "Content": "SBM is now updated for Smite V11.1!<br><br><span class='Enhancement_Label'>Enhancement</span> You can now select more than one glyph item<br><span class='Enhancement_Label'>Enhancement</span> Recipes and relevant items have been removed/added<br><span class='Bug_Label'>BugFix</span> Fixed some mobile visual errors<br>"
+  },
+  {
+  "Title": "SmiteBuildMaker 5.0 (Alpha) IS OUT!",
+  "Content": "Thank you for your patience! The redesign of SmiteBuildMaker is now released to the public! Some features are still being added and will be rolled out shortly as they're developed.<br><br>Please report any bugs to business@michaelwarmbier.com! If you feel like supporting the project, please consider donating at https://www.buymeacoffee.com/michaelwarmbier<br><br>Join the <a href='https://discord.gg/BYuUJ89CWq'>Official Discord server!</a>"
+  },
+  {
   "Title": "Future Revamp + Smite V10.9 [8/30/23] V4.1.6",
   "Content": "It's been awhile! If you don't already know, I'm a developer who works on several projects, and you can find out more about me here:<br><br><a href='http://michaelwarmbier.com'>My Website</a><br><br>But also, I've been working on <em>a lot</em> of different things besides Smite Build Maker! I haven't gotten around to improving the project in quite awhile. I'm hoping to change that soon. Here's what I'm planning:<br>- New website interface, completely redesigned<br>- Improved code making everything faster<br>- More languages implemented<br>- More features<br><br>This is going to take some time, so please be patient! In the meantime I will be updating SBM continously in-line with Smite, however, some features may take a bit to be released alongside updates. Additionally, if you want to keep updated you can still <strong>join the Discord server</strong> from the previous post or follow me on my Twitter where I will post updates.<br><br>Thank you all so much for your support on this project!"
   },
