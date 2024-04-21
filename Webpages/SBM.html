@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Metadata -->
+        <meta name="keywords" content="SMITE, Smite, SBM, SmiteBuildMaker, HiRez, TitanForge, MOBA">
+        <meta name="description" content="Online SMITE Build Maker!">
+        <meta name="author" content="Michael Warmbier">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" Content-Type="text/html; charset=utf-8" />
+
+        <!-- External Links -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Roboto&family=Roboto+Mono&family=Rubik+Burned&display=swap" rel="stylesheet">
+        <link href="../Styles/MainStyle.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" type="image/png" href="../Assets/favicon.png" />
+
+        
+        <!-- Google Analytics Script Link -->
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-92TXDFR3PZ');
+          </script>
+
+        <title>SmiteBuildMaker</title>
+        
+    </head>
+    <body>
+        <header>
+            <div id="HeaderEffectWrapper"></div>
+            <h1>SmiteBuildMaker</h1>
+            <h2>V6.0.0 (Alpha) SMITE 11.4</h2>
+            <nav>
+                <div><img alt="Information" src="../Assets/Icons/Question_Gray.png"  onclick="toggleMenu(AboutMenu)"></div>
+                <div><img alt="News"        src="../Assets/Icons/Exclamation.png"    onclick="toggleMenu(NewsMenu)"></div>
+                <div><img alt="Files"       src="../Assets/Icons/Folder.png"         onclick="toggleMenu(FileMenu)"></div>
+                <div><img alt="Languages"   src="../Assets/Icons/Flag.png"           onclick="toggleMenu(LangMenu)"></div>
+                <div><img alt="Lookup"      src="../Assets/Icons/Asterisk.png"       onclick="toggleMenu(SearchMenu)"></div>
+            </nav>
+        </header>
+        <content>
+            <div id="App">
+                <div id="Left">
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side Divider -->
+                <div id="Right">
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="god_buttons">
+                            <div class="god_options" onclick="toggleMenu(GodOptionsMenu)"></div>
+                            <div class="god_info" onclick="toggleMenu(GodInfoMenu)"></div>
+                        </div>
+                        <div class="god_icon" onclick="toggleMenu(GodSelectMenu)">
+                            <div class="icon"></div>
+                        </div>
+                        <div class="god_items">
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                            <div class="item" onclick="toggleMenu(ItemSelectMenu)"></div>
+                        </div>
+                        <div class="god_bar">
+                            <div class="god_health"></div>
+                            <div class="god_mana"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </content>
+
+        <!-- Menus -->
+        <div id="GlobalOptions" class="menu">
+            <div class="tab" onclick="toggleMenu(GlobalOptions)"><img src="../Assets/Icons/Gear.png">
+                <div class="tab_mask"></div>
+            </div>
+        </div>
+
+        <!-- Static Menus -->
+        <div id="AboutMenu" class="menu">
+            <h1>Learn About SmiteBuildMaker</h1>
+        </div>
+
+        <div id="NewsMenu" class="menu">
+            <h1>Recent SmiteBuildMaker News</h1>
+        </div>
+
+        <div id="FileMenu" class="menu">
+            <h1>Select a Local Save File</h1>
+            <div id="FileMenuContent"> 
+                <div class="file_option">1</div>
+                <div class="file_option">2</div>
+                <div class="file_option">3</div>
+                <div class="file_option">4</div>
+                <div class="file_option">5</div>
+            </div>
+        </div>
+
+        <div id="LangMenu" class="menu">
+            <h1>Select a Language</h1>
+            <div id="LangMenuContent">
+                <div class="lang_option">English</div>
+                <div class="lang_option">Spanish</div>
+                <div class="lang_option">Polish</div>
+                <div class="lang_option">Turkish</div>
+                <div class="lang_option">German</div>
+                <div class="lang_option">French</div>
+                <div class="lang_option">Russian</div>
+                <div class="lang_option">Chinese</div>
+                <div class="lang_option">Portuguese</div>
+            </div>
+        </div>
+
+        <div id="SearchMenu" class="menu">
+            <h1>Search a Player's Recent Games</h1>
+            <div id="SearchLeft">
+                <input type="text" id="SearchInput" placeholder="Enter player name.."/>
+                <div id="SearchResults">
+                    <!-- Results Added Later -->
+                </div>
+            </div>
+            <div id="SearchRight">
+                Seach a player to see their info!
+                <div id="SearchIcon"></div>
+            </div>
+        </div>
+
+
+        <!-- Dynamic Menus -->
+        <div id="GodInfoMenu" class="menu">
+            <h1>Player Information</h1>
+        </div>
+
+        <div id="GodOptionsMenu" class="menu">
+            <h1>Toggle Player Options</h1>
+        </div>
+
+        <div id="GodSelectMenu" class="menu">
+            <h1>Select a God</h1>
+            <div id="GodMenuLeft">
+                <input type="text" id="SearchInput" placeholder="Enter God name.." oninput="initializeGods();"/>
+                <div id="GodList"></div>
+            </div>
+            <div id="GodMenuMiddle">
+                <h2>God Filters</h2>
+                <span class="filter_option" onclick="SelectedGodFilter='Guardian'; initializeGods();">Guardian</span>
+                <span class="filter_option" onclick="SelectedGodFilter='Hunter'; initializeGods();">Hunter</span>
+                <span class="filter_option" onclick="SelectedGodFilter='Assassin'; initializeGods();">Assassin</span>
+                <span class="filter_option" onclick="SelectedGodFilter='Warrior'; initializeGods();">Warrior</span>
+                <span class="filter_option" onclick="SelectedGodFilter='Mage'; initializeGods();">Mage</span>
+                <span class="filter_option" onclick="SelectedGodFilter=null; initializeGods();">Reset Filters</span>
+            </div>
+            <div id="GodMenuRight">
+                <div id="HoveredGodName">Mercury</div>
+                <div id="HoveredGodTitle">Messanger of The Gods</div>
+                <div id="HoveredGodIcon"></div>
+                <div id="HoveredGodPantheon">Roman</div>
+                <div id="HoveredGodDamage">Physical</div>
+                <div id="HoveredGodClass">Assassin</div>
+                <div id="HoveredGodInfoText">Double-Click to Select!</div>
+            </div>
+        </div>
+
+        <div id="ItemSelectMenu" class="menu">
+            <h1>Select an Item</h1>
+            <div id="ItemMenuLeft">
+                <input type="text" id="SearchInput" placeholder="Enter Item name.." oninput="initializeItems();"/>
+                <div id="ItemList"></div>
+            </div>
+            <div id="ItemMenuSecondMiddle">
+                <h2>Specified Tier</h2>
+                <span class="filter_option" onclick="SpecifiedItemTier='1'; initializeItems();">Tier I</span>
+                <span class="filter_option" onclick="SpecifiedItemTier='2'; initializeItems();">Tier II</span>
+                <span class="filter_option" onclick="SpecifiedItemTier='3'; initializeItems();">Tier III</span>
+                <span class="filter_option" onclick="SpecifiedItemTier='4'; initializeItems();">Tier IV</span>
+            </div>
+            <div id="ItemMenuMiddle">
+                <h2>Item Filters</h2>
+                <span class="filter_option" onclick="SelectedItemFilter='Starter'; initializeItems();">Starter</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Power'; initializeItems();">Power</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Attack Speed'; initializeItems();">Attack Speed</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Lifesteal'; initializeItems();">Lifesteal</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Penetration'; initializeItems();">Penetration</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Crit Chance'; initializeItems();">Crit Chance</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Physical Prots.'; initializeItems();">Physical Prots.</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Magical Prots.'; initializeItems();">Magical Prots.</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Health'; initializeItems();">Health</span>
+                <span class="filter_option" onclick="SelectedItemFilter='HP5'; initializeItems();">HP5</span>
+                <span class="filter_option" onclick="SelectedItemFilter='CCR'; initializeItems();">CCR</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Aura'; initializeItems();">Aura</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Movement'; initializeItems();">Movement</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Cooldown'; initializeItems();">Cooldown</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Mana'; initializeItems();">Mana</span>
+                <span class="filter_option" onclick="SelectedItemFilter='MP5'; initializeItems();">MP5</span>
+                <span class="filter_option" onclick="SelectedItemFilter=null; initializeItems();">Reset Filters</span>
+            </div>
+            <div id="ItemMenuRight">
+                <div id="HoveredItemName"></div>
+                <div id="HoveredItemDesc">
+                    <div id="HoveredItemStats"></div>
+                    <div id="HoveredItemFullDesc"></div>
+                </div>
+                <div id="HoveredItemIcon"></div>
+                <div id="HoveredItemFullPrice"></div>
+                <div id="HoveredItemSinglePrice"></div>
+                <div id="HoveredItemInfoText">Double-Click to Select!</div>
+            </div>
+        </div>
+
+        <!-- Displays & Popups -->
+        <div id="NoPortrait">Please switch to the mobile version of <span>SmiteBuildMaker</span> to view this page in portrait.</div>
+        <div id="SelectToClose" onclick="toggleMenu(SelectToClose)"></div>
+
+        <!-- JSON Data -->
+        <script src="../Data/SiteData.json"></script>
+        <script src="../Data/Languages/ENGLISH.json"></script>
+
+        <!-- Scripts -->
+        <script src="../Scripts/OnEntry.js"></script>
+        <script src="../Scripts/Utility.js"></script>
+        <script src="../Scripts/DisplayManip.js"></script>
+        <script src="../Scripts/DataManip.js"></script>
+        <script src="../Scripts/NetworkFeatures.js"></script>
+
+    </body>
+</html>

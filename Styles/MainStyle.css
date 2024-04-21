@@ -1,0 +1,603 @@
+/*//// External ////*/
+
+@font-face { font-family: Penumbra; src: url('../Assets/Fonts/PFSR.otf'); }
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&family=Nova+Square&family=Nunito&family=Roboto:wght@300;400&display=swap');
+
+/*//// Data ////*/
+
+:root {
+    /* Global Colors */
+    --DeepBlue: #10254A;
+    --GrayBlue: #1C2B47;
+    --DarkBlue: #0B1B36;
+    --LightGrayBlue: #22385e;
+    --BrightGold: #B5A672;
+    --DarkGold: #6C6445;
+    --MediumGray: #757171;
+    --LightGray: #A8A8A8;
+    --InternalBlue: #051124;
+    --ContentBlue: #1D2938;
+    /* Global Fonts */
+    --BrandFont: Penumbra, sans-serif;
+    --TitleFont: 'Nova Square', cursive;
+    /* Global Border */
+    --ThinBorder:  solid .05vw var(--DarkGold);
+    --ThinBorderGlow:  solid .05vw var(--BrightGold);
+    --ThinBorderRadius: .4vw;
+    --ThinBorderWidth: .05vw;
+    /* Global Shadows */
+    --Shadow: .2vw .2vw black;
+    --SoftBoxShadow: .2vw .2vw .3vw black;
+    /* Global Constraints */
+    --MinPage: 1400px;
+}
+
+/*//// Primary Styles ////*/
+/*//// Global ////*/
+
+body {
+    overflow-y: hidden;
+    margin: 0; padding: 0;
+    background-color: var(--LightGrayBlue);
+    min-width: var(1550px);
+}
+
+* {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}  *::-webkit-scrollbar { display: none; }
+
+/*//// Header Section ////*/
+
+header {
+    width: 100%;
+    height: 13vh;
+    background-color: var(--DeepBlue);
+    position: relative;
+    box-shadow: 0 1vh .5vh 0 RGBA(13, 26, 48, 25%), inset
+    0 -1.25vh .4vh 0 RGBA(13, 26, 48, 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    z-index: 6;
+}
+
+header h1, h2 {
+    margin: 0;
+    display: block;
+    height: 100%;
+    text-shadow: var(--Shadow);
+}
+
+header h1 { 
+    width: 35%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    font-family: var(--BrandFont);
+    color: var(--BrightGold);
+    max-width: 800px;
+    user-select: none;
+}
+header h2 { 
+    width: 25%;
+    height: 98%;
+    display: flex;
+    align-items: center;
+    padding-top: 2%;
+    color: var(--MediumGray);
+    font-family: var(--BrandFont);
+    font-size: 100%;
+    pointer-events: none;
+    user-select: none;
+}
+
+header nav {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+header nav div {
+    height: 8vh;
+    width: 8vh;
+    background-color: var(--InternalBlue);
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    margin: 0 .25vw 0 .25vw;
+    cursor: pointer;
+    user-select: none;
+} header nav div:hover { border: var(--ThinBorderGlow); }
+
+header nav div img { height: 100%; width: 100%; }
+header nav div:hover { border-color: var(--BrightGold); }
+
+/*//// Menu Section ////*/
+
+.menu { 
+    position: absolute;
+    margin: auto;
+    background-color: var(--DarkBlue);
+    z-index: 5;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.menu h1 {
+    width: 100%;
+    height: 1.2em;
+    font-size: 25px;
+    color: var(--LightGray);
+    text-align: center;
+    font-family: var(--TitleFont);
+    border-top: var(--ThinBorder);
+    border-bottom: var(--ThinBorder);
+    background: linear-gradient(90deg, rgba(2,0,36, 0) 0%, rgba(2,0,36, 1) 35%, rgba(2,0,36, 1) 65%, rgba(2,0,36, 0) 100%);
+    user-select: none;
+}
+
+#GlobalOptions {
+    height: 60vh;
+    width: 80%;top: calc(-60vh + 13vh); 
+    left: 0; right: 0;
+    border-bottom-right-radius: 1vw;
+    border-bottom-left-radius: 1vw;
+    box-shadow: var(--SoftBoxShadow);
+    z-index: 2;
+}
+
+#GlobalOptions .tab {
+    height: 5vh;
+    width: 10vw;
+    position: absolute;
+    margin: auto;
+    bottom: -5vh; 
+    left: 0; right: 0;
+    background-color: inherit;
+    border-radius: inherit;
+    font-size: 50px;
+    text-align: center;
+    box-shadow: var(--SoftBoxShadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+} #GlobalOptions .tab img { height: 1em; width: 1em; user-select: none;}
+
+#GlobalOptions .tab_mask {
+    width: inherit;
+    height: 50%;
+    background-color: inherit;
+    position: absolute;
+    margin: auto;
+    left: 0; right: 0;
+    top: -25%;
+    pointer-events: none;
+}
+
+.menu:not(#GlobalOptions) {
+    height: 73vh;
+    width: 85vw;
+    border-radius: 1vw;
+    left: -2000vw; right: 0; bottom: 0; top: 5vh;
+    transition: left .2s;
+}
+
+#FileMenuContent { 
+    height: 80%; width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 2%;
+}
+
+#FileMenuContent .file_option { 
+    height: 100%; width: 15%;
+    background-color: var(--ContentBlue);
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    color: var(--LightGray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    cursor: pointer;
+    font-family: var(--BrandFont);
+} #FileMenuContent .file_option:hover { border: var(--ThinBorderGlow); color: white; }
+
+#LangMenuContent { 
+    height: 80%; width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 2%;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+#LangMenuContent .lang_option { 
+    height: 45px; width: 60%;
+    background-color: var(--ContentBlue);
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    color: var(--LightGray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100%;
+    cursor: pointer;
+    font-family: var(--BrandFont);
+} #LangMenuContent .lang_option:hover { border: var(--ThinBorderGlow); color: white; }
+
+#SearchMenu { overflow: hidden; }
+
+#SearchMenu #SearchLeft {
+    width: calc(20% - var(--ThinBorderWidth)); float: left;
+    height: calc(100% - 40px);
+    border-right: var(--ThinBorder);
+}
+
+#SearchMenu #SearchRight {
+    width: 78%; float: left;
+    height: calc(100% - 40px);
+    font-size: 400%;
+    font-family: var(--TitleFont);
+    color: var(--LightGray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: .5;
+    user-select: none;
+}
+
+#SearchMenu Input {
+    width: 100%;
+    height: 5%;
+    font-size: 100%;
+    color: var(--LightGray);
+    font-family: var(--BrandFont);
+    background-color: var(--ContentBlue);
+    text-align: center;
+    outline: none; border: none;
+    padding: 0;
+}
+
+#SearchResults {
+    height: 95%; width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#SearchResults .search_result {
+    height: 8%; width: 80%;
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    margin: 2% auto auto auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: var(--ContentBlue);
+    flex-wrap: wrap;
+    cursor: pointer;
+    user-select: none;
+} #SearchResults .search_result:hover { border: var(--ThinBorderGlow); }
+
+.search_result .search_title {
+    height: 1em; width: 100%;
+    font-family: var(--TitleFont);
+    color: var(--LightGray);
+    font-size: 60%;
+    text-align: center;
+}
+
+.search_result .search_name {
+    font-size: 60%; 
+    color: var(--BrightGold);
+    font-family: var(--BrandFont);
+}
+
+.search_result .search_other,
+.search_result .search_status {
+    color: var(--DarkGold);
+    font-size: 80%; 
+    font-family: var(--TitleFont);
+} 
+
+#GodMenu,
+#ItemMenu { 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+#GodMenuLeft Input,
+#ItemMenuLeft Input {
+    width: 100%;
+    height: 5%;
+    font-size: 100%;
+    color: var(--LightGray);
+    font-family: var(--BrandFont);
+    background-color: var(--ContentBlue);
+    text-align: center;
+    outline: none; border: none;
+    padding: 0;
+}
+
+#GodMenuLeft,
+#ItemMenuLeft {
+    height: calc(100% - 40px); width: 30%; 
+    border-right: var(--ThinBorder);
+    float: left;
+}
+
+#GodMenuLeft #GodList,
+#ItemMenuLeft #ItemList {
+    height: 88%; width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: start;
+    padding-top: 2%;
+    overflow-y: scroll;
+}
+
+.god_display_elem,
+.item_display_elem {
+    height: 5vh; width: 5vh;
+    padding: 5px;
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    background-color: var(--ContentBlue);
+    background-size: contain;
+    cursor: pointer;
+} .god_display_elem:hover, .item_display_elem:hover { border: var(--ThinBorderGlow); }
+
+#GodMenuMiddle,
+#ItemMenuMiddle {
+    height: calc(100% - 40px); width: 20%;
+    float: left;
+    user-select: none;
+    border-right: var(--ThinBorder);
+}
+
+#ItemMenuSecondMiddle {
+    height: calc(100% - 40px); width: 10%;
+    float: left;
+    user-select: none;
+    border-right: var(--ThinBorder);
+}
+
+#GodMenuMiddle h2,
+#ItemMenuMiddle h2,
+#ItemMenuSecondMiddle h2 {
+    text-shadow: none;
+    width: 100%;
+    height: 5%;
+    font-size: 100%;
+    color: var(--LightGray);
+    font-family: var(--BrandFont);
+    background-color: var(--ContentBlue);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#GodMenuMiddle .filter_option,
+#ItemMenuMiddle .filter_option,
+#ItemMenuSecondMiddle .filter_option {
+    display: block;
+    height: 5%;
+    font-size: 85%;
+    width: 100%;
+    color: var(--LightGray);
+    font-family: var(--TitleFont);
+    background-color: var(--InternalBlue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+} #GodMenuMiddle .filter_option:hover, #ItemMenuMiddle .filter_option:hover, #ItemMenuSecondMiddle .filter_option:hover { color: white; }
+
+#GodMenuRight,
+#ItemMenuRight {
+    height: calc(100% - 40px); width: 48%;
+    float: left;
+    user-select: none;
+    text-shadow: var(--Shadow);
+} #ItemMenuRight { width: 38%; }
+
+#GodMenuRight div, #ItemMenuRight div { width: 100%; height: 1em; text-align: center; }
+
+#GodMenuRight #HoveredGodName { font-family: var(--TitleFont); font-size: 50px; color: white; }
+#GodMenuRight #HoveredGodTitle { font-family: var(--TitleFont); font-size: 40px; color: var(--LightGray); margin-top: 2%; }
+#GodMenuRight #HoveredGodPantheon { font-family: var(--TitleFont); font-size: 35px; color: #bf7f1d; margin-top: 5%; }
+#GodMenuRight #HoveredGodDamage { font-family: var(--TitleFont); font-size: 35px; color: #c7845d; margin-top: 2%; }
+#GodMenuRight #HoveredGodClass { font-family: var(--TitleFont); font-size: 35px; color: #dade6f; }
+#GodMenuRight #HoveredGodInfoText { font-family: var(--BrandFont); font-size: 45px; color: var(--LightGray); margin-top: 5%; }
+
+#ItemMenuRight #HoveredItemName { font-family: var(--TitleFont); font-size: 50px; color: white; }
+#ItemMenuRight #HoveredItemFullPrice { font-family: var(--TitleFont); font-size: 35px; color: var(--DarkGold); margin-top: 5%; }
+#ItemMenuRight #HoveredItemSinglePrice { font-family: var(--TitleFont); font-size: 35px; color: var(--LightGray); }
+#ItemMenuRight #HoveredItemInfoText { font-family: var(--BrandFont); font-size: 40px; color: var(--LightGray); margin-top: 5%; }
+
+#ItemMenuRight #HoveredItemDesc {
+    display: block;
+    width: 100%; height: 30%;
+    margin-top: 4%;
+}
+
+#HoveredItemDesc #HoveredItemStats,
+#HoveredItemDesc #HoveredItemFullDesc {
+    width: 50%;
+    float: left;
+    height: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-family: var(--TitleFont);
+} 
+ 
+#HoveredItemStats { color: var(--BrightGold); }
+#HoveredItemFullDesc { color: var(--LightGray); }
+
+#GodMenuRight #HoveredGodIcon {
+    height: 120px; width: 120px;
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    background: URL('../Assets/Art/Mercury.png');
+    background-size: cover;
+    margin: 2% auto auto auto;
+}
+
+#ItemMenuRight #HoveredItemIcon {
+    height: 120px; width: 120px;
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    margin: 5% auto auto auto;
+    background: URL('../Assets/Icons/Question_Gray.png');
+    background-color: var(--ContentBlue);
+    background-size: cover;
+}
+
+
+
+
+/*//// Displays & Popups ////*/
+
+#NoPortrait {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--LightGrayBlue);
+    position: absolute; margin: auto;
+    top: 0; right: 0; bottom: 0; left: 0;
+    font-family: var(--BrandFont);
+    color: var(--LightGray);
+    font-size: 10vw;
+    text-align: center;
+    pointer-events: none;
+    z-index: 100;
+} #NoPortrait Span { color: var(--BrightGold); }
+
+#SelectToClose {
+    opacity: 0;
+    pointer-events: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--LightGrayBlue);
+    position: absolute; margin: auto;
+    top: 0; right: 0; bottom: 0; left: 0;
+    transition: opacity .2s;
+    z-index: 4;
+    cursor: pointer;
+}
+
+/*//// App Content ////*/
+
+#App { width: 100%; height: 87vh; position: relative; z-index: 1; }
+#Left { width: 50%; height: 100%; float: left }
+#Right { width: 50%; height: 100%; float: left; }
+#App .player { width: 100%; height: 20%; transform: translateY(20px); }
+
+#Left .god_buttons, #Left .god_icon { float: left; }
+#Left .god_items, #Left .god_bar { float: right; }
+#Right .god_buttons, #Right .god_icon { float: right; }
+#Right .god_items, #Right .god_bar { float: left; }
+
+.god_buttons { height: 100%; width: 15%; }
+.god_icon { height: 100%; width: 15%; }
+.god_items { height: calc(60px + var(--ThinBorderWidth) * 2); width: 70%; }
+.god_bar { height: 70px; width: 70%; margin-top: 10px; }
+
+.god_buttons { 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.god_options,
+.god_info {
+    height: 50px; width: 50px;
+    background-color:var(--ContentBlue);
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    margin-bottom: 5px;
+    cursor: pointer;
+    box-shadow: var(--Shadow);
+}
+
+.god_options {
+    background-image: URL('../Assets/Icons/Gear.png');
+    background-size: cover;
+} .god_options:hover { border: var(--ThinBorderGlow); }
+
+.god_info {
+    background-image: URL('../Assets/Icons/Info.png');
+    background-size: cover;
+} .god_info:hover { border: var(--ThinBorderGlow); }
+
+.god_icon {
+    display: flex;
+    justify-content: center;
+}
+
+.god_icon .icon {
+    height: 110px;
+    width: 110px;
+    background-color: var(--ContentBlue);
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    background-image: URL('../Assets/Icons/Question_Gold.png');
+    background-size: cover;
+    cursor: pointer;
+    box-shadow: var(--Shadow);
+} .icon:hover { border: var(--ThinBorderGlow); }
+
+#Left .god_buttons { align-items: end; }
+#Left .god_buttons div { margin-right: 5px; }
+#Right .god_buttons { align-items: start; }
+#Right .god_buttons div { margin-left: 5px; }
+
+.god_items { display: flex; }
+
+.item {
+    height: 60px; width: 60px; 
+    background-color: var(--ContentBlue);
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    margin-left: 5px;
+    background-image: URL('../Assets/Icons/Plus_Gold.png');
+    background-size: cover;
+    cursor: pointer;
+    box-shadow: var(--Shadow);
+} .item:hover { border: var(--ThinBorderGlow); }
+
+#Left .god_items { justify-content: left; } 
+#Right .god_items { justify-content: right; }
+
+.god_health, .god_mana {
+    height: 25%; width: calc(360px + var(--ThinBorderWidth) * 12 + (5px * 5));
+    background-color: red;
+    border: var(--ThinBorder);
+    cursor: pointer;
+    box-shadow: var(--Shadow);
+} .god_health:hover, .god_mana:hover { border: var(--ThinBorderGlow); }
+
+.god_health { background-color: #58d665; }
+
+.god_mana { background-color: #4b5fe3; }
+
+#Left .god_health, #Left .god_mana { float: left; margin-left: 5px; }
+#Right .god_health, #Right .god_mana { float: right; }
+
+/*//// Keyframes & Media Queries ////*/
+
+@media (orientation: portrait) {
+    #NoPortrait { display: block; }
+}
