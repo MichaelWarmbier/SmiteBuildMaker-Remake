@@ -47,6 +47,27 @@ body {
     scrollbar-width: none;
 }  *::-webkit-scrollbar { display: none; }
 
+.orb_container {
+    position: absolute; margin: auto;
+    width: max-content; height: 60px;
+    top: 0; right: 0; left: 0; bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.orb {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background-color: var(--LightGray);
+    animation-name: pulse;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    margin: 10px;
+}
+
 /*//// Header Section ////*/
 
 header {
@@ -240,6 +261,7 @@ header nav div:hover { border-color: var(--BrightGold); }
     width: calc(20% - var(--ThinBorderWidth)); float: left;
     height: calc(100% - 40px);
     border-right: var(--ThinBorder);
+    position: relative;
 }
 
 #SearchMenu #SearchRight {
@@ -252,9 +274,68 @@ header nav div:hover { border-color: var(--BrightGold); }
     align-items: center;
     justify-content: center;
     text-align: center;
-    opacity: .5;
     user-select: none;
 }
+
+#SearchContent { height: 100%; width: 100%; display: none; position: relative; }
+#SearchMenu h1 { margin-bottom: 0; }
+
+#SearchNav {
+    height: 10%; width: 102.5%;
+    border-bottom: var(--ThinBorder);
+    display: flex;
+}
+
+.search_nav_elem {
+    height: 100%; width: 100%;
+    background-color: var(--ContentBlue);
+    cursor: pointer;
+    font-size: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--DarkGold);
+    font-family: var(--BrandFont);
+} .search_nav_elem:hover { background-color: var(--DeepBlue); }
+
+.search_display_menu { 
+    width: calc(102.5% - 60px);
+    height: calc(85% - 60px);
+    text-align: left;
+    padding: 30px;
+    flex-wrap: wrap;
+} .search_display_menu Span { display: inline-block; }
+
+#SearchSummaryPlayer { font-size: 50px; color: var(--BrightGold); font-family: var(--BrandFont); }
+#SearchSummaryID { font-size: 15px; margin-left: -20px; }
+#SearchSummaryRegion { font-size: 30px; float: right; }
+#SearchSummaryStatus { color: var(--MediumGray); font-size: 25px; width: 100%; transform: translateY(-40px); }
+#SearchSummaryWins { color: var(--LightGray); font-size: 35px; width: 100%; }
+#SearchSummaryLosses { color: var(--LightGray); font-size: 35px; width: 100%; }
+#SearchSummaryLeaves { color: var(--LightGray); font-size: 35px; width: 100%; }
+
+.search_rank {
+    height: 125%; width: 33%;
+    transform: translateY(-30px);
+    float: left;
+    border-right: var(--ThinBorder);
+    text-align: center;
+} .search_rank:nth-child(3) { border-right: none !important; }
+
+.search_rank .rank_mode,
+.search_rank .rank_title,
+.rank_ratio { display: inline-block; width: 100%; font-size: 35px; }
+.search_rank .rank_icon { height: 200px; width: 200px; }
+
+.search_accolade, .search_performance { width: 20%; height: 50%; }
+.accolade_icon, .performance_icon { display: block; margin: auto; width: 150px; height: 150px; }
+.accolade_title, .accolade_amount,
+.performance_title, .performance_name,
+.performance_extra { font-size: 25px; width: 100%; text-align: center; }
+.performance_name { color: var(--BrightGold); }
+.performance_extra { font-size: 20px; }
+
+.performance_icon { border: var(--ThinBorder); border-radius: var(--ThinBorderRadius); }
 
 #SearchMenu Input {
     width: 100%;
@@ -600,4 +681,9 @@ header nav div:hover { border-color: var(--BrightGold); }
 
 @media (orientation: portrait) {
     #NoPortrait { display: block; }
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.3); }
 }

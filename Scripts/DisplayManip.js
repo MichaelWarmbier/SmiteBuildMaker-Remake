@@ -101,6 +101,7 @@ function displayGod(name) {
 }
 
 function displayItem(name) {
+
     const ITEM = getItemData(name);
     document.querySelector('#ItemMenuRight #HoveredItemName').innerHTML = ITEM.Name;
     document.querySelector('#ItemMenuRight #HoveredItemFullDesc').innerHTML = ITEM.Description;
@@ -111,5 +112,24 @@ function displayItem(name) {
     document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML = '';
     for (stat of ITEM.Stats) 
         document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML += `${stat.StatName} ${stat.Value}<br>`;
+
+}
+
+function toggleSearchMenu(index) {
+
+    let NavElems = document.querySelectorAll('.search_nav_elem');
+    let Menus = document.querySelectorAll('.search_display_menu');
+    for (let navIndex = 0; navIndex < NavElems.length; navIndex++) {
+
+        if (index == navIndex) {
+            NavElems[navIndex].style.color = 'var(--BrightGold)';
+            if (navIndex < 2) Menus[navIndex].style.display = 'block';
+            else               Menus[navIndex].style.display = 'flex';
+        } else  {
+            NavElems[navIndex].style.color = 'var(--DarkGold)';
+            Menus[navIndex].style.display = 'none';
+        }
+
+    }
 
 }

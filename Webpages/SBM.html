@@ -311,7 +311,132 @@
                 </div>
             </div>
             <div id="SearchRight">
-                Seach a player to see their info!
+                <span id="PreSearch">Search a player to see their info!</span>
+                <div id="SearchContent">
+                    <div id="SearchNav">
+                        <div class="search_nav_elem" onclick="toggleSearchMenu(0)"style="color:var(--BrightGold);">Summary</div>
+                        <div class="search_nav_elem" onclick="toggleSearchMenu(1)">Ranked</div>
+                        <div class="search_nav_elem" onclick="toggleSearchMenu(2)">Accolades</div>
+                        <div class="search_nav_elem" onclick="toggleSearchMenu(3)">Performance</div>
+                    </div>
+                    <div id="SearchResultSummary" class="search_display_menu">
+                        <span id="SearchSummaryPlayer">PlayerName</span>
+                        <span id="SearchSummaryID">33333333</span>
+                        <span id="SearchSummaryRegion">West America</span>
+                        <span id="SearchSummaryStatus">"buscati"</span>
+                        <span id="SearchSummaryWins">4 Game Wins</span><span id="SearchSummaryLosses">4 Game Losses</span><span id="SearchSummaryLeaves">4 Game Leaves</span>
+                    </div>
+                    <div id="SearchResultRanked" class="search_display_menu" style="display: none">
+                        <div id="SearchRankedConquest" class="search_rank">
+                            <span class="rank_mode">Conquest</span>
+                            <img src="../Assets/Icons/Bronze.png" class="rank_icon"/>
+                            <span class="rank_title">N/A</span><br>
+                            <span class="rank_ratio">0 W/0 L</span>
+                        </div>
+                        <div id="SearchRankedJoust" class="search_rank">
+                            <span class="rank_mode">Joust</span>
+                            <img src="../Assets/Icons/Bronze.png" class="rank_icon"/>
+                            <span class="rank_title">N/A</span>
+                            <span class="rank_ratio">0 W/0 L</span>
+                        </div>
+                        <div id="SearchRankedDuel" class="search_rank">
+                            <span class="rank_mode">Duel</span>
+                            <img src="../Assets/Icons/Bronze.png" class="rank_icon"/>
+                            <span class="rank_title">N/A</span>
+                            <span class="rank_ratio">30 W/32 L</span>
+                        </div>
+                    </div>
+                    <div id="SearchResultAccolades" class="search_display_menu" style="display: none">
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/First_Blood.png" class="accolade_icon">
+                            <div class="accolade_title">First Bloods</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Godlike.png" class="accolade_icon">
+                            <div class="accolade_title">Godlikes</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Killing_Spree.png" class="accolade_icon">
+                            <div class="accolade_title">Killing Spree</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Divine.png" class="accolade_icon">
+                            <div class="accolade_title">Divines</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Immortal.png" class="accolade_icon">
+                            <div class="accolade_title">Immortals</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Fire_Giant_Kills.png" class="accolade_icon">
+                            <div class="accolade_title">Fire Giant Kills</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Pentakill.png" class="accolade_icon">
+                            <div class="accolade_title">Pentakills</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Quadrakill.png" class="accolade_icon">
+                            <div class="accolade_title">Quadrakills</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Triplekill.png" class="accolade_icon">
+                            <div class="accolade_title">Triplekills</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                        <div class="search_accolade">
+                            <img src="../Assets/Icons/Doublekill.png" class="accolade_icon">
+                            <div class="accolade_title">Doublekills</div>
+                            <div class="accolade_amount">32</div>
+                        </div>
+                    </div>
+                    <div id="SearchResultPerformance" class="search_display_menu" style="display: none">
+                        <div class="search_performance">
+                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <div class="performance_title">Most Kills</div>
+                            <div class="performance_name">Zeus</div>
+                        </div>
+                        <div class="search_performance">
+                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <div class="performance_title">Most Deaths</div>
+                            <div class="performance_name">Zeus</div>
+                        </div>
+                        <div class="search_performance">
+                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <div class="performance_title">Most Assists</div>
+                            <div class="performance_name">Zeus</div>
+                        </div>
+                        <div class="search_performance">
+                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <div class="performance_title">Most Worshippers</div>
+                            <div class="performance_name">Zeus</div>
+                        </div>
+                        <div class="search_performance">
+                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <div class="performance_title">Best KDR</div>
+                            <div class="performance_extra">0/0</div>
+                            <div class="performance_name">Zeus</div>
+                        </div>
+                        <div class="search_performance">
+                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <div class="performance_title">Most Wins</div>
+                            <div class="performance_name">Zeus</div>
+                        </div>
+                        <div class="search_performance">
+                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <div class="performance_title">Most Losses</div>
+                            <div class="performance_name">Zeus</div>
+                        </div>
+                    </div>
+                </div>
                 <div id="SearchIcon"></div>
             </div>
         </div>
