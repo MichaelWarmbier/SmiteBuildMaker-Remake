@@ -146,7 +146,8 @@ async function appendPlayerData() {
     MostKills = (currPlayer.GOD_RANKS).reduce((max, obj) => obj['Kills'] > max['Kills'] ? obj : max);
     MostWins = (currPlayer.GOD_RANKS).reduce((max, obj) => obj['Wins'] > max['Wins'] ? obj : max);
     MostWorship = (currPlayer.GOD_RANKS).reduce((max, obj) => obj['Worshippers'] > max['Worshippers'] ? obj : max);
-    BestKDR = (currPlayer.GOD_RANKS).reduce((max, obj) => (obj['Kills']/obj['Deaths']) > (max['Kills']/max['Deaths']) ? obj : max);
+    try { BestKDR = (currPlayer.GOD_RANKS).reduce((max, obj) => (obj['Kills']/obj['Deaths']) > (max['Kills']/max['Deaths']) ? obj : max); }
+    catch (e) { BestKDR = null; }
 
     let Icons = document.querySelectorAll('.performance_icon');
     let Titles = document.querySelectorAll('.performance_name');
@@ -155,7 +156,7 @@ async function appendPlayerData() {
     Icons[1].src = getGodData(MostDeaths.god).Icon;
     Icons[2].src = getGodData(MostAssists.god).Icon;
     Icons[3].src = getGodData(MostWorship.god).Icon;
-    Icons[4].src = getGodData(BestKDR.god).Icon;
+    Icons[4].src = (BestKDR == null ? 'none' : getGodData(BestKDR.god).Icon);
     Icons[5].src = getGodData(MostWins.god).Icon;
     Icons[6].src = getGodData(MostLosses.god).Icon;
 
@@ -163,7 +164,7 @@ async function appendPlayerData() {
     Titles[1].innerHTML = MostDeaths.god;
     Titles[2].innerHTML = MostAssists.god;
     Titles[3].innerHTML = MostWorship.god;
-    Titles[4].innerHTML = BestKDR.god;
+    Titles[4].innerHTML = (BestKDR == null ? 'N/A' : BestKDR.god);
     Titles[5].innerHTML = MostWins.god;
     Titles[6].innerHTML = MostLosses.god;
 

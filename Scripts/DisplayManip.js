@@ -1,28 +1,75 @@
 /*/// On Event Functions ///*/
 
+let CurrentMenu = null;
+let ItemNumbers = false;
+let NonConquest = false;
+let SaveNumber = 1;
+let GlobalOptionsOpen = false;
+
 function toggleMenu(targetMenu) {
 
     if (targetMenu == SelectToClose)
-        targetMenu = SiteData.CurrentMenu;
+        targetMenu = CurrentMenu;
+
+    if (targetMenu == ItemSelectMenu && SiteData.PlayerData[ActivePlayer].God == null) {
+        alertUser('Please Select a God First');
+        return;
+    }
+
+
+    if (targetMenu == GodInfoMenu || targetMenu == GodOptionsMenu) {
+
+        targetMenu.querySelectorAll('h1')[1].innerHTML = `${ActivePlayer < 5 ? 'Order' : 'Chaos'} - Player ${ActivePlayer % 5 + 1}`;
+        
+        if (targetMenu == GodInfoMenu && SiteData.PlayerData[ActivePlayer].God == null) {
+            alertUser('Please Select a God First');
+            return;
+        } else if (targetMenu == GodInfoMenu) {
+
+            InfoIcon.style.backgroundImage = `URL('${SiteData.PlayerData[ActivePlayer].God.Icon}')`;
+            InfoName.innerHTML = SiteData.PlayerData[ActivePlayer].God.Name;
+            InfoLevel.innerHTML = `Level ${SiteData.PlayerData[ActivePlayer].Level}`;
+            // Display Buffs
+            const ITEMS = document.querySelectorAll('.info_item');
+            const ITEM_PRICES = document.querySelectorAll('.info_item_label');
+            const ITEM_DATA = SiteData.PlayerData[ActivePlayer].Items;
+
+            for (let elemIndex = 0; elemIndex < 6; elemIndex++) {
+                if (ITEM_DATA[elemIndex] != null) {
+                    ITEMS[elemIndex].style.backgroundImage = `URL('${ITEM_DATA[elemIndex].URL}')`;
+                    ITEM_PRICES[elemIndex].innerHTML = ITEM_DATA[elemIndex].Gold;
+                } else {
+                    ITEMS[elemIndex].style.backgroundImage = '';
+                    ITEM_PRICES[elemIndex].innerHTML = '0';
+                }
+            }
+
+            let totalGold = 0;
+            for (item of ITEM_DATA) if (item != null) totalGold += item.Gold;
+            InfoGold.innerHTML = `${totalGold} <img src="../Assets/Icons/Money.png">`;
+
+        }
+
+    }
 
     if (targetMenu == GlobalOptions) {
 
-        if (!SiteData.GlobalOptionsOpen) {
+        if (!GlobalOptionsOpen) {
 
             GlobalOptions.style.transitionDuration = '.2s';
             setTimeout(() => { GlobalOptions.style.transitionDuration = '0s'; }, 200);
             GlobalOptions.style.top = '13vh';
-            SiteData.MenuIsOpen = true;
+            CurrentMenu = targetMenu;
 
         } else {
 
             GlobalOptions.style.transitionDuration = '.2s';
             setTimeout(() => { GlobalOptions.style.transitionDuration = '0s'; }, 200);
             GlobalOptions.style.top = 'calc(-60vh + 13vh)';
-            SiteData.MenuIsOpen = false; 
+            CurrentMenu = null;
 
         }
-        SiteData.GlobalOptionsOpen = !SiteData.GlobalOptionsOpen;
+        GlobalOptionsOpen = !GlobalOptionsOpen;
 
     } 
     else {
@@ -30,21 +77,21 @@ function toggleMenu(targetMenu) {
         if (window.getComputedStyle(targetMenu).left == '0px') {
 
             targetMenu.style.left = '-1000vw';
-            SiteData.MenuIsOpen = false;
-            SiteData.CurrentMenu = null;
+            CurrentMenu = null;
             SelectToClose.style.opacity = 0;
             SelectToClose.style.pointerEvents = 'none';
+            CurrentMenu = null;
             
-        } else if (!SiteData.GlobalOptionsOpen) {
+        } else if (!GlobalOptionsOpen) {
 
-            if (SiteData.CurrentMenu !== null)
-                SiteData.CurrentMenu.style.left = '-1000vw';
+            if (CurrentMenu !== null)
+                CurrentMenu.style.left = '-1000vw';
 
             targetMenu.style.left = '0';
-            SiteData.MenuIsOpen = true;
-            SiteData.CurrentMenu = targetMenu;
+            CurrentMenu = targetMenu;
             SelectToClose.style.opacity = 1;
             SelectToClose.style.pointerEvents = 'auto';
+            CurrentMenu = targetMenu;
 
         }
 
@@ -53,7 +100,6 @@ function toggleMenu(targetMenu) {
     if (targetMenu == GodSelectMenu) initializeGods();
     if (targetMenu == ItemSelectMenu) initializeItems();
     
-    SiteData.CurrentMenu = targetMenu;
     printSBM(`Menu Toggled: ${targetMenu.id}`);
 }
 
@@ -132,4 +178,72 @@ function toggleSearchMenu(index) {
 
     }
 
+}
+
+function toggleGlobalOptions(index) {
+    const OPTIONS = document.querySelectorAll('#GlobalOptions .option');
+    const CHECKS = document.querySelectorAll('#GlobalOptions .check');
+
+    if (index <= 2) {
+        if (!GlobalOptionFlags[index]) CHECKS[index].style.backgroundImage = 'URL("../Assets/Icons/Check.png")';
+        else                           CHECKS[index].style.backgroundImage = '';
+        GlobalOptionFlags[index] = !GlobalOptionFlags[index];
+
+        if (index == 0) toggleItemNumbers();
+        if (index == 1) NonConquest = !NonConquest;
+    }
+}
+
+function adjustMenu(dir) {
+
+    let tempIndex = ActivePlayer + dir;
+
+    if (CurrentMenu == GodOptionsMenu) {
+    
+        if (tempIndex < 0) tempIndex = 9;
+        if (tempIndex > 9) tempIndex = 0;
+
+        ActivePlayer = tempIndex;
+        toggleMenu(GodOptionsMenu);
+        setTimeout(() => { toggleMenu(GodOptionsMenu); }, 200);
+
+    } else if (CurrentMenu == GodInfoMenu) {
+        
+        for (let menuIndex = 0; menuIndex < 15; menuIndex++) {
+            if (SiteData.PlayerData[tempIndex].God != null) { break; } 
+            else { tempIndex += dir; }
+            if (tempIndex < 0) tempIndex = 9;
+            if (tempIndex > 9) tempIndex = 0;
+            if (menuIndex == 14) tempIndex = ActivePlayer + dir;
+        }
+
+        ActivePlayer = tempIndex;
+        toggleMenu(GodInfoMenu);
+        setTimeout(() => { toggleMenu(GodInfoMenu); }, 200);
+
+    }
+
+}
+
+function toggleItemNumbers() {
+
+    console.log('toggle');
+    
+    for (elem of document.querySelectorAll('.player')) {
+        const ITEMS = elem.querySelectorAll('.item');
+        for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
+            if (!ItemNumbers) ITEMS[itemIndex].style.backgroundImage = `URL('../Assets/Icons/${itemIndex + 1}.png')`;
+            else              ITEMS[itemIndex].style.backgroundImage = 'URL("../Assets/Icons/Plus_Gold.png")';
+        }
+    }
+    
+    ItemNumbers = !ItemNumbers;
+}
+
+function focusSelf(className, obj) {
+    const FAMILY = document.querySelectorAll(className);
+
+    for (child of FAMILY) 
+        if (child != obj) child.style.backgroundColor = 'var(--InternalBlue)';
+        else              child.style.backgroundColor = 'var(--LightGrayBlue)';
 }
