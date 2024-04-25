@@ -99,6 +99,9 @@ async function appendPlayerData() {
     SearchSummaryWins.innerHTML = `${currPlayer.PLAYER_INFO[0].Wins} Game Wins`;
     SearchSummaryLosses.innerHTML = `${currPlayer.PLAYER_INFO[0].Losses} Game Wins`;
     SearchSummaryLeaves.innerHTML = `${currPlayer.PLAYER_INFO[0].Leaves} Game Wins`;
+    SearchSummaryIcon.style.backgroundImage = `URL('${currPlayer.PLAYER_INFO[0].Avatar_URL}')`;
+    if (currPlayer.PLAYER_INFO[0].Avatar_URL == '') 
+    SearchSummaryIcon.style.backgroundImage = 'URL("../Assets/Icons/Question_Gold.png")';
 
     let RankText = document.querySelectorAll('.rank_title');
     let RankIcon = document.querySelectorAll('.rank_icon');
@@ -152,13 +155,13 @@ async function appendPlayerData() {
     let Icons = document.querySelectorAll('.performance_icon');
     let Titles = document.querySelectorAll('.performance_name');
 
-    Icons[0].src = getGodData(MostKills.god).Icon;
-    Icons[1].src = getGodData(MostDeaths.god).Icon;
-    Icons[2].src = getGodData(MostAssists.god).Icon;
-    Icons[3].src = getGodData(MostWorship.god).Icon;
-    Icons[4].src = (BestKDR == null ? 'none' : getGodData(BestKDR.god).Icon);
-    Icons[5].src = getGodData(MostWins.god).Icon;
-    Icons[6].src = getGodData(MostLosses.god).Icon;
+    Icons[0].src = getGodData(MostKills.god).godIcon_URL;
+    Icons[1].src = getGodData(MostDeaths.god).godIcon_URL;
+    Icons[2].src = getGodData(MostAssists.god).godIcon_URL;
+    Icons[3].src = getGodData(MostWorship.god).godIcon_URL;
+    Icons[4].src = (BestKDR == null ? 'none' : getGodData(BestKDR.god).godIcon_URL);
+    Icons[5].src = getGodData(MostWins.god).godIcon_URL;
+    Icons[6].src = getGodData(MostLosses.god).godIcon_URL;
 
     Titles[0].innerHTML = MostKills.god;
     Titles[1].innerHTML = MostDeaths.god;

@@ -13,8 +13,8 @@ function setCookie(name, value, days) {
 }
 
 function getCookie(name) { return (document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '') }
-function getGodData(id, o=English) { for (God of o.Gods) if (God.Id == id || God.Name == id) return God; }
-function getItemData(id, o=English) { for (Item of o.Items) if (Item.Id == id || Item.Name == id) return Item; }
+function getGodData(id, o=English) { for (God of o.Gods) if (God.id == id || God.Name == id) return God; }
+function getItemData(id, o=English) { for (Item of o.Items) if (Item.ItemId == id || Item.DeviceName == id) return Item; }
 
 function getRankTitle(id) {
     if (id <= 0) return 'N/A';
@@ -41,4 +41,16 @@ function alertUser(msg) {
 function flashText(obj) {
     obj.style.borderColor = '#30cf67';
     setTimeout(() => { obj.style.borderColor = 'var(--ThinBorderColor)'; }, 2000);
+}
+
+function damageType(itemObj) {
+    for (stat of itemObj.ItemDescription.Menuitems) if (StatNicknames['PhysPower'].includes(stat.Description)) return 'Physical';
+    for (stat of itemObj.ItemDescription.Menuitems) if (StatNicknames['MagPower'].includes(stat.Description)) return 'Magical';
+    return 'Neutral';
+}
+
+function getStatNames(itemObj) {
+    let returnList = [];
+    for (stat of itemObj.ItemDescription.Menuitems) returnList.push(stat.Description);
+    return returnList;
 }

@@ -1,22 +1,4 @@
 let SiteData = {
-    "StatNicknames": {
-        "Speed": ["Movement Speed"],
-        "MagPower": ["Magical Power", "Magical power"],
-        "PhysPower": ["Physical Power", "Physical power"],
-        "Health": ["Health", "Maximum Health"],
-        "Mana": ["Mana"],
-        "HP5": ["HP5", "HP5 & MP5"],
-        "MP5": ["MP5", "HP5 & MP5"],
-        "Lifesteal": ["Magical Lifesteal", "Physical Lifesteal"],
-        "PhysicalProtections": ["Physical Protections", "Physical protections.", "Physical Protection", "Physical protection"],
-        "MagicalProtections": ["Magical Protections", "Magical protections.", "Magical Protection", "Magical protection", "Magical Protection "],
-        "CCR": ["Crowd Control Reduction", "Crowd Control Reduction:"],
-        "CDR": ["Cooldown Reduction"],
-        "Crit": ["Physical Critical Strike Chance", "Critical Strike Chance"],
-        "Pen": ["Physical Penetration", "Magical Penetration", "Penetration"],
-        "AttackSpeed": ["Attack Speed"],
-        "DamageRed": ["Damage Reduction"]
-    },
     "PlayerData": [
         {
             "God": null,

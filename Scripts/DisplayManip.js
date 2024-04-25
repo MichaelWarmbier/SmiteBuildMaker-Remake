@@ -1,10 +1,46 @@
-/*/// On Event Functions ///*/
-
 let CurrentMenu = null;
 let ItemNumbers = false;
 let NonConquest = false;
 let SaveNumber = 1;
 let GlobalOptionsOpen = false;
+
+/*//// Hover Text Events ////*/
+
+for (elem of document.querySelectorAll('.item')) {
+    elem.addEventListener("mouseover", () => { showToolTip('Select an Item')});
+    elem.addEventListener("mouseout",  hideToolTip);
+}
+
+for (elem of document.querySelectorAll('.god_icon')) {
+    elem.addEventListener("mouseover", () => { showToolTip('Select a God')});
+    elem.addEventListener("mouseout",  hideToolTip);
+}
+
+for (elem of document.querySelectorAll('.god_options')) {
+    elem.addEventListener("mouseover", () => { showToolTip('God Options')});
+    elem.addEventListener("mouseout",  hideToolTip);
+}
+
+for (elem of document.querySelectorAll('.god_info')) {
+    elem.addEventListener("mouseover", () => { showToolTip('God Information')});
+    elem.addEventListener("mouseout",  hideToolTip);
+}
+
+Information.addEventListener("mouseover", () => { showToolTip('Site Information')});
+Information.addEventListener("mouseout",  hideToolTip);
+News.addEventListener("mouseover", () => { showToolTip('Site News')});
+News.addEventListener("mouseout",  hideToolTip);
+Files.addEventListener("mouseover", () => { showToolTip('Select a File')});
+Files.addEventListener("mouseout",  hideToolTip);
+Language.addEventListener("mouseover", () => { showToolTip('Select a Language')});
+Language.addEventListener("mouseout",  hideToolTip);
+Lookup.addEventListener("mouseover", () => { showToolTip('Lookup Player')});
+Lookup.addEventListener("mouseout",  hideToolTip);
+
+document.querySelectorAll('#GlobalOptions .tab')[0].addEventListener("mouseover", () => { showToolTip('Global Site Options')});
+document.querySelectorAll('#GlobalOptions .tab')[0].addEventListener("mouseout",  hideToolTip);
+
+/*//// Functions ////*/
 
 function toggleMenu(targetMenu) {
 
@@ -26,7 +62,7 @@ function toggleMenu(targetMenu) {
             return;
         } else if (targetMenu == GodInfoMenu) {
 
-            InfoIcon.style.backgroundImage = `URL('${SiteData.PlayerData[ActivePlayer].God.Icon}')`;
+            InfoIcon.style.backgroundImage = `URL('${SiteData.PlayerData[ActivePlayer].God.godIcon_URL}')`;
             InfoName.innerHTML = SiteData.PlayerData[ActivePlayer].God.Name;
             InfoLevel.innerHTML = `Level ${SiteData.PlayerData[ActivePlayer].Level}`;
             // Display Buffs
@@ -36,16 +72,22 @@ function toggleMenu(targetMenu) {
 
             for (let elemIndex = 0; elemIndex < 6; elemIndex++) {
                 if (ITEM_DATA[elemIndex] != null) {
-                    ITEMS[elemIndex].style.backgroundImage = `URL('${ITEM_DATA[elemIndex].URL}')`;
-                    ITEM_PRICES[elemIndex].innerHTML = ITEM_DATA[elemIndex].Gold;
+                    ITEMS[elemIndex].style.backgroundImage = `URL('${ITEM_DATA[elemIndex].itemIcon_URL}')`;
+                    ITEM_PRICES[elemIndex].innerHTML = ITEM_DATA[elemIndex].Price;
+                    ITEMS[elemIndex].addEventListener("mouseover", 
+                        () => { showToolTip(`${ITEM_DATA[elemIndex].DeviceName}<br>${ITEM_DATA[elemIndex].ItemDescription.SecondaryDescription}`); });
+                    ITEMS[elemIndex].addEventListener("mouseout",  hideToolTip);
                 } else {
                     ITEMS[elemIndex].style.backgroundImage = '';
                     ITEM_PRICES[elemIndex].innerHTML = '0';
+                    ITEMS[elemIndex].addEventListener("mouseover", () => { showToolTip('No Item'); });
+                    ITEMS[elemIndex].addEventListener("mouseout",  hideToolTip);
                 }
             }
+            
 
             let totalGold = 0;
-            for (item of ITEM_DATA) if (item != null) totalGold += item.Gold;
+            for (item of ITEM_DATA) if (item != null) totalGold += item.Price;
             InfoGold.innerHTML = `${totalGold} <img src="../Assets/Icons/Money.png">`;
 
         }
@@ -100,17 +142,16 @@ function toggleMenu(targetMenu) {
     if (targetMenu == GodSelectMenu) initializeGods();
     if (targetMenu == ItemSelectMenu) initializeItems();
     
-    printSBM(`Menu Toggled: ${targetMenu.id}`);
 }
 
 function displayGod(name) {
     const GOD = getGodData(name);
     document.querySelector('#GodMenuRight #HoveredGodName').innerHTML = GOD.Name;
     document.querySelector('#GodMenuRight #HoveredGodTitle').innerHTML = GOD.Title;
-    document.querySelector('#GodMenuRight #HoveredGodIcon').style.backgroundImage = `URL('${GOD.Icon}')`;
+    document.querySelector('#GodMenuRight #HoveredGodIcon').style.backgroundImage = `URL('${GOD.godIcon_URL}')`;
     document.querySelector('#GodMenuRight #HoveredGodPantheon').innerHTML = GOD.Pantheon;
     document.querySelector('#GodMenuRight #HoveredGodDamage').innerHTML = GOD.Type;
-    document.querySelector('#GodMenuRight #HoveredGodClass').innerHTML = GOD.Role;
+    document.querySelector('#GodMenuRight #HoveredGodClass').innerHTML = GOD.Roles;
 
     switch (GOD.Pantheon) {
         case 'Arthurian':       document.querySelector('#GodMenuRight #HoveredGodPantheon').style.color = '#a3190f'; break;
@@ -131,12 +172,12 @@ function displayGod(name) {
         case 'Yoruba':          document.querySelector('#GodMenuRight #HoveredGodPantheon').style.color = '#799e0b'; break;
     }
 
-    switch (GOD.Type) {
-        case 'Magical':         document.querySelector('#GodMenuRight #HoveredGodDamage').style.color = '#6169d4'; break;
-        case 'Physical':        document.querySelector('#GodMenuRight #HoveredGodDamage').style.color = '#c75d78'; break;
+    switch (GOD.Type.includes('Magical')) {
+        case true:         document.querySelector('#GodMenuRight #HoveredGodDamage').style.color = '#6169d4'; break;
+        case false:        document.querySelector('#GodMenuRight #HoveredGodDamage').style.color = '#c75d78'; break;
     }
 
-    switch (GOD.Role) {
+    switch (GOD.Roles) {
         case 'Mage':            document.querySelector('#GodMenuRight #HoveredGodClass').style.color = '#3b46c4'; break;
         case 'Warrior':         document.querySelector('#GodMenuRight #HoveredGodClass').style.color = '#6037b8'; break;
         case 'Assassin':        document.querySelector('#GodMenuRight #HoveredGodClass').style.color = '#c9bb38'; break;
@@ -149,15 +190,24 @@ function displayGod(name) {
 function displayItem(name) {
 
     const ITEM = getItemData(name);
-    document.querySelector('#ItemMenuRight #HoveredItemName').innerHTML = ITEM.Name;
-    document.querySelector('#ItemMenuRight #HoveredItemFullDesc').innerHTML = ITEM.Description;
+    document.querySelector('#ItemMenuRight #HoveredItemName').innerHTML = ITEM.DeviceName;
+    document.querySelector('#ItemMenuRight #HoveredItemFullDesc').innerHTML = ITEM.ItemDescription.SecondaryDescription;
     document.querySelector('#ItemMenuRight #HoveredItemFullPrice').innerHTML = ITEM.Gold;
-    document.querySelector('#ItemMenuRight #HoveredItemSinglePrice').innerHTML = ITEM.SelfGold;
-    document.querySelector('#ItemMenuRight #HoveredItemIcon').style.backgroundImage = `URL('${ITEM.URL}')`;
+    
+
+    let childItem = ITEM; let fullPrice = 0;
+    for (let limitIndex = 0; limitIndex < 4; limitIndex++) {
+        fullPrice += childItem.Price;
+        if (childItem.ChildItemId == 0 || childItem.ChildItemId == null || !childItem.ChildItemId) break;
+        childItem = getItemData(childItem.ChildItemId);      
+    }
+
+    document.querySelector('#ItemMenuRight #HoveredItemSinglePrice').innerHTML = ITEM.fullPrice;
+    document.querySelector('#ItemMenuRight #HoveredItemIcon').style.backgroundImage = `URL('${ITEM.itemIcon_URL}')`;
 
     document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML = '';
-    for (stat of ITEM.Stats) 
-        document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML += `${stat.StatName} ${stat.Value}<br>`;
+    for (stat of ITEM.ItemDescription.Menuitems) 
+        document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML += `${stat.Description} ${stat.Value}<br>`;
 
 }
 
@@ -227,7 +277,6 @@ function adjustMenu(dir) {
 
 function toggleItemNumbers() {
 
-    console.log('toggle');
     
     for (elem of document.querySelectorAll('.player')) {
         const ITEMS = elem.querySelectorAll('.item');
@@ -247,3 +296,7 @@ function focusSelf(className, obj) {
         if (child != obj) child.style.backgroundColor = 'var(--InternalBlue)';
         else              child.style.backgroundColor = 'var(--LightGrayBlue)';
 }
+
+function showToolTip(msg) { ToolTip.style.opacity = '1'; ToolTip.innerHTML = msg; }
+function hideToolTip() { ToolTip.style.opacity = '0'; }
+

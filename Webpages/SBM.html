@@ -33,11 +33,11 @@
             <h1>SmiteBuildMaker</h1>
             <h2>V6.0.0 (Alpha) SMITE 11.4</h2>
             <nav>
-                <div><img alt="Information" src="../Assets/Icons/Question_Gray.png"  onclick="toggleMenu(AboutMenu)"></div>
-                <div><img alt="News"        src="../Assets/Icons/Exclamation.png"    onclick="toggleMenu(NewsMenu)"></div>
-                <div><img alt="Files"       src="../Assets/Icons/Folder.png"         onclick="toggleMenu(FileMenu)"></div>
-                <div><img alt="Languages"   src="../Assets/Icons/Flag.png"           onclick="toggleMenu(LangMenu)"></div>
-                <div><img alt="Lookup"      src="../Assets/Icons/Asterisk.png"       onclick="toggleMenu(SearchMenu)"></div>
+                <div id="Information"><img alt="Information" src="../Assets/Icons/Question_Gray.png"  onclick="toggleMenu(AboutMenu)"></div>
+                <div id="News"><img alt="News"               src="../Assets/Icons/Exclamation.png"    onclick="toggleMenu(NewsMenu)"></div>
+                <div id="Files"><img alt="Files"             src="../Assets/Icons/Folder.png"         onclick="toggleMenu(FileMenu)"></div>
+                <div id="Language"><img alt="Languages"      src="../Assets/Icons/Flag.png"           onclick="toggleMenu(LangMenu)"></div>
+                <div id="Lookup"><img alt="Lookup"           src="../Assets/Icons/Asterisk.png"       onclick="toggleMenu(SearchMenu)"></div>
             </nav>
         </header>
         <content>
@@ -264,6 +264,7 @@
         <div id="GlobalOptions" class="menu">
             <div class="option" onclick="toggleGlobalOptions(0)">Toggle Item Numbers<div class="check"></div></div>
             <div class="option" onclick="toggleGlobalOptions(1)">Toggle Non-Conquest Balance<div class="check"></div></div>
+            <div class="option" onclick="flashText(this); randomEverything()">Fill Random Data</div>
             <div class="option" onclick="flashText(this); loadData()">Load Data Locally</div>
             <div class="option" onclick="flashText(this); saveData()">Save Data Locally</div>
             <div class="option" onclick="flashText(this); generateShareLink()">Generate Share Link</div>
@@ -327,6 +328,7 @@
                     <div id="SearchResultSummary" class="search_display_menu">
                         <span id="SearchSummaryPlayer">PlayerName</span>
                         <span id="SearchSummaryID">33333333</span>
+                        <div id="SearchSummaryIcon"></div>
                         <span id="SearchSummaryRegion">West America</span>
                         <span id="SearchSummaryStatus">"buscati"</span>
                         <span id="SearchSummaryWins">4 Game Wins</span><span id="SearchSummaryLosses">4 Game Losses</span><span id="SearchSummaryLeaves">4 Game Leaves</span>
@@ -737,25 +739,25 @@
                 <h2>Specified Tier</h2>
                 <span class="filter_option" onclick="SpecifiedItemTier='1'; initializeItems(); focusSelf('#ItemMenuSecondMiddle .filter_option', this)">Tier I</span>
                 <span class="filter_option" onclick="SpecifiedItemTier='2'; initializeItems(); focusSelf('#ItemMenuSecondMiddle .filter_option', this)">Tier II</span>
-                <span class="filter_option" onclick="SpecifiedItemTier='3'; initializeItems(); focusSelf('#ItemMenuSecondMiddle .filter_option', this)">Tier III</span>
+                <span class="filter_option" onclick="SpecifiedItemTier='3'; initializeItems(); focusSelf('#ItemMenuSecondMiddle .filter_option', this)" style="background-color: var(--LightGrayBlue);">Tier III</span>
                 <span class="filter_option" onclick="SpecifiedItemTier='4'; initializeItems(); focusSelf('#ItemMenuSecondMiddle .filter_option', this)">Tier IV</span>
             </div>
             <div id="ItemMenuMiddle">
                 <h2>Item Filters</h2>
                 <span class="filter_option" onclick="SelectedItemFilter='Starter'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Starter</span>
                 <span class="filter_option" onclick="SelectedItemFilter='Power'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Power</span>
-                <span class="filter_option" onclick="SelectedItemFilter='Attack Speed'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Attack Speed</span>
+                <span class="filter_option" onclick="SelectedItemFilter='AttackSpeed'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Attack Speed</span>
                 <span class="filter_option" onclick="SelectedItemFilter='Lifesteal'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Lifesteal</span>
-                <span class="filter_option" onclick="SelectedItemFilter='Penetration'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Penetration</span>
-                <span class="filter_option" onclick="SelectedItemFilter='Crit Chance'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Crit Chance</span>
-                <span class="filter_option" onclick="SelectedItemFilter='Physical Prots.'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Physical Prots.</span>
-                <span class="filter_option" onclick="SelectedItemFilter='Magical Prots.'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Magical Prots.</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Pen'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Penetration</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Crit'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Crit Chance</span>
+                <span class="filter_option" onclick="SelectedItemFilter='PhysicalProtections'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Physical Prots.</span>
+                <span class="filter_option" onclick="SelectedItemFilter='MagicalProtections'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Magical Prots.</span>
                 <span class="filter_option" onclick="SelectedItemFilter='Health'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Health</span>
                 <span class="filter_option" onclick="SelectedItemFilter='HP5'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">HP5</span>
                 <span class="filter_option" onclick="SelectedItemFilter='CCR'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">CCR</span>
                 <span class="filter_option" onclick="SelectedItemFilter='Aura'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Aura</span>
-                <span class="filter_option" onclick="SelectedItemFilter='Movement'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Movement</span>
-                <span class="filter_option" onclick="SelectedItemFilter='Cooldown'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Cooldown</span>
+                <span class="filter_option" onclick="SelectedItemFilter='Speed'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Movement</span>
+                <span class="filter_option" onclick="SelectedItemFilter='CDR'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Cooldown</span>
                 <span class="filter_option" onclick="SelectedItemFilter='Mana'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">Mana</span>
                 <span class="filter_option" onclick="SelectedItemFilter='MP5'; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', this)">MP5</span>
                 <span class="filter_option" onclick="SelectedItemFilter=null; initializeItems(); focusSelf('#ItemMenuMiddle .filter_option', null)">Reset Filters</span>
@@ -774,12 +776,11 @@
         </div>
 
         <!-- Displays & Popups -->
-        <div id="NoPortrait">Please switch to the mobile version of <span>SmiteBuildMaker</span> to view this page in portrait.</div>
         <div id="SelectToClose" onclick="toggleMenu(SelectToClose)"></div>
         <div id="Message"></div>
+        <div id="ToolTip"></div>
 
         <!-- JSON Data -->
-        <script src="../Data/SiteData.json"></script>
         <script src="../Data/Languages/ENGLISH.json"></script>
 
         <!-- Scripts -->

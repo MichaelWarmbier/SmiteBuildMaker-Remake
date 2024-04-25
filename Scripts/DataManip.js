@@ -10,6 +10,59 @@ let ActiveItem = 0;
 
 let GlobalOptionFlags = [0, 0];
 
+SiteData = { "PlayerData" : [] }
+for (let playerIndex = 0; playerIndex < 10; playerIndex++) 
+    SiteData.PlayerData.push({
+        "God": null,
+        "Level": 1,
+        "Buffs": [],
+        "BuffTypes": [],
+        "Items": [null, null, null, null, null, null],
+        "GlyphIndex": -1,
+        "StarterIndex": -1,
+        "RecipeIndex": -1,
+        "ActiveEffects": [],
+        "Stats": { 
+            "Speed": 0,
+            "Power": 0,
+            "AttackSpeed": 0,
+            "BasicAttackDamage": 0,
+            "Health": 0,
+            "Mana": 0,
+            "HP5": 0,
+            "MP5": 0,
+            "CCR": 0,
+            "DamageReduction": 0,
+            "PhysicalProtections": 0,
+            "MagicalProtections": 0,
+            "Penetration": 0,
+            "PercentPenetration": 0,
+            "CriticalStrike": 0,
+            "CDR": 0,
+            "Lifesteal": 0,
+            "EHP": 0
+        }
+    });
+
+const StatNicknames = {
+    "Speed": ["Movement Speed"],
+    "MagPower": ["Magical Power", "Magical power"],
+    "PhysPower": ["Physical Power", "Physical power"],
+    "Health": ["Health", "Maximum Health"],
+    "Mana": ["Mana"],
+    "HP5": ["HP5", "HP5 & MP5"],
+    "MP5": ["MP5", "HP5 & MP5"],
+    "Lifesteal": ["Magical Lifesteal", "Physical Lifesteal"],
+    "PhysicalProtections": ["Physical Protections", "Physical protections.", "Physical Protection", "Physical protection"],
+    "MagicalProtections": ["Magical Protections", "Magical protections.", "Magical Protection", "Magical protection", "Magical Protection "],
+    "CCR": ["Crowd Control Reduction", "Crowd Control Reduction:"],
+    "CDR": ["Cooldown Reduction"],
+    "Crit": ["Physical Critical Strike Chance", "Critical Strike Chance"],
+    "Pen": ["Physical Penetration", "Magical Penetration", "Penetration"],
+    "AttackSpeed": ["Attack Speed"],
+    "DamageRed": ["Damage Reduction"]
+};
+
 const GlyphPairs = [
     ["Bewitched Dagger", "Eldritch Dagger", "Relic Dagger"],
     ["Bancroft's Claw", "Nimble Bancroft's Talon", "Bancroft's Talon"],
@@ -43,7 +96,7 @@ function initializeGods() {
         if (!God.Name.toLowerCase().includes(CustomGodFilter)) continue;
         const newGod = document.createElement('div');
         newGod.classList.add('god_display_elem');
-        newGod.style.backgroundImage = `url("${God.Icon}")`
+        newGod.style.backgroundImage = `url("${God.godIcon_URL}")`
         const thisGod = God;
         newGod.onclick = function() { displayGod(thisGod.Name); }
         newGod.ondblclick = function() { removeGod(); appendGod(thisGod); toggleMenu(GodSelectMenu); }
@@ -67,21 +120,47 @@ function initializeItems() {
 
     for (Item of English.Items) {
 
-        if (SelectedItemFilter == 'Starter' && !Item.Starter) continue;
-        if (!Item.Filters.includes(SelectedItemFilter) && SelectedItemFilter != null) continue;
-        if (Item.RestrictedRoles.includes(God.Role.toLowerCase())) continue;
-        if ((Item.Name.toLowerCase()).includes('acorn') && God.Name != 'Ratatoskr') continue;
-        if (Item.DamageType != 'Neutral' && Item.DamageType != God.Type) continue;
-        if (SelectedItemFilter != 'Starter' && SpecifiedItemTier && SpecifiedItemTier != Item.Tier) continue;
-        if (Item.Tier != SpecifiedItemTier) continue;
-        if (!Item.Name.toLowerCase().includes(CustomItemFilter)) continue;
+        const DMGTYPE = damageType(Item);
+        const STATS = getStatNames(Item);
+
+
+        let FilterFlag = false;
+        if (StatNicknames[SelectedItemFilter] == null) {
+            try {
+                if (SelectedItemFilter == 'Starter' || SelectedItemFilter == null) FilterFlag = true;
+                else if (SelectedItemFilter == 'Aura' && Item.ItemDescription.SecondaryDescription.includes('AURA')) 
+                    FilterFlag = true;
+                else if (SelectedItemFilter == 'Power') {
+                    for (stat of STATS) 
+                        if (StatNicknames['MagPower'].includes(stat))
+                            FilterFlag = true;
+                    for (stat of STATS) 
+                        if (StatNicknames['PhysPower'].includes(stat))
+                            FilterFlag = true;
+                } 
+            } catch (e) {}
+        } else {
+            for (stat of STATS) {
+                if (StatNicknames[SelectedItemFilter].includes(stat))
+                    FilterFlag = true;
+            }
+        }
+
+        if (!FilterFlag) continue;
+        if (SelectedItemFilter == 'Starter' && !Item.StartingItem) continue;
+        if (Item.RestrictedRoles.includes(God.Roles.toLowerCase())) continue;
+        if ((Item.DeviceName.toLowerCase()).includes('acorn') && God.Name != 'Ratatoskr') continue;
+        if (DMGTYPE != 'Neutral' && !God.Type.includes(DMGTYPE)) continue;
+        if (SelectedItemFilter != 'Starter' && SpecifiedItemTier && SpecifiedItemTier != Item.ItemTier) continue;
+        if (Item.ItemTier != SpecifiedItemTier) continue;
+        if (!Item.DeviceName.toLowerCase().includes(CustomItemFilter)) continue;
 
         const newItem = document.createElement('div');
         newItem.classList.add('item_display_elem');
-        newItem.style.backgroundImage = `url("${Item.URL}")`
-        newItem.deviceName = Item.Name;
+        newItem.style.backgroundImage = `url("${Item.itemIcon_URL}")`
+        newItem.deviceName = Item.DeviceName;
         const thisItem = Item;
-        newItem.onclick = function() { displayItem(thisItem.Name); }
+        newItem.onclick = function() { displayItem(thisItem.DeviceName); }
         newItem.ondblclick = function() { removeItem(); appendItem(thisItem); toggleMenu(ItemSelectMenu); }
         ItemList.appendChild(newItem);
 
@@ -96,7 +175,7 @@ function updateLevel() {
 function appendGod(GodObj) { 
     SiteData.PlayerData[ActivePlayer].God = GodObj;
     const PLAYERS = document.querySelectorAll('.god_icon .icon');
-    PLAYERS[ActivePlayer].style.backgroundImage = `URL('${GodObj.Icon}')`;
+    PLAYERS[ActivePlayer].style.backgroundImage = `URL('${GodObj.godIcon_URL}')`;
 }
 function removeGod() { 
     SiteData.PlayerData[ActivePlayer].God = null;
@@ -117,23 +196,23 @@ function appendItem(itemObj, flag=0) {
     if (CURR_ITEMS.includes(itemObj)) 
         { if (!flag) alertUser('Item Already Selected'); return; }
     // No Two Starters
-    if (SiteData.PlayerData[ActivePlayer].StarterIndex != -1 && itemObj.Starter) 
+    if (SiteData.PlayerData[ActivePlayer].StarterIndex != -1 && itemObj.StartingItem) 
         { if (!flag) alertUser('Cannot Select Two Starters'); return; }
     // No Tier III and respective Tier IV
     for (pair of GlyphPairs) for (item of CURR_ITEMS)
-        if (item && pair.includes(item.Name) && pair.includes(itemObj.Name)) 
+        if (item && pair.includes(item.DeviceName) && pair.includes(itemObj.DeviceName)) 
             { if (!flag) alertUser('Cannot Select Tier III and Tier IV'); return; }
     // No Two Acorns
-    for (item of CURR_ITEMS) if (item && item.Name.toLowerCase().includes('acorn') && itemObj.Name.toLowerCase().includes('acorn'))
+    for (item of CURR_ITEMS) if (item && item.DeviceName.toLowerCase().includes('acorn') && itemObj.DeviceName.toLowerCase().includes('acorn'))
     { if (!flag) alertUser('Cannot Select Two Acorns'); return; }
 
-    if (itemObj.Starter) SiteData.PlayerData[ActivePlayer].StarterIndex = ActiveItem;
+    if (itemObj.StartingItem) SiteData.PlayerData[ActivePlayer].StarterIndex = ActiveItem;
     SiteData.PlayerData[ActivePlayer].Items[ActiveItem] = itemObj;
     const ITEMS = document.querySelectorAll('.item');
-    ITEMS[ActivePlayer * 6 + ActiveItem].style.backgroundImage = `URL('${itemObj.URL}')`;
+    ITEMS[ActivePlayer * 6 + ActiveItem].style.backgroundImage = `URL('${itemObj.itemIcon_URL}')`;
 }
 function removeItem() {
-    if (SiteData.PlayerData[ActivePlayer].Items[ActiveItem] && SiteData.PlayerData[ActivePlayer].Items[ActiveItem].Starter) 
+    if (SiteData.PlayerData[ActivePlayer].Items[ActiveItem] && SiteData.PlayerData[ActivePlayer].Items[ActiveItem].StartingItem) 
         SiteData.PlayerData[ActivePlayer].StarterIndex = -1;
     SiteData.PlayerData[ActivePlayer].Items[ActiveItem] = null;
     const ITEMS = document.querySelectorAll('.item');
@@ -163,7 +242,7 @@ function randomItems() {
         }
       
         const ITEMS = document.querySelectorAll('.item_display_elem');
-        const RANDOM_ITEM = getItemData(ITEMS[Math.floor(Math.random() * ITEMS.length - 1) + 1].deviceName);
+        const RANDOM_ITEM = getItemData(ITEMS[Math.floor(Math.random() * (ITEMS.length - 1) + 1)].deviceName);
         appendItem(RANDOM_ITEM, true);
         SelectedItemFilter = null;
         SpecifiedItemTier = '3';
@@ -183,6 +262,13 @@ function randomAll() {
     randomGod();
     randomItems();
     toggleMenu(GodOptionsMenu);
+}
+
+function randomEverything() {
+    for (let playerIndex = 0; playerIndex < 10; playerIndex++) {
+        ActivePlayer = playerIndex;
+        randomAll();
+    }
 }
 
 function generateLink() {
