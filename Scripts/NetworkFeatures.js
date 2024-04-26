@@ -2,6 +2,7 @@ const SERVER = 'http://localhost:3000';
 let ID = getCookie('ID');
 
 let currMatchResults = null;
+let currMatchData = null;
 let currPlayer = null;
 
 SearchMenu.addEventListener("keydown", function(event) {
@@ -43,8 +44,8 @@ async function generateRecentGames(player) {
     for (let recentIndex = 0; recentIndex < 10; recentIndex++) {
         const GAME = document.createElement('div');
         GAME.classList.add('search_result');
-        const GOD = getGodData(Data[recentIndex].GodId);
-        GAME.innerHTML = `<div class="search_title" ondblclick='appendMatchData(${recentIndex})'>${Data[recentIndex].Match_Time} ${Data[recentIndex].Queue}</div><div class="search_name">${Data[recentIndex].God}</div><div class="search_other">${Data[recentIndex].Kills}/${Data[recentIndex].Deaths}/${Data[recentIndex].Assists}</div><div class="search_status">${Data[recentIndex].Win_Status}</div>`;
+        GAME.ondblclick = () => { appendMatchData(recentIndex);  } 
+        GAME.innerHTML = `<div class="search_title">${Data[recentIndex].Match_Time} ${Data[recentIndex].Queue}</div><div class="search_name">${Data[recentIndex].God}</div><div class="search_other">${Data[recentIndex].Kills}/${Data[recentIndex].Deaths}/${Data[recentIndex].Assists}</div><div class="search_status">${Data[recentIndex].Win_Status}</div>`;
         SearchResults.appendChild(GAME);
     }
     generatePlayerInfo(player);
@@ -87,7 +88,22 @@ async function checkSessionStatus() {
 }
 
 async function appendMatchData(index) {
-    const DATA = currMatchResults[index];
+    const MATCH = currMatchResults[index].Match;
+    let Request = await fetch(`${SERVER}/requestmatch?ID=${ID}&MATCH_ID=${MATCH}`);
+    currMatchData = await Request.json();
+    toggleMenu(SearchMenu);
+
+    ActivePlayer = 0;
+    for (player of currMatchData) {
+        appendGod(getGodData(player.GodId));
+        ActiveItem = 0;
+        for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
+            try { appendItem(getItemData(player[`ItemId${itemIndex + 1}`])); } catch (e) { }
+            ActiveItem++;
+        }
+        ActivePlayer++;
+    }
+
 }
 
 async function appendPlayerData() {

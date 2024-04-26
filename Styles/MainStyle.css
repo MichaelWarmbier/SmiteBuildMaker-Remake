@@ -195,6 +195,43 @@ header nav div:hover { border-color: var(--BrightGold); }
     user-select: none;
 }
 
+#AboutContent { height: 90%; width: 100%; }
+#AboutContent div { width: 100%; text-align: center; }
+
+#AboutTitle { font-size: 50px; color: var(--BrightGold); font-family: var(--BrandFont); }
+#AboutAuthor { font-size: 30px; color: var(--DarkGold); font-family: var(--TitleFont); }
+#AboutDesc { margin-bottom: 30px; padding: 0 5% 0 5%; width: 90% !important; margin-top: 20px; font-size: 35px; color: var(--LightGray); font-family: var(--TitleFont); }
+#AboutTooltip { margin-top: 20px; font-size: 15px; color: var(--MediumGray); font-family: var(--TitleFont); }
+
+#NewsContent { height: 90%; width: 100%; }
+#NewsContent div { width: 100%; text-align: center; }
+
+#NewsTitle { font-size: 40px; color: var(--DarkGold); font-family: var(--TitleFont); }
+#NewsPatch { font-size: 30px; color: var(--BrightGold); font-family: var(--TitleFont); }
+#NewsDesc { margin-top: 60px; font-size: 20px; color: var(--LightGray); font-family: var(--TitleFont); padding: 0 10% 0 10%; width: 80% !important; }
+
+#NewsSpecifics {
+    margin-top: 60px; 
+    width: 80% !important;
+    padding: 0 10% 0 10%;
+    min-height: 10px;
+}
+
+.patch_item { font-size: 20px; font-family: var(--TitleFont); color: var(--MediumGray); text-align: left !important; }
+.patch_item::before { font-size: 16px; padding: 0 3px 0 3px; color: white; font-family: var(--BrandFont); margin-right: 5px; border-radius: 4px; }
+#Feature::before { content: 'Feature'; background-color: #069c33; }
+#Enhancement::before { content: 'Enhancement'; background-color: #bd6b28; }
+#BugFix::before { content: 'Bugfix'; background-color: #bd3228; }
+
+#AboutContent a { 
+    padding-top: 30px; 
+    font-family: var(--BrandFont); 
+    font-size: 40px; 
+    color: var(--DarkGold); 
+    padding: 0 20% 0 20%; 
+    text-decoration: none;
+} #AboutContent a:hover { color: var(--BrightGold); }
+
 #GlobalOptions {
     height: 60vh;
     width: 80%;top: calc(-60vh + 13vh); 
@@ -671,6 +708,7 @@ header nav div:hover { border-color: var(--BrightGold); }
     border-radius: var(--ThinBorderRadius);
     transform: translateY(.125em);
     cursor: pointer;
+    padding: 3px;
 } .side_menu_content .info_menu_button img:hover { border: var(--ThinBorderGlow); }
 
 #BuffDisplayContainer {
@@ -681,11 +719,12 @@ header nav div:hover { border-color: var(--BrightGold); }
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 #BuffDisplayContainer .info_menu_button {
-    height: 100%;
-    width: 3em;
+    height: 80%;
+    max-width: 14%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -693,7 +732,7 @@ header nav div:hover { border-color: var(--BrightGold); }
     justify-content: space-around;
     padding: 10px;
     font-size: 30px;
-    cursor:auto;
+    cursor: auto;
 } #BuffDisplayContainer .info_menu_button:hover { border: var(--ThinBorder); }
 
 #LevelSliderContainer {
@@ -714,6 +753,68 @@ header nav div:hover { border-color: var(--BrightGold); }
     flex-direction: column;
     align-items: center;
     float: left;
+    position: relative;
+}
+
+#PassiveDisplay {
+    height: 90%; width: 80%;
+    padding: 0 5% 0 5%;
+    position: absolute; margin: auto;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background-color: var(--InternalBlue);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .4s;
+    z-index: 5;
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+}
+
+#PassiveTitle {
+    font-size: 30px;
+    font-family: var(--TitleFont);
+    color: var(--BrightGold);
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+#PassiveContent {
+    font-size: 20px;
+    font-family: var(--TitleFont);
+    color: var(--LightGray);
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#InfoLeftContainer #InfoPassives {
+    position: absolute;
+    left: 20px; top: 5px;
+    height: 50px; width: 50px;
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    background-color: var(--ContentBlue);
+    background-image: URL('../Assets/Icons/Info.png');
+    background-size: cover;
+    cursor: pointer;
+    outline: none;
+} #InfoLeftContainer #InfoPassives:hover { border: var(--ThinBorderGlow); }
+
+#InfoLeftContainer #InfoPassives:focus { border: var(--ThinBorderGlow);}
+#InfoLeftContainer #InfoPassives:focus + #PassiveDisplay { opacity: 1; }
+
+#DPSFactor {
+    position: absolute; margin: auto;
+    left: 0; right: 0; top: 0;
+    height: max-content; width: max-content;
+    padding: 3px;
+    color: var(--LightGray);
+    font-family: var(--TitleFont);
+    font-size: 15px;
+    border: var(--ThinBorder);
+    border-radius: var(--ThinBorderRadius);
+    background-color: var(--ContentBlue);
 }
 
 #InfoLeftContainer #InfoIcon {
@@ -740,7 +841,14 @@ header nav div:hover { border-color: var(--BrightGold); }
     display: flex;
     justify-content: center;
     margin-top: 10px;
-} #InfoBuffs img { height: 40px; width: 40px; border-radius: var(--ThinBorderRadius); }
+} 
+
+#InfoBuffs img { 
+    height: 40px; width: 40px; 
+    border-radius: var(--ThinBorderRadius);
+    border: var(--ThinBorder);
+    margin: 3px;
+}
 
 #InfoLeftContainer #InfoGold {
     width: 60%;
@@ -771,6 +879,7 @@ header nav div:hover { border-color: var(--BrightGold); }
     overflow: hidden;
     margin-top: 5px;
     background-size: cover;
+    cursor: help;
 }
 
 #InfoItems .info_item_label {
@@ -964,20 +1073,78 @@ header nav div:hover { border-color: var(--BrightGold); }
     background-color: red;
     border: var(--ThinBorder);
     cursor: pointer;
+    user-select: none;
     box-shadow: var(--Shadow);
+    font-size: 15px;
+    color: white;
+    text-shadow: 1px 1px black;
+    font-family: var(--TitleFont);
 } .god_health:hover, .god_mana:hover { border: var(--ThinBorderGlow); }
 
 .god_health { background-color: #58d665; }
-
 .god_mana { background-color: #4b5fe3; }
 
-#Left .god_health, #Left .god_mana { float: left; margin-left: 5px; }
-#Right .god_health, #Right .god_mana { float: right; }
+#Left .god_health, #Left .god_mana { float: left; margin-left: 5px; text-align: left; }
+#Right .god_health, #Right .god_mana { float: right; text-align: right; }
 
 /*//// Keyframes & Media Queries ////*/
 
 @media (orientation: portrait) {
+
+    #Message { font-size: 30px !important; }
+
+    header h1 { width: 30% !important; font-size: 25px !important; }
+    header h2 { width: 10% !important; padding-right: 10%; }
+    header nav { width: 50% !important; }
+
+    #SearchLeft { width: 30% !important; }
+    #SearchRight { width: 68% !important; }
+
+    #SearchResultRanked { padding: 30px 0 0 0 !important; height: 100% !important; width: 100% !important; }
+    #SearchResultAccolades { height: 50% !important; }
+    #SearchResultPerformance { height: 50% !important; }
+    .accolade_icon { height: 75px !important; width: 75px !important; }
+    .accolade_title, .accolade_amount { font-size: 15px !important; }
+    .performance_icon { height: 75px !important; width: 75px !important; }
+    .performance_name, .performance_title { font-size: 15px !important; }
+
+    #GlobalOptions .option { width: 70%; }
+    .info_menu_button img { height: 1em !important; width: 1em !important; }
+    #BuffDisplayContainer .info_menu_button { max-width: 9%  !important; }
+    #InfoIcon { height: 100px !important; width: 100px !important; }
+
+    #InfoPassives { left: 5px !important; }
+    .stat { font-size: 15px; }
+
     #NoPortrait { display: block; }
+    #Terminal { display: none; }
+
+    .god_icon { width: 25% !important; }
+    .rank_icon { width: 100px !important; height: 100px !important; }
+
+    .search_display_menu Span { font-size: 25px !important; }
+    .search_nav_elem { font-size: 25% !important; }
+
+    .god_items { width: 150px; flex-wrap: wrap; }
+    #Left .god_items { float: left !important; }
+    #Right .god_items { float: right !important; }
+    .god_bar { width: 60%; float: left; transform: translateY(20px); }
+    .god_health { width: 60%; }
+    .god_mana { width: 60%; }
+
+    #HoveredGodName { font-size: 30px !important; }
+    #HoveredGodTitle { font-size: 20px !important; }
+    #HoveredGodInfoText, #HoveredItemInfoText { font-size: 30px !important; }
+    #HoveredItemIcon { height: 40px !important; width: 40px !important; margin-top: 150px !important; }
+
+    #HoveredItemName { font-size: 20px !important; }
+    #HoveredItemStats { width: 90% !important; padding: 0 5% 0 5%; height: 60% !important; }
+    #HoveredItemFullDesc { width: 90% !important; padding: 0 5% 0 5%; height: 60% !important; }
+
+    .item {
+        height: 40px !important;
+        width: 40px !important;
+    }
 }
 
 @keyframes pulse {

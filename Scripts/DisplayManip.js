@@ -3,6 +3,9 @@ let ItemNumbers = false;
 let NonConquest = false;
 let SaveNumber = 1;
 let GlobalOptionsOpen = false;
+let MouseInterval = null;
+let xPos = null;
+document.onmousemove = function(event) { xPos = event.pageX; }
 
 /*//// Hover Text Events ////*/
 
@@ -40,6 +43,29 @@ Lookup.addEventListener("mouseout",  hideToolTip);
 document.querySelectorAll('#GlobalOptions .tab')[0].addEventListener("mouseover", () => { showToolTip('Global Site Options')});
 document.querySelectorAll('#GlobalOptions .tab')[0].addEventListener("mouseout",  hideToolTip);
 
+const BUFF_ICONS = document.querySelectorAll('.info_menu_button img');
+BUFF_ICONS[0].buffName = 'Power Buff';
+BUFF_ICONS[1].buffName = 'Mana Buff';
+BUFF_ICONS[2].buffName = 'Speed Buff';
+BUFF_ICONS[3].buffName = 'Void Buff';
+BUFF_ICONS[4].buffName = 'Attack Speed Buff';
+BUFF_ICONS[5].buffName = 'Health Buff';
+BUFF_ICONS[6].buffName = 'Gold Buff';
+BUFF_ICONS[7].buffName = 'Silver Buff';
+BUFF_ICONS[8].buffName = 'E. Fire Giant';
+BUFF_ICONS[9].buffName = 'Fire Giant';
+BUFF_ICONS[10].buffName = 'Slash Buff';
+BUFF_ICONS[11].buffName = 'Joust Buff';
+BUFF_ICONS[12].buffName = 'Power Potion';
+BUFF_ICONS[13].buffName = 'Defense Elixir';
+BUFF_ICONS[14].buffName = 'Power Elixir';
+BUFF_ICONS[15].buffName = 'Reset Buffs';
+
+for (let buffIndex = 0; buffIndex < BUFF_ICONS.length; buffIndex++) {
+    BUFF_ICONS[buffIndex].addEventListener("mouseover", () => { showToolTip(BUFF_ICONS[buffIndex].buffName);});
+    BUFF_ICONS[buffIndex].addEventListener("mouseout",  hideToolTip);
+}
+
 /*//// Functions ////*/
 
 function toggleMenu(targetMenu) {
@@ -55,12 +81,18 @@ function toggleMenu(targetMenu) {
 
     if (targetMenu == GodInfoMenu || targetMenu == GodOptionsMenu) {
 
+        updateBuffDisplay();
+
         targetMenu.querySelectorAll('h1')[1].innerHTML = `${ActivePlayer < 5 ? 'Order' : 'Chaos'} - Player ${ActivePlayer % 5 + 1}`;
         
         if (targetMenu == GodInfoMenu && SiteData.PlayerData[ActivePlayer].God == null) {
             alertUser('Please Select a God First');
             return;
         } else if (targetMenu == GodInfoMenu) {
+
+            appendBuffsToDisplay();
+            updateStats();
+            DPSFactor.innerHTML = `Basic Attack Factor: ${getDPS().toFixed(2)}`;
 
             InfoIcon.style.backgroundImage = `URL('${SiteData.PlayerData[ActivePlayer].God.godIcon_URL}')`;
             InfoName.innerHTML = SiteData.PlayerData[ActivePlayer].God.Name;
@@ -192,7 +224,6 @@ function displayItem(name) {
     const ITEM = getItemData(name);
     document.querySelector('#ItemMenuRight #HoveredItemName').innerHTML = ITEM.DeviceName;
     document.querySelector('#ItemMenuRight #HoveredItemFullDesc').innerHTML = ITEM.ItemDescription.SecondaryDescription;
-    document.querySelector('#ItemMenuRight #HoveredItemFullPrice').innerHTML = ITEM.Gold;
     
 
     let childItem = ITEM; let fullPrice = 0;
@@ -202,7 +233,8 @@ function displayItem(name) {
         childItem = getItemData(childItem.ChildItemId);      
     }
 
-    document.querySelector('#ItemMenuRight #HoveredItemSinglePrice').innerHTML = ITEM.fullPrice;
+    document.querySelector('#ItemMenuRight #HoveredItemSinglePrice').innerHTML = ITEM.Price;
+    document.querySelector('#ItemMenuRight #HoveredItemFullPrice').innerHTML = fullPrice;
     document.querySelector('#ItemMenuRight #HoveredItemIcon').style.backgroundImage = `URL('${ITEM.itemIcon_URL}')`;
 
     document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML = '';
@@ -260,11 +292,11 @@ function adjustMenu(dir) {
     } else if (CurrentMenu == GodInfoMenu) {
         
         for (let menuIndex = 0; menuIndex < 15; menuIndex++) {
-            if (SiteData.PlayerData[tempIndex].God != null) { break; } 
-            else { tempIndex += dir; }
             if (tempIndex < 0) tempIndex = 9;
             if (tempIndex > 9) tempIndex = 0;
             if (menuIndex == 14) tempIndex = ActivePlayer + dir;
+            if (SiteData.PlayerData[tempIndex].God != null) { break; } 
+            else { tempIndex += dir; }
         }
 
         ActivePlayer = tempIndex;
@@ -299,4 +331,40 @@ function focusSelf(className, obj) {
 
 function showToolTip(msg) { ToolTip.style.opacity = '1'; ToolTip.innerHTML = msg; }
 function hideToolTip() { ToolTip.style.opacity = '0'; }
+function addPassive(msg) { 
+    if (PassiveContent.innerHTML.includes('No Passive Effects')) PassiveContent.innerHTML = '';
+    PassiveContent.innerHTML += `<br>${msg}<br>`;
+}
+function clearPassives() { PassiveContent.innerHTML = '<span style="opacity: .5">No Passive Effects<span>'; }
 
+function appendBuffsToDisplay() {
+    InfoBuffs.innerHTML = '';
+    for (item of SiteData.PlayerData[ActivePlayer].Buffs)
+        for (icon of document.querySelectorAll('.info_menu_button img'))
+            if (icon.buffName == item) InfoBuffs.innerHTML += `<img src='../Assets/Icons/${icon.src.split('/')[icon.src.split('/').length - 1]}'>`;
+}
+
+function updateBuffDisplay() {
+    const BUFFS = SiteData.PlayerData[ActivePlayer].Buffs;
+    const ICONS = document.querySelectorAll('.info_menu_button img');
+    for (elem of ICONS) 
+        if (BUFFS.includes(elem.buffName)) elem.style.boxShadow = '2px 2px 4px white, -2px -2px 4px white, -2px 2px 4px white, 2px -2px 4px white';
+        else                               elem.style.boxShadow = '';
+}
+
+function updateHealthMana(elem, event) {
+    const BOX = elem.getBoundingClientRect();
+    MouseInterval = setInterval(function() {
+        const X_OFFSET = xPos - BOX.left;
+        let Percent = X_OFFSET / (elem.offsetWidth) * 100;
+        if (Percent < 5) Percent = 0;
+        if (Percent > 95) Percent = 100;
+        if (elem.className === 'god_health') elem.style.background = 'linear-gradient(to right, #58d665 ' + Percent + '%, #292929 ' + Percent + '%)';
+        else elem.style.background = 'linear-gradient(to right, #4b5fe3 ' + Percent + '%, #292929 ' + Percent + '%)';
+        elem.innerHTML = '&nbsp;' + Math.floor(Percent) + '%&nbsp;';
+        SiteData.PlayerData[ActivePlayer].BarHealth = Percent;
+        SiteData.PlayerData[ActivePlayer].BarMana = Percent;
+    }, 100);
+}
+
+function clearHMUpdate() { clearInterval(MouseInterval); }

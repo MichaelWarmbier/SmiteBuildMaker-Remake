@@ -60,8 +60,8 @@
                             <div class="item" onclick="ActivePlayer = 0;  ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 0; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 0; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -81,8 +81,8 @@
                             <div class="item" onclick="ActivePlayer = 1; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 1; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 1; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -102,8 +102,8 @@
                             <div class="item" onclick="ActivePlayer = 2; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 2; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 2; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -123,8 +123,8 @@
                             <div class="item" onclick="ActivePlayer = 3; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 3; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 3; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -144,8 +144,8 @@
                             <div class="item" onclick="ActivePlayer = 4; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 4; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 4; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                 </div>
@@ -168,8 +168,8 @@
                             <div class="item" onclick="ActivePlayer = 5; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 5; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 5; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -189,8 +189,8 @@
                             <div class="item" onclick="ActivePlayer = 6; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 6; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 6; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -210,8 +210,8 @@
                             <div class="item" onclick="ActivePlayer = 7; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 7; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 7; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -231,8 +231,8 @@
                             <div class="item" onclick="ActivePlayer = 8; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 8; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 8; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                     <div class="player">
@@ -252,8 +252,8 @@
                             <div class="item" onclick="ActivePlayer = 9; ActiveItem = 5; toggleMenu(ItemSelectMenu);"></div>
                         </div>
                         <div class="god_bar">
-                            <div class="god_health"></div>
-                            <div class="god_mana"></div>
+                            <div class="god_health" onmousedown="ActivePlayer = 9; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
+                            <div class="god_mana" onmousedown="ActivePlayer = 9; updateHealthMana(this, event)" onmouseup="clearHMUpdate()", onmouseout="clearHMUpdate()">&nbsp;100%&nbsp;</div>
                         </div>
                     </div>
                 </div>
@@ -276,10 +276,33 @@
         <!-- Static Menus -->
         <div id="AboutMenu" class="menu">
             <h1>Learn About SmiteBuildMaker</h1>
+            <div id="AboutContent">
+                <div id="AboutTitle">SmiteBuildMaker</div>
+                <div id="AboutAuthor">Created by Michael Warmbier</div>
+                <div id="AboutDesc">
+                    SmiteBuildMaker is website/web application designed to provide players of SMITE with an easy method to compare, share and test item combinations
+                </div>
+                <div id="Links">
+                    <a href="https://www.patreon.com/user?u=122393593">Support the Website</a><br>
+                    <a href="https://twitter.com/Kirbout">Follow the Developer</a>
+                </div>
+                <div id="AboutTooltip">ctrl + i to open terminal (PC only)</div>
+            </div>
         </div>
 
         <div id="NewsMenu" class="menu">
             <h1>Recent SmiteBuildMaker News</h1>
+            <div id="NewsContent">
+                <div id="NewsTitle">Fluidity and Accessibility Update</div>
+                <div id="NewsPatch">V6.0.0 (Alpha) Smite 11.4</div>
+                <div id="NewsDesc">This patch focuses on modernizing the code and visuals of the website by redesigning them from the ground up, while also adding language support!</div>
+                <div id="NewsSpecifics">
+                    <div id="Feature" class="patch_item">Added even more passives!</div>
+                    <div id="Feature" class="patch_item">Added "Basic Attack Factor" to compare DPS between two characters</div>
+                    <div id="Enhancement" class="patch_item">Styling and website design have been overhauled and improved</div>
+                    <div id="Enhancement" class="patch_item">Improved mobile support</div>
+                </div>
+            </div>
         </div>
 
         <div id="FileMenu" class="menu">
@@ -297,7 +320,7 @@
             <h1>Select a Language</h1>
             <div id="LangMenuContent">
                 <div class="lang_option">English</div>
-                <div class="lang_option">Spanish</div>
+                <div class="lang_option">Latin American Spanish</div>
                 <div class="lang_option">Polish</div>
                 <div class="lang_option">Turkish</div>
                 <div class="lang_option">German</div>
@@ -454,6 +477,12 @@
             <h1><div class="arrow_left" onclick="adjustMenu(-1)"></div>Player Information<div class="arrow_right" onclick="adjustMenu(1)"></div></h1>
             <h1 class="who_label">Order Side Player 1</h1>
             <div id="InfoLeftContainer">
+                <button id="InfoPassives"></button>
+                <div id="PassiveDisplay">
+                    <div id="PassiveTitle">Passives</div>
+                    <div id="PassiveContent"><span style="opacity: .5">No Passive Effects<span></div>
+                </div>
+                <div id="DPSFactor">Basic Attack Factor: 0</div>
                 <div id="InfoIcon"></div>
                 <div id="InfoName">Zeus</div>
                 <div id="InfoLevel">Level 1</div>
@@ -582,7 +611,7 @@
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
-                        <div class="stat_cap">100%</div>
+                        <div class="stat_cap">&nbsp;100%&nbsp;</div>
                     </div>
                 </div>
                 <div class="stat">
@@ -632,7 +661,7 @@
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
-                        <div class="stat_cap">100%</div>
+                        <div class="stat_cap">&nbsp;100%&nbsp;</div>
                     </div>
                 </div>
                 <div class="stat">
@@ -652,7 +681,7 @@
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
-                        <div class="stat_cap">100%</div>
+                        <div class="stat_cap">&nbsp;100%&nbsp;</div>
                     </div>
                 </div>
 
@@ -666,31 +695,32 @@
                 <h2>Enhancement Selection</h2>
                 <div id="BuffDisplayContainer">
                     <div class="info_menu_button">
-                        <img src="../Assets/Icons/Power_Buff.png">
-                        <img src="../Assets/Icons/Mana_Buff.png">
-                        <img src="../Assets/Icons/Speed_Buff.png">
-                        <img src="../Assets/Icons/Void_Buff.png">
-                        <img src="../Assets/Icons/AttackSpeed_Buff.png">
-                        <img src="../Assets/Icons/Health_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Power_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Mana_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Speed_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Void_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/AttackSpeed_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Health_Buff.png">
                     </div>
                     <div class="info_menu_button">
-                        <img src="../Assets/Icons/Gold_Buff.png">
-                        <img src="../Assets/Icons/Silver_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Gold_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Silver_Buff.png">
                     </div>
                     <div class="info_menu_button">
-                        <img src="../Assets/Icons/Fire_Giant.png">
-                        <img src="../Assets/Icons/Slash_Buff.png">
-                        <img src="../Assets/Icons/Joust_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/E_Fire_Giant.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Fire_Giant.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Slash_Buff.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Joust_Buff.png">
                     </div>
                     <div class="info_menu_button">
-                        <img src="../Assets/Icons/Power_Potion.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Power_Potion.png">
                     </div>
                     <div class="info_menu_button">
-                        <img src="../Assets/Icons/Defense_Elixir.png">
-                        <img src="../Assets/Icons/Power_Elixir.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Defense_Elixir.png">
+                        <img onclick="selectBuff(this)" src="../Assets/Icons/Power_Elixir.png">
                     </div>
                     <div class="info_menu_button">
-                        <img src="../Assets/Icons/Reset.png">
+                        <img onclick="selectBuff(null)" src="../Assets/Icons/Reset.png">
                     </div>
                 </div>
                 <h2>Randomization</h2>
@@ -781,13 +811,14 @@
         <div id="ToolTip"></div>
 
         <!-- JSON Data -->
-        <script src="../Data/Languages/ENGLISH.json"></script>
+        <script src="../Languages/ENGLISH.json"></script>
 
         <!-- Scripts -->
         <script src="../Scripts/Utility.js"></script>
         <script src="../Scripts/DisplayManip.js"></script>
         <script src="../Scripts/DataManip.js"></script>
         <script src="../Scripts/NetworkFeatures.js"></script>
+        <script src="../Scripts/StatCalc.js"></script>
         <script src="../Scripts/OnEntry.js"></script>
 
     </body>

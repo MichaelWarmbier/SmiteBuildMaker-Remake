@@ -22,6 +22,8 @@ for (let playerIndex = 0; playerIndex < 10; playerIndex++)
         "StarterIndex": -1,
         "RecipeIndex": -1,
         "ActiveEffects": [],
+        "BarHealth": 100,
+        "BarMana": 100,
         "Stats": { 
             "Speed": 0,
             "Power": 0,
@@ -92,7 +94,7 @@ function initializeGods() {
 
     for (God of English.Gods) {
 
-        if (SelectedGodFilter != null && God.Role != SelectedGodFilter) continue;
+        if (SelectedGodFilter != null && God.Roles != SelectedGodFilter) continue;
         if (!God.Name.toLowerCase().includes(CustomGodFilter)) continue;
         const newGod = document.createElement('div');
         newGod.classList.add('god_display_elem');
@@ -234,8 +236,9 @@ function randomItems() {
         initializeItems();
 
         if (itemIndex == 0 && SiteData.PlayerData[ActivePlayer].God.Name == 'Ratatoskr') {
-            const RANDOM_ITEM = getItemData(ACORNS[Math.floor(Math.random() * ACORNS.length)]);
-            appendItem(RANDOM_ITEM, true);
+            const RANDOM_ACORN = ACORNS[Math.floor(Math.random() * ACORNS.length)];
+            const RANDOM_ITEM = getItemData(RANDOM_ACORN);
+            try { appendItem(RANDOM_ITEM, true); } catch (e) { console.log(RANDOM_ACORN); return; }
             SelectedItemFilter = null;
             SpecifiedItemTier = '3';
             continue;
@@ -255,6 +258,7 @@ function randomItems() {
 function randomGod() {
     const RANDOM_GOD = Math.floor(Math.random() * English.Gods.length);
     appendGod(English.Gods[RANDOM_GOD]);
+    SiteData.PlayerData[ActivePlayer].Level = 20;
     toggleMenu(GodOptionsMenu);
 }
 
@@ -278,17 +282,17 @@ function generateLink() {
     for (let playerIndex = 0; playerIndex < 10; playerIndex++) {
         if (!SiteData.PlayerData[playerIndex].God) continue;
 
-        else link += playerIndex + 'g=' + SiteData.PlayerData[playerIndex].God.Id + '&';
+        else link += playerIndex + 'g=' + SiteData.PlayerData[playerIndex].God.id + '&';
         link += playerIndex + 'l=' + SiteData.PlayerData[playerIndex].Level + '&';
 
         for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
             if (!SiteData.PlayerData[playerIndex].Items[itemIndex]) link += playerIndex + 'i' + itemIndex + '=N&';
-            else link += playerIndex + 'i' + itemIndex + '=' + SiteData.PlayerData[playerIndex].Items[itemIndex].Id + '&';
+            else link += playerIndex + 'i' + itemIndex + '=' + SiteData.PlayerData[playerIndex].Items[itemIndex].ItemId + '&';
         }
 
         link += playerIndex + 'bfs=';
         if (!SiteData.PlayerData[playerIndex].Buffs.length) link += 'N';
-        for (Buffs of SiteData.PlayerData[playerIndex].Buffs) link += REGEX.exec(Buffs)[1] + ',';
+        for (Buffs of SiteData.PlayerData[playerIndex].Buffs) link += Buffs + ',';
         link += '&';
 
     }
@@ -325,6 +329,29 @@ function loadData(data) {
             ActiveItem = parseInt(parsedData[0][dataIndex][2]);
             appendItem(getItemData(parsedData[1][dataIndex]));
         }
+        if (parsedData[0][dataIndex].includes('bfs') && !parsedData[1][dataIndex].includes('N')) {
+            let foundBuffs = parsedData[1][dataIndex].split(',');
+            for (buff of foundBuffs) SiteData.PlayerData[ActivePlayer].Buffs.push(buff.replace('%20', ' '));
+        }
     }
 
+}
+
+function selectBuff(elem) {
+    const BUFFS = SiteData.PlayerData[ActivePlayer].Buffs;
+    if (elem == null) SiteData.PlayerData[ActivePlayer].Buffs = []; 
+    if (elem != null && !BUFFS.includes(elem.buffName)) BUFFS.push(elem.buffName);
+    updateBuffDisplay();
+}
+
+function getDPS() {
+    const PLAYER = SiteData.PlayerData[ActivePlayer];
+    let modifier = 1.75;
+    if (!PLAYER.God) return 0;
+
+    if (PLAYER.Items.includes(getItemData('Deathbringer')) ||
+        PLAYER.Items.includes(getItemData('Devoted Deathbringer'))  ||
+        PLAYER.Items.includes(getItemData('Nalicious'))) modifier = 2;
+
+    return PLAYER.Stats.BasicAttackDamage * PLAYER.Stats.AttackSpeed + (modifier * PLAYER.Stats.BasicAttackDamage * PLAYER.Stats.AttackSpeed) * (PLAYER.Stats.CriticalStrike / 100);
 }

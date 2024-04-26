@@ -54,3 +54,7 @@ function getStatNames(itemObj) {
     for (stat of itemObj.ItemDescription.Menuitems) returnList.push(stat.Description);
     return returnList;
 }
+
+function help() {
+    console.log('This method does.. this');
+}
