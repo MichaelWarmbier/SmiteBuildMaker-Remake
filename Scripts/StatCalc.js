@@ -23,7 +23,7 @@ function resetStats() { for (key of Object.keys(playerData.Stats)) playerData.St
 
 function calculateBaseStats() {
     statData.Speed = godData.Speed + (playerData.Level <= 7 ? godData.Speed * (playerData.Level - 1) * .03 : godData.Speed * .18);
-    statData.AttackSpeed = godData.AttackSpeed + (godData.AttackSpeedPerLevel * playerData.Level * godData.AttackSpeed);
+    statData.AttackSpeed = godData.AttackSpeed + (godData.AttackSpeedPerLevel * playerData.Level);
     statData.Health = godData.Health + (godData.HealthPerLevel * playerData.Level);
     statData.Mana = godData.Mana + (godData.ManaPerLevel * playerData.Level);
     statData.HP5 = godData.HealthPerFive + (godData.HP5PerLevel * playerData.Level);
@@ -57,7 +57,7 @@ function addItemStats() {
             if (StatNicknames['CCR'].includes(NAME))                                statData.CCR += VALUE;
             if (StatNicknames['CDR'].includes(NAME))                                statData.CDR += VALUE;
             if (StatNicknames['Crit'].includes(NAME))                               statData.CriticalStrike += VALUE;
-            if (StatNicknames['AttackSpeed'].includes(NAME))                        statData.AttackSpeed += statData.AttackSpeed * (VALUE / 100);
+            if (StatNicknames['AttackSpeed'].includes(NAME))                        statData.AttackSpeed += godData.AttackSpeed * (VALUE / 100);
             if (StatNicknames['DamageRed'].includes(NAME))                          statData.DamageReduction += VALUE;
             if (stat.Value.includes('%') && StatNicknames['Pen'].includes(NAME))    statData.PercentPenetration += VALUE;
             if (!stat.Value.includes('%') && StatNicknames['Pen'].includes(NAME))   statData.Penetration += VALUE;

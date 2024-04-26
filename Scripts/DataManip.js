@@ -148,6 +148,7 @@ function initializeItems() {
             }
         }
 
+        if (Item.ItemId == '19508') continue;
         if (!FilterFlag) continue;
         if (SelectedItemFilter == 'Starter' && !Item.StartingItem) continue;
         if (Item.RestrictedRoles.includes(God.Roles.toLowerCase())) continue;
