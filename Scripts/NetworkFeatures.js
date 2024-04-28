@@ -1,9 +1,10 @@
-const SERVER = 'http://localhost:3000';
+const SERVER = 'https://server-08-kirbout.replit.app';
 let ID = getCookie('ID');
 
 let currMatchResults = null;
 let currMatchData = null;
 let currPlayer = null;
+let ErrorCode = '';
 
 SearchMenu.addEventListener("keydown", function(event) {
     if (event.key !== 'Enter') return;
@@ -16,11 +17,11 @@ SearchMenu.addEventListener("keydown", function(event) {
 
     try { 
         PreSearch.innerHTML = '<div class="orb_container"><div class="orb" style="animation-delay: 0s"></div><div class="orb" style="animation-delay: .25s"></div><div class="orb" style="animation-delay: .5s"></div></div>';
-        setTimeout(() => { PreSearch.innerHTML = 'Could not find player.'; }, 5000);
+        setTimeout(() => { PreSearch.innerHTML = `${langText[90]}.<p>${ErrorCode}</p>`; }, 5000);
         generateRecentGames(INPUT.value);
     
     }
-    catch (e) { PreSearch.innerHTML = 'Could not find player.'; }
+    catch (e) { PreSearch.innerHTML = `${langText[90]}.`; }
     INPUT.value = '';
 }, false);
 
@@ -45,7 +46,7 @@ async function generateRecentGames(player) {
         const GAME = document.createElement('div');
         GAME.classList.add('search_result');
         GAME.ondblclick = () => { appendMatchData(recentIndex);  } 
-        GAME.innerHTML = `<div class="search_title">${Data[recentIndex].Match_Time} ${Data[recentIndex].Queue}</div><div class="search_name">${Data[recentIndex].God}</div><div class="search_other">${Data[recentIndex].Kills}/${Data[recentIndex].Deaths}/${Data[recentIndex].Assists}</div><div class="search_status">${Data[recentIndex].Win_Status}</div>`;
+        GAME.innerHTML = `<div class="search_title">${Data[recentIndex].Match_Time} ${Data[recentIndex].Queue}</div><div class="search_name">${Data[recentIndex].God}</div><div class="search_other">${Data[recentIndex].Kills}/${Data[recentIndex].Deaths}/${Data[recentIndex].Assists}</div><div class="search_status">${Data[recentIndex].Win_Status == 'Win' ? langText[22] : langText[21]}</div>`;
         SearchResults.appendChild(GAME);
     }
     generatePlayerInfo(player);
@@ -71,9 +72,10 @@ async function generatePlayerInfo(player) {
 }
 
 async function updateSession() {
-    const STATUS = await checkSessionStatus();
-    if (!STATUS) { return; }
-    else console.log('Connection estbalished under session ' + ID);
+    try {
+        const STATUS = await checkSessionStatus();
+        if (!STATUS) { ErrorMessage = langText[91]; return; }
+    } catch (e) { ErrorMessage = langText[91]; }
 }
 
 async function checkSessionStatus() {
@@ -81,7 +83,7 @@ async function checkSessionStatus() {
     const NEW_SESSION = await Request.text();
     if (NEW_SESSION.includes('Err') || NEW_SESSION.includes('ERR')) return false;
     try { Request = await fetch(`${SERVER}/testsession?ID=${ID}`); }
-    catch(e) { console.log(e); return false; }
+    catch(e) { ErrorMessage = langText[92]; }
     let Data = await Request.json(); 
     if (Data.Status !== 'Valid') { ID = NEW_SESSION; setCookie('ID', NEW_SESSION, 1); }
     return true;
@@ -112,12 +114,12 @@ async function appendPlayerData() {
     SearchSummaryID.innerHTML = currPlayer.PLAYER_INFO[0].Id;
     SearchSummaryRegion.innerHTML = currPlayer.PLAYER_INFO[0].Region;
     SearchSummaryStatus.innerHTML = `"${currPlayer.PLAYER_INFO[0].Personal_Status_Message}"`;
-    SearchSummaryWins.innerHTML = `${currPlayer.PLAYER_INFO[0].Wins} Game Wins`;
-    SearchSummaryLosses.innerHTML = `${currPlayer.PLAYER_INFO[0].Losses} Game Wins`;
-    SearchSummaryLeaves.innerHTML = `${currPlayer.PLAYER_INFO[0].Leaves} Game Wins`;
+    SearchSummaryWins.innerHTML = `${currPlayer.PLAYER_INFO[0].Wins} ${langText[20]}`;
+    SearchSummaryLosses.innerHTML = `${currPlayer.PLAYER_INFO[0].Losses}  ${langText[96]}`;
+    SearchSummaryLeaves.innerHTML = `${currPlayer.PLAYER_INFO[0].Leaves} ${langText[97]}`;
     SearchSummaryIcon.style.backgroundImage = `URL('${currPlayer.PLAYER_INFO[0].Avatar_URL}')`;
     if (currPlayer.PLAYER_INFO[0].Avatar_URL == '') 
-    SearchSummaryIcon.style.backgroundImage = 'URL("../Assets/Icons/Question_Gold.png")';
+    SearchSummaryIcon.style.backgroundImage = 'URL("./Assets/Icons/Question_Gold.png")';
 
     let RankText = document.querySelectorAll('.rank_title');
     let RankIcon = document.querySelectorAll('.rank_icon');
@@ -179,13 +181,13 @@ async function appendPlayerData() {
     Icons[5].src = getGodData(MostWins.god).godIcon_URL;
     Icons[6].src = getGodData(MostLosses.god).godIcon_URL;
 
-    Titles[0].innerHTML = MostKills.god;
-    Titles[1].innerHTML = MostDeaths.god;
-    Titles[2].innerHTML = MostAssists.god;
-    Titles[3].innerHTML = MostWorship.god;
-    Titles[4].innerHTML = (BestKDR == null ? 'N/A' : BestKDR.god);
-    Titles[5].innerHTML = MostWins.god;
-    Titles[6].innerHTML = MostLosses.god;
+    Titles[0].innerHTML = godLang(MostKills).god;
+    Titles[1].innerHTML = godLang(MostDeaths).god;
+    Titles[2].innerHTML = godLang(MostAssists).godt;
+    Titles[3].innerHTML = godLang(MostWorship).god;
+    Titles[4].innerHTML = (BestKDR == null ? 'N/A' : godLang(BestKDR).god);
+    Titles[5].innerHTML = godLang(MostWins).god;
+    Titles[6].innerHTML = godLang(MostLosses).god;
 
     document.querySelectorAll('.performance_extra')[0].innerHTML = `${BestKDR.Kills}/${BestKDR.Deaths}`;
 }

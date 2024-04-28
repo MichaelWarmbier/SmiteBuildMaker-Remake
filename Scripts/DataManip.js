@@ -24,6 +24,8 @@ for (let playerIndex = 0; playerIndex < 10; playerIndex++)
         "ActiveEffects": [],
         "BarHealth": 100,
         "BarMana": 100,
+        "PassiveOn": false,
+        "PassiveStance": 0,
         "Stats": { 
             "Speed": 0,
             "Power": 0,
@@ -88,14 +90,14 @@ function initializeGods() {
 
     const newTrash = document.createElement('div');
     newTrash.classList.add('god_display_elem');
-    newTrash.style.backgroundImage = `url("../Assets/Icons/Trash.png")`;
+    newTrash.style.backgroundImage = `url("./Assets/Icons/Trash.png")`;
     newTrash.ondblclick = function() { removeGod(); toggleMenu(GodSelectMenu); }
     GodList.appendChild(newTrash);
 
     for (God of English.Gods) {
 
         if (SelectedGodFilter != null && God.Roles != SelectedGodFilter) continue;
-        if (!God.Name.toLowerCase().includes(CustomGodFilter)) continue;
+        if (!godLang(God).Name.toLowerCase().includes(CustomGodFilter)) continue;
         const newGod = document.createElement('div');
         newGod.classList.add('god_display_elem');
         newGod.style.backgroundImage = `url("${God.godIcon_URL}")`
@@ -114,7 +116,7 @@ function initializeItems() {
 
     const newTrash = document.createElement('div');
     newTrash.classList.add('item_display_elem');
-    newTrash.style.backgroundImage = `url("../Assets/Icons/Trash.png")`;
+    newTrash.style.backgroundImage = `url("./Assets/Icons/Trash.png")`;
     newTrash.ondblclick = function() { removeItem(); toggleMenu(ItemSelectMenu); }
     ItemList.appendChild(newTrash);
 
@@ -156,14 +158,14 @@ function initializeItems() {
         if (DMGTYPE != 'Neutral' && !God.Type.includes(DMGTYPE)) continue;
         if (SelectedItemFilter != 'Starter' && SpecifiedItemTier && SpecifiedItemTier != Item.ItemTier) continue;
         if (Item.ItemTier != SpecifiedItemTier) continue;
-        if (!Item.DeviceName.toLowerCase().includes(CustomItemFilter)) continue;
+        if (!itemLang(Item).DeviceName.toLowerCase().includes(CustomItemFilter)) continue;
 
         const newItem = document.createElement('div');
         newItem.classList.add('item_display_elem');
         newItem.style.backgroundImage = `url("${Item.itemIcon_URL}")`
         newItem.deviceName = Item.DeviceName;
         const thisItem = Item;
-        newItem.onclick = function() { displayItem(thisItem.DeviceName); }
+        newItem.onclick = function() { displayItem(getItemData(thisItem.ItemId).DeviceName); }
         newItem.ondblclick = function() { removeItem(); appendItem(thisItem); toggleMenu(ItemSelectMenu); }
         ItemList.appendChild(newItem);
 
@@ -175,15 +177,16 @@ function updateLevel() {
     LevelLabel.innerHTML = document.querySelector('#LevelSlider').value;
 }
 
-function appendGod(GodObj) { 
+function appendGod(GodObj) {
     SiteData.PlayerData[ActivePlayer].God = GodObj;
     const PLAYERS = document.querySelectorAll('.god_icon .icon');
     PLAYERS[ActivePlayer].style.backgroundImage = `URL('${GodObj.godIcon_URL}')`;
+    updateHealthMana(document.querySelectorAll('.god_mana')[ActivePlayer], null);
 }
 function removeGod() { 
     SiteData.PlayerData[ActivePlayer].God = null;
     const PLAYERS = document.querySelectorAll('.god_icon .icon');
-    PLAYERS[ActivePlayer].style.backgroundImage = 'URL("../Assets/Icons/Question_Gold.png")';
+    PLAYERS[ActivePlayer].style.backgroundImage = 'URL("./Assets/Icons/Question_Gold.png")';
     for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
         ActiveItem = itemIndex;
         removeItem();
@@ -197,17 +200,17 @@ function appendItem(itemObj, flag=0) {
 
     // No Duplicates
     if (CURR_ITEMS.includes(itemObj)) 
-        { if (!flag) alertUser('Item Already Selected'); return; }
+        { if (!flag) alertUser(langText[86]); return; }
     // No Two Starters
     if (SiteData.PlayerData[ActivePlayer].StarterIndex != -1 && itemObj.StartingItem) 
-        { if (!flag) alertUser('Cannot Select Two Starters'); return; }
+        { if (!flag) alertUser(langText[84]); return; }
     // No Tier III and respective Tier IV
     for (pair of GlyphPairs) for (item of CURR_ITEMS)
         if (item && pair.includes(item.DeviceName) && pair.includes(itemObj.DeviceName)) 
-            { if (!flag) alertUser('Cannot Select Tier III and Tier IV'); return; }
+            { if (!flag) alertUser(langText[85]); return; }
     // No Two Acorns
     for (item of CURR_ITEMS) if (item && item.DeviceName.toLowerCase().includes('acorn') && itemObj.DeviceName.toLowerCase().includes('acorn'))
-    { if (!flag) alertUser('Cannot Select Two Acorns'); return; }
+    { if (!flag) alertUser(langText[83]); return; }
 
     if (itemObj.StartingItem) SiteData.PlayerData[ActivePlayer].StarterIndex = ActiveItem;
     SiteData.PlayerData[ActivePlayer].Items[ActiveItem] = itemObj;
@@ -219,11 +222,11 @@ function removeItem() {
         SiteData.PlayerData[ActivePlayer].StarterIndex = -1;
     SiteData.PlayerData[ActivePlayer].Items[ActiveItem] = null;
     const ITEMS = document.querySelectorAll('.item');
-    ITEMS[ActivePlayer * 6 + ActiveItem].style.backgroundImage = `URL("../Assets/Icons/Plus_Gold.png")`;
+    ITEMS[ActivePlayer * 6 + ActiveItem].style.backgroundImage = `URL("./Assets/Icons/Plus_Gold.png")`;
 } 
 
 function randomItems() {
-    if (SiteData.PlayerData[ActivePlayer].God == null) { alertUser('Please Select a God First'); return; }
+    if (SiteData.PlayerData[ActivePlayer].God == null) { alertUser(langText[80]); return; }
 
     CustomItemFilter = null;
     SelectedItemFilter = 'Starter';
@@ -239,14 +242,16 @@ function randomItems() {
         if (itemIndex == 0 && SiteData.PlayerData[ActivePlayer].God.Name == 'Ratatoskr') {
             const RANDOM_ACORN = ACORNS[Math.floor(Math.random() * ACORNS.length)];
             const RANDOM_ITEM = getItemData(RANDOM_ACORN);
-            try { appendItem(RANDOM_ITEM, true); } catch (e) { console.log(RANDOM_ACORN); return; }
+            try { appendItem(RANDOM_ITEM, true); } catch (e) { return; }
             SelectedItemFilter = null;
             SpecifiedItemTier = '3';
             continue;
         }
       
         const ITEMS = document.querySelectorAll('.item_display_elem');
-        const RANDOM_ITEM = getItemData(ITEMS[Math.floor(Math.random() * (ITEMS.length - 1) + 1)].deviceName);
+        const RANDOM_INDEX = Math.floor(Math.random() * (ITEMS.length - 1) + 1);
+        const RANDOM_ITEM = getItemData(ITEMS[RANDOM_INDEX].deviceName, langRef);
+        if (!RANDOM_ITEM) console.log(RANDOM_INDEX);
         appendItem(RANDOM_ITEM, true);
         SelectedItemFilter = null;
         SpecifiedItemTier = '3';
@@ -305,39 +310,6 @@ function generateShareLink() {
     navigator.clipboard.writeText(`${URL}?${generateLink()}`);
 }
 
-function saveData() { setCookie(`save_${SaveNumber}`, generateLink(), 10_000); }
-
-function loadData(data) {
-    let dataToLoad = null;
-    if (data == null) dataToLoad = getCookie(`save_${SaveNumber}`);
-    else              dataToLoad = data;
-    const SPLIT_DATA = dataToLoad.split(/[&=]/g);
-        
-    let parsedData = [[],[]];
-
-    for (let dataIndex = 0; dataIndex < SPLIT_DATA.length; dataIndex++) 
-        if (dataIndex % 2 == 0) parsedData[0].push(SPLIT_DATA[dataIndex]);
-        else                    parsedData[1].push(SPLIT_DATA[dataIndex]);
-
-    for (let dataIndex = 0; dataIndex < parsedData[0].length; dataIndex++) {
-
-        if (parsedData[0][dataIndex].includes('g')) {
-            ActivePlayer = parseInt(parsedData[0][dataIndex][0]);
-            appendGod(getGodData(parsedData[1][dataIndex]));
-        }
-        if (parsedData[0][dataIndex].includes('l')) SiteData.PlayerData[ActivePlayer].Level = parsedData[1][dataIndex];
-        if (parsedData[0][dataIndex].includes('i') && !parsedData[1][dataIndex].includes('N')) {
-            ActiveItem = parseInt(parsedData[0][dataIndex][2]);
-            appendItem(getItemData(parsedData[1][dataIndex]));
-        }
-        if (parsedData[0][dataIndex].includes('bfs') && !parsedData[1][dataIndex].includes('N')) {
-            let foundBuffs = parsedData[1][dataIndex].split(',');
-            for (buff of foundBuffs) SiteData.PlayerData[ActivePlayer].Buffs.push(buff.replace('%20', ' '));
-        }
-    }
-
-}
-
 function selectBuff(elem) {
     const BUFFS = SiteData.PlayerData[ActivePlayer].Buffs;
     if (elem == null) SiteData.PlayerData[ActivePlayer].Buffs = []; 
@@ -349,6 +321,8 @@ function getDPS() {
     const PLAYER = SiteData.PlayerData[ActivePlayer];
     let modifier = 1.75;
     if (!PLAYER.God) return 0;
+
+    if (PLAYER.God.Name == 'Heimdallr') modifier *= .6;
 
     if (PLAYER.Items.includes(getItemData('Deathbringer')) ||
         PLAYER.Items.includes(getItemData('Devoted Deathbringer'))  ||

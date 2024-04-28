@@ -10,37 +10,37 @@ document.onmousemove = function(event) { xPos = event.pageX; }
 /*//// Hover Text Events ////*/
 
 for (elem of document.querySelectorAll('.item')) {
-    elem.addEventListener("mouseover", () => { showToolTip('Select an Item')});
+    elem.addEventListener("mouseover", () => { showToolTip(langText[47])});
     elem.addEventListener("mouseout",  hideToolTip);
 }
 
 for (elem of document.querySelectorAll('.god_icon')) {
-    elem.addEventListener("mouseover", () => { showToolTip('Select a God')});
+    elem.addEventListener("mouseover", () => { showToolTip(langText[0])});
     elem.addEventListener("mouseout",  hideToolTip);
 }
 
 for (elem of document.querySelectorAll('.god_options')) {
-    elem.addEventListener("mouseover", () => { showToolTip('God Options')});
+    elem.addEventListener("mouseover", () => { showToolTip(langText[48])});
     elem.addEventListener("mouseout",  hideToolTip);
 }
 
 for (elem of document.querySelectorAll('.god_info')) {
-    elem.addEventListener("mouseover", () => { showToolTip('God Information')});
+    elem.addEventListener("mouseover", () => { showToolTip(langText[49])});
     elem.addEventListener("mouseout",  hideToolTip);
 }
 
-Information.addEventListener("mouseover", () => { showToolTip('Site Information')});
+Information.addEventListener("mouseover", () => { showToolTip(langText[51])});
 Information.addEventListener("mouseout",  hideToolTip);
-News.addEventListener("mouseover", () => { showToolTip('Site News')});
+News.addEventListener("mouseover", () => { showToolTip(langText[52])});
 News.addEventListener("mouseout",  hideToolTip);
-Files.addEventListener("mouseover", () => { showToolTip('Select a File')});
+Files.addEventListener("mouseover", () => { showToolTip(langText[53])});
 Files.addEventListener("mouseout",  hideToolTip);
-Language.addEventListener("mouseover", () => { showToolTip('Select a Language')});
+Language.addEventListener("mouseover", () => { showToolTip(langText[54])});
 Language.addEventListener("mouseout",  hideToolTip);
-Lookup.addEventListener("mouseover", () => { showToolTip('Lookup Player')});
+Lookup.addEventListener("mouseover", () => { showToolTip(langText[55])});
 Lookup.addEventListener("mouseout",  hideToolTip);
 
-document.querySelectorAll('#GlobalOptions .tab')[0].addEventListener("mouseover", () => { showToolTip('Global Site Options')});
+document.querySelectorAll('#GlobalOptions .tab')[0].addEventListener("mouseover", () => { showToolTip(langText[50])});
 document.querySelectorAll('#GlobalOptions .tab')[0].addEventListener("mouseout",  hideToolTip);
 
 const BUFF_ICONS = document.querySelectorAll('.info_menu_button img');
@@ -61,8 +61,10 @@ BUFF_ICONS[13].buffName = 'Defense Elixir';
 BUFF_ICONS[14].buffName = 'Power Elixir';
 BUFF_ICONS[15].buffName = 'Reset Buffs';
 
+const BUFF_TEXT = [56, 59, 57, 60, 58, 61, 62, 63, 64, 65, 66, 67, 68, 70, 69, 71];
+
 for (let buffIndex = 0; buffIndex < BUFF_ICONS.length; buffIndex++) {
-    BUFF_ICONS[buffIndex].addEventListener("mouseover", () => { showToolTip(BUFF_ICONS[buffIndex].buffName);});
+    BUFF_ICONS[buffIndex].addEventListener("mouseover", () => { showToolTip(langText[BUFF_TEXT[buffIndex]]);});
     BUFF_ICONS[buffIndex].addEventListener("mouseout",  hideToolTip);
 }
 
@@ -74,7 +76,7 @@ function toggleMenu(targetMenu) {
         targetMenu = CurrentMenu;
 
     if (targetMenu == ItemSelectMenu && SiteData.PlayerData[ActivePlayer].God == null) {
-        alertUser('Please Select a God First');
+        alertUser(langText[80]);
         return;
     }
 
@@ -83,20 +85,20 @@ function toggleMenu(targetMenu) {
 
         updateBuffDisplay();
 
-        targetMenu.querySelectorAll('h1')[1].innerHTML = `${ActivePlayer < 5 ? 'Order' : 'Chaos'} - Player ${ActivePlayer % 5 + 1}`;
+        targetMenu.querySelectorAll('h1')[1].innerHTML = `${ActivePlayer < 5 ? langText[3] : langText[4]} - ${langText[2]} ${ActivePlayer % 5 + 1}`;
         
         if (targetMenu == GodInfoMenu && SiteData.PlayerData[ActivePlayer].God == null) {
-            alertUser('Please Select a God First');
+            alertUser(langText[80]);
             return;
         } else if (targetMenu == GodInfoMenu) {
 
             appendBuffsToDisplay();
             updateStats();
-            DPSFactor.innerHTML = `Basic Attack Factor: ${getDPS().toFixed(2)}`;
+            DPSFactor.innerHTML = `${langText[81]}: ${getDPS().toFixed(2)}`;
 
             InfoIcon.style.backgroundImage = `URL('${SiteData.PlayerData[ActivePlayer].God.godIcon_URL}')`;
             InfoName.innerHTML = SiteData.PlayerData[ActivePlayer].God.Name;
-            InfoLevel.innerHTML = `Level ${SiteData.PlayerData[ActivePlayer].Level}`;
+            InfoLevel.innerHTML = `${langText[5]} ${SiteData.PlayerData[ActivePlayer].Level}`;
             // Display Buffs
             const ITEMS = document.querySelectorAll('.info_item');
             const ITEM_PRICES = document.querySelectorAll('.info_item_label');
@@ -107,12 +109,12 @@ function toggleMenu(targetMenu) {
                     ITEMS[elemIndex].style.backgroundImage = `URL('${ITEM_DATA[elemIndex].itemIcon_URL}')`;
                     ITEM_PRICES[elemIndex].innerHTML = ITEM_DATA[elemIndex].Price;
                     ITEMS[elemIndex].addEventListener("mouseover", 
-                        () => { showToolTip(`${ITEM_DATA[elemIndex].DeviceName}<br>${ITEM_DATA[elemIndex].ItemDescription.SecondaryDescription}`); });
+                        () => { showToolTip(`${itemLang(ITEM_DATA[elemIndex]).DeviceName}<br>${itemLang(ITEM_DATA[elemIndex]).ItemDescription.SecondaryDescription}`); });
                     ITEMS[elemIndex].addEventListener("mouseout",  hideToolTip);
                 } else {
                     ITEMS[elemIndex].style.backgroundImage = '';
                     ITEM_PRICES[elemIndex].innerHTML = '0';
-                    ITEMS[elemIndex].addEventListener("mouseover", () => { showToolTip('No Item'); });
+                    ITEMS[elemIndex].addEventListener("mouseover", () => { showToolTip(langText[72]); });
                     ITEMS[elemIndex].addEventListener("mouseout",  hideToolTip);
                 }
             }
@@ -120,7 +122,7 @@ function toggleMenu(targetMenu) {
 
             let totalGold = 0;
             for (item of ITEM_DATA) if (item != null) totalGold += item.Price;
-            InfoGold.innerHTML = `${totalGold} <img src="../Assets/Icons/Money.png">`;
+            InfoGold.innerHTML = `${totalGold} <img src="./Assets/Icons/Money.png">`;
 
         }
 
@@ -178,12 +180,12 @@ function toggleMenu(targetMenu) {
 
 function displayGod(name) {
     const GOD = getGodData(name);
-    document.querySelector('#GodMenuRight #HoveredGodName').innerHTML = GOD.Name;
-    document.querySelector('#GodMenuRight #HoveredGodTitle').innerHTML = GOD.Title;
+    document.querySelector('#GodMenuRight #HoveredGodName').innerHTML = godLang(GOD).Name;
+    document.querySelector('#GodMenuRight #HoveredGodTitle').innerHTML = godLang(GOD).Title;
     document.querySelector('#GodMenuRight #HoveredGodIcon').style.backgroundImage = `URL('${GOD.godIcon_URL}')`;
-    document.querySelector('#GodMenuRight #HoveredGodPantheon').innerHTML = GOD.Pantheon;
-    document.querySelector('#GodMenuRight #HoveredGodDamage').innerHTML = GOD.Type;
-    document.querySelector('#GodMenuRight #HoveredGodClass').innerHTML = GOD.Roles;
+    document.querySelector('#GodMenuRight #HoveredGodPantheon').innerHTML = godLang(GOD).Pantheon;
+    document.querySelector('#GodMenuRight #HoveredGodDamage').innerHTML = godLang(GOD).Type;
+    document.querySelector('#GodMenuRight #HoveredGodClass').innerHTML = godLang(GOD).Roles;
 
     switch (GOD.Pantheon) {
         case 'Arthurian':       document.querySelector('#GodMenuRight #HoveredGodPantheon').style.color = '#a3190f'; break;
@@ -222,8 +224,8 @@ function displayGod(name) {
 function displayItem(name) {
 
     const ITEM = getItemData(name);
-    document.querySelector('#ItemMenuRight #HoveredItemName').innerHTML = ITEM.DeviceName;
-    document.querySelector('#ItemMenuRight #HoveredItemFullDesc').innerHTML = ITEM.ItemDescription.SecondaryDescription;
+    document.querySelector('#ItemMenuRight #HoveredItemName').innerHTML = itemLang(ITEM).DeviceName;
+    document.querySelector('#ItemMenuRight #HoveredItemFullDesc').innerHTML = itemLang(ITEM).ItemDescription.SecondaryDescription;
     
 
     let childItem = ITEM; let fullPrice = 0;
@@ -238,7 +240,7 @@ function displayItem(name) {
     document.querySelector('#ItemMenuRight #HoveredItemIcon').style.backgroundImage = `URL('${ITEM.itemIcon_URL}')`;
 
     document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML = '';
-    for (stat of ITEM.ItemDescription.Menuitems) 
+    for (stat of itemLang(ITEM).ItemDescription.Menuitems) 
         document.querySelector('#ItemMenuRight #HoveredItemStats').innerHTML += `${stat.Description} ${stat.Value}<br>`;
 
 }
@@ -267,7 +269,7 @@ function toggleGlobalOptions(index) {
     const CHECKS = document.querySelectorAll('#GlobalOptions .check');
 
     if (index <= 2) {
-        if (!GlobalOptionFlags[index]) CHECKS[index].style.backgroundImage = 'URL("../Assets/Icons/Check.png")';
+        if (!GlobalOptionFlags[index]) CHECKS[index].style.backgroundImage = 'URL("./Assets/Icons/Check.png")';
         else                           CHECKS[index].style.backgroundImage = '';
         GlobalOptionFlags[index] = !GlobalOptionFlags[index];
 
@@ -313,8 +315,8 @@ function toggleItemNumbers() {
     for (elem of document.querySelectorAll('.player')) {
         const ITEMS = elem.querySelectorAll('.item');
         for (let itemIndex = 0; itemIndex < 6; itemIndex++) {
-            if (!ItemNumbers) ITEMS[itemIndex].style.backgroundImage = `URL('../Assets/Icons/${itemIndex + 1}.png')`;
-            else              ITEMS[itemIndex].style.backgroundImage = 'URL("../Assets/Icons/Plus_Gold.png")';
+            if (!ItemNumbers) ITEMS[itemIndex].style.backgroundImage = `URL('./Assets/Icons/${itemIndex + 1}.png')`;
+            else              ITEMS[itemIndex].style.backgroundImage = 'URL("./Assets/Icons/Plus_Gold.png")';
         }
     }
     
@@ -332,16 +334,16 @@ function focusSelf(className, obj) {
 function showToolTip(msg) { ToolTip.style.opacity = '1'; ToolTip.innerHTML = msg; }
 function hideToolTip() { ToolTip.style.opacity = '0'; }
 function addPassive(msg) { 
-    if (PassiveContent.innerHTML.includes('No Passive Effects')) PassiveContent.innerHTML = '';
+    if (PassiveContent.innerHTML.includes(langText[19])) PassiveContent.innerHTML = '';
     PassiveContent.innerHTML += `<br>${msg}<br>`;
 }
-function clearPassives() { PassiveContent.innerHTML = '<span style="opacity: .5">No Passive Effects<span>'; }
+function clearPassives() { PassiveContent.innerHTML = `<span style="opacity: .5">${langText[19]}<span>`; }
 
 function appendBuffsToDisplay() {
     InfoBuffs.innerHTML = '';
     for (item of SiteData.PlayerData[ActivePlayer].Buffs)
         for (icon of document.querySelectorAll('.info_menu_button img'))
-            if (icon.buffName == item) InfoBuffs.innerHTML += `<img src='../Assets/Icons/${icon.src.split('/')[icon.src.split('/').length - 1]}'>`;
+            if (icon.buffName == item) InfoBuffs.innerHTML += `<img src='./Assets/Icons/${icon.src.split('/')[icon.src.split('/').length - 1]}'>`;
 }
 
 function updateBuffDisplay() {
@@ -353,8 +355,23 @@ function updateBuffDisplay() {
 }
 
 function updateHealthMana(elem, event) {
+    const CURR_GOD = SiteData.PlayerData[ActivePlayer].God.Name;
+    if (elem.className == 'god_mana' && (CURR_GOD == 'Cu Chulainn' || CURR_GOD == 'Yemoja')) {
+
+        elem.style.background = 'var(--LightGray)';
+        elem.innerHTML = '---';
+
+    } else if (elem.className == 'god_mana') {
+
+        elem.style.backgroundColor = '#4b5fe3';
+        elem.innerHTML = '100%';
+
+    }
+    if (elem.className == 'god_mana' && (CURR_GOD == 'Cu Chulainn' || CURR_GOD == 'Yemoja') || event == null) return;
+
     const BOX = elem.getBoundingClientRect();
     MouseInterval = setInterval(function() {
+
         const X_OFFSET = xPos - BOX.left;
         let Percent = X_OFFSET / (elem.offsetWidth) * 100;
         if (Percent < 5) Percent = 0;
@@ -364,6 +381,7 @@ function updateHealthMana(elem, event) {
         elem.innerHTML = '&nbsp;' + Math.floor(Percent) + '%&nbsp;';
         SiteData.PlayerData[ActivePlayer].BarHealth = Percent;
         SiteData.PlayerData[ActivePlayer].BarMana = Percent;
+
     }, 100);
 }
 

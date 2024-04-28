@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <!-- Metadata -->
+        <meta charset="UTF-8">
         <meta name="keywords" content="SMITE, Smite, SBM, SmiteBuildMaker, HiRez, TitanForge, MOBA">
         <meta name="description" content="Online SMITE Build Maker!">
         <meta name="author" content="Michael Warmbier">
@@ -12,8 +13,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Roboto&family=Roboto+Mono&family=Rubik+Burned&display=swap" rel="stylesheet">
-        <link href="../Styles/MainStyle.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" type="image/png" href="../Assets/favicon.png" />
+        <link href="./Styles/MainStyle.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" type="image/png" href="./Assets/favicon.png" />
 
         
         <!-- Google Analytics Script Link -->
@@ -30,14 +31,14 @@
     <body>
         <header>
             <div id="HeaderEffectWrapper"></div>
-            <h1>SmiteBuildMaker</h1>
-            <h2>V6.0.0 (Alpha) SMITE 11.4</h2>
+            <h1 id="SiteTitle">SmiteBuildMaker</h1>
+            <h2 id="SitePatch">V6.0.0 (Alpha) SMITE 11.4</h2>
             <nav>
-                <div id="Information"><img alt="Information" src="../Assets/Icons/Question_Gray.png"  onclick="toggleMenu(AboutMenu)"></div>
-                <div id="News"><img alt="News"               src="../Assets/Icons/Exclamation.png"    onclick="toggleMenu(NewsMenu)"></div>
-                <div id="Files"><img alt="Files"             src="../Assets/Icons/Folder.png"         onclick="toggleMenu(FileMenu)"></div>
-                <div id="Language"><img alt="Languages"      src="../Assets/Icons/Flag.png"           onclick="toggleMenu(LangMenu)"></div>
-                <div id="Lookup"><img alt="Lookup"           src="../Assets/Icons/Asterisk.png"       onclick="toggleMenu(SearchMenu)"></div>
+                <div id="Information"><img alt="Information" src="./Assets/Icons/Question_Gray.png"  onclick="toggleMenu(AboutMenu)"></div>
+                <div id="News"><img alt="News"               src="./Assets/Icons/Exclamation.png"    onclick="toggleMenu(NewsMenu)"></div>
+                <div id="Files"><img alt="Files"             src="./Assets/Icons/Folder.png"         onclick="toggleMenu(FileMenu)"></div>
+                <div id="Language"><img alt="Languages"      src="./Assets/Icons/Flag.png"           onclick="toggleMenu(LangMenu)"></div>
+                <div id="Lookup"><img alt="Lookup"           src="./Assets/Icons/Asterisk.png"       onclick="toggleMenu(SearchMenu)"></div>
             </nav>
         </header>
         <content>
@@ -268,7 +269,7 @@
             <div class="option" onclick="flashText(this); loadData()">Load Data Locally</div>
             <div class="option" onclick="flashText(this); saveData()">Save Data Locally</div>
             <div class="option" onclick="flashText(this); generateShareLink()">Generate Share Link</div>
-            <div class="tab" onclick="toggleMenu(GlobalOptions)"><img src="../Assets/Icons/Gear.png">
+            <div class="tab" onclick="toggleMenu(GlobalOptions)"><img src="./Assets/Icons/Gear.png">
                 <div class="tab_mask"></div>
             </div>
         </div>
@@ -281,12 +282,13 @@
                 <div id="AboutAuthor">Created by Michael Warmbier</div>
                 <div id="AboutDesc">
                     SmiteBuildMaker is website/web application designed to provide players of SMITE with an easy method to compare, share and test item combinations
+                    <br><br>Email: business@michaelwarmbier.com
                 </div>
                 <div id="Links">
                     <a href="https://www.patreon.com/user?u=122393593">Support the Website</a><br>
                     <a href="https://twitter.com/Kirbout">Follow the Developer</a>
                 </div>
-                <div id="AboutTooltip">ctrl + i to open terminal (PC only)</div>
+                <!--<div id="AboutTooltip">ctrl + i to open terminal (PC only)<br>use help() to get started</div>-->
             </div>
         </div>
 
@@ -297,6 +299,7 @@
                 <div id="NewsPatch">V6.0.0 (Alpha) Smite 11.4</div>
                 <div id="NewsDesc">This patch focuses on modernizing the code and visuals of the website by redesigning them from the ground up, while also adding language support!</div>
                 <div id="NewsSpecifics">
+                    <div id="Feature" class="patch_item">Added support for all ten languages (will be released progressively).</div>
                     <div id="Feature" class="patch_item">Added even more passives!</div>
                     <div id="Feature" class="patch_item">Added "Basic Attack Factor" to compare DPS between two characters</div>
                     <div id="Enhancement" class="patch_item">Styling and website design have been overhauled and improved</div>
@@ -319,15 +322,15 @@
         <div id="LangMenu" class="menu">
             <h1>Select a Language</h1>
             <div id="LangMenuContent">
-                <div class="lang_option">English</div>
-                <div class="lang_option">Latin American Spanish</div>
-                <div class="lang_option">Polish</div>
-                <div class="lang_option">Turkish</div>
-                <div class="lang_option">German</div>
-                <div class="lang_option">French</div>
-                <div class="lang_option">Russian</div>
-                <div class="lang_option">Chinese</div>
-                <div class="lang_option">Portuguese</div>
+                <div class="lang_option" onclick="window.location.href = 'index.html'">English</div>
+                <div class="lang_option" onclick="window.location.href = 'index.es.html'">Latin American Spanish/Español Latinoamericano</div>
+                <div class="lang_option">Polish/Polski</div>
+                <div class="lang_option">Turkish/Türkçe</div>
+                <div class="lang_option">German/Deutsch</div>
+                <div class="lang_option">French/Français</div>
+                <div class="lang_option">Russian/Русский</div>
+                <div class="lang_option">Chinese/中国人</div>
+                <div class="lang_option">Portuguese/Português</div>
             </div>
         </div>
 
@@ -340,7 +343,10 @@
                 </div>
             </div>
             <div id="SearchRight">
-                <span id="PreSearch">Search a player to see their info!</span>
+                <span id="PreSearch">
+                    Search a player to see their info!
+                    <p></p>
+                </span>
                 <div id="SearchContent">
                     <div id="SearchNav">
                         <div class="search_nav_elem" onclick="toggleSearchMenu(0)"style="color:var(--BrightGold);">Summary</div>
@@ -359,109 +365,109 @@
                     <div id="SearchResultRanked" class="search_display_menu" style="display: none">
                         <div id="SearchRankedConquest" class="search_rank">
                             <span class="rank_mode">Conquest</span>
-                            <img src="../Assets/Icons/Bronze.png" class="rank_icon"/>
+                            <img src="./Assets/Icons/Bronze.png" class="rank_icon"/>
                             <span class="rank_title">N/A</span><br>
                             <span class="rank_ratio">0 W/0 L</span>
                         </div>
                         <div id="SearchRankedJoust" class="search_rank">
                             <span class="rank_mode">Joust</span>
-                            <img src="../Assets/Icons/Bronze.png" class="rank_icon"/>
+                            <img src="./Assets/Icons/Bronze.png" class="rank_icon"/>
                             <span class="rank_title">N/A</span>
                             <span class="rank_ratio">0 W/0 L</span>
                         </div>
                         <div id="SearchRankedDuel" class="search_rank">
                             <span class="rank_mode">Duel</span>
-                            <img src="../Assets/Icons/Bronze.png" class="rank_icon"/>
+                            <img src="./Assets/Icons/Bronze.png" class="rank_icon"/>
                             <span class="rank_title">N/A</span>
                             <span class="rank_ratio">30 W/32 L</span>
                         </div>
                     </div>
                     <div id="SearchResultAccolades" class="search_display_menu" style="display: none">
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/First_Blood.png" class="accolade_icon">
+                            <img src="./Assets/Icons/First_Blood.png" class="accolade_icon">
                             <div class="accolade_title">First Bloods</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Godlike.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Godlike.png" class="accolade_icon">
                             <div class="accolade_title">Godlikes</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Killing_Spree.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Killing_Spree.png" class="accolade_icon">
                             <div class="accolade_title">Killing Spree</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Divine.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Divine.png" class="accolade_icon">
                             <div class="accolade_title">Divines</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Immortal.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Immortal.png" class="accolade_icon">
                             <div class="accolade_title">Immortals</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Fire_Giant_Kills.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Fire_Giant_Kills.png" class="accolade_icon">
                             <div class="accolade_title">Fire Giant Kills</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Pentakill.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Pentakill.png" class="accolade_icon">
                             <div class="accolade_title">Pentakills</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Quadrakill.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Quadrakill.png" class="accolade_icon">
                             <div class="accolade_title">Quadrakills</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Triplekill.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Triplekill.png" class="accolade_icon">
                             <div class="accolade_title">Triplekills</div>
                             <div class="accolade_amount">32</div>
                         </div>
                         <div class="search_accolade">
-                            <img src="../Assets/Icons/Doublekill.png" class="accolade_icon">
+                            <img src="./Assets/Icons/Doublekill.png" class="accolade_icon">
                             <div class="accolade_title">Doublekills</div>
                             <div class="accolade_amount">32</div>
                         </div>
                     </div>
                     <div id="SearchResultPerformance" class="search_display_menu" style="display: none">
                         <div class="search_performance">
-                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <img src="./Assets/Icons/Question_Gold.png" class="performance_icon">
                             <div class="performance_title">Most Kills</div>
                             <div class="performance_name">Zeus</div>
                         </div>
                         <div class="search_performance">
-                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <img src="./Assets/Icons/Question_Gold.png" class="performance_icon">
                             <div class="performance_title">Most Deaths</div>
                             <div class="performance_name">Zeus</div>
                         </div>
                         <div class="search_performance">
-                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <img src="./Assets/Icons/Question_Gold.png" class="performance_icon">
                             <div class="performance_title">Most Assists</div>
                             <div class="performance_name">Zeus</div>
                         </div>
                         <div class="search_performance">
-                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <img src="./Assets/Icons/Question_Gold.png" class="performance_icon">
                             <div class="performance_title">Most Worshippers</div>
                             <div class="performance_name">Zeus</div>
                         </div>
                         <div class="search_performance">
-                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <img src="./Assets/Icons/Question_Gold.png" class="performance_icon">
                             <div class="performance_title">Best KDR</div>
                             <div class="performance_extra">0/0</div>
                             <div class="performance_name">Zeus</div>
                         </div>
                         <div class="search_performance">
-                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <img src="./Assets/Icons/Question_Gold.png" class="performance_icon">
                             <div class="performance_title">Most Wins</div>
                             <div class="performance_name">Zeus</div>
                         </div>
                         <div class="search_performance">
-                            <img src="../Assets/Icons/Question_Gold.png" class="performance_icon">
+                            <img src="./Assets/Icons/Question_Gold.png" class="performance_icon">
                             <div class="performance_title">Most Losses</div>
                             <div class="performance_name">Zeus</div>
                         </div>
@@ -490,7 +496,7 @@
                 </div>
                 <div id="InfoGold">
                     0
-                    <img src="../Assets/Icons/Money.png">
+                    <img src="./Assets/Icons/Money.png">
                 </div>
                 <div id="InfoItems">
                     <div class="info_item">
@@ -516,173 +522,190 @@
             <div id="InfoRightContainer">
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/speed.png">
+                        <img class="stat_icon" src="./Assets/Icons/speed.png">
                         Speed:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">1000</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/p_power.png">
+                        <img class="stat_icon" src="./Assets/Icons/p_power.png">
                         Power:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">2500</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/attack_speed.png">
+                        <img class="stat_icon" src="./Assets/Icons/attack_speed.png">
                         Attack Speed:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">2.5</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/basic_attack.png">
+                        <img class="stat_icon" src="./Assets/Icons/basic_attack.png">
                         Basic Attack Damage:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">3000</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/health.png">
+                        <img class="stat_icon" src="./Assets/Icons/health.png">
                         Health:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">5000</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/mana.png">
+                        <img class="stat_icon" src="./Assets/Icons/mana.png">
                         Mana:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">5000</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/hp5.png">
+                        <img class="stat_icon" src="./Assets/Icons/hp5.png">
                         HP5:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">100</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/mp5.png">
+                        <img class="stat_icon" src="./Assets/Icons/mp5.png">
                         MP5:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">100</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/crowd_control.png">
+                        <img class="stat_icon" src="./Assets/Icons/crowd_control.png">
                         Crowd Control Reduction:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
                         <div class="stat_cap">40%</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/damage_red.png">
+                        <img class="stat_icon" src="./Assets/Icons/damage_red.png">
                         Damage Reduction:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
                         <div class="stat_cap">&nbsp;100%&nbsp;</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/p_protections.png">
+                        <img class="stat_icon" src="./Assets/Icons/p_protections.png">
                         Physical Protections:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">325</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/m_protections.png">
+                        <img class="stat_icon" src="./Assets/Icons/m_protections.png">
                         Magical Protections:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">325</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/p_armour.png">
-                        Penetration
+                        <img class="stat_icon" src="./Assets/Icons/p_armour.png">
+                        Penetration:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0</div>
                         <div class="stat_cap">50</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/p_armour.png">
-                        % Penetration
+                        <img class="stat_icon" src="./Assets/Icons/p_armour.png">
+                        % Penetration:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
                         <div class="stat_cap">40%</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/crit.png">
+                        <img class="stat_icon" src="./Assets/Icons/crit.png">
                         Critical Strike Chance:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
                         <div class="stat_cap">&nbsp;100%&nbsp;</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/cooldown.png">
-                        Cooldown Reduction
+                        <img class="stat_icon" src="./Assets/Icons/cooldown.png">
+                        Cooldown Reduction:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
                         <div class="stat_cap">40%</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
                 <div class="stat">
                     <div class="stat_info">
-                        <img class="stat_icon" src="../Assets/Icons/p_lifesteal.png">
-                        Lifesteal
+                        <img class="stat_icon" src="./Assets/Icons/p_lifesteal.png">
+                        Lifesteal:
                     </div>
                     <div class="stat_bar">
                         <div class="stat_amount">0%</div>
                         <div class="stat_cap">&nbsp;100%&nbsp;</div>
                     </div>
+                    <input type="number" class="stat_modify" oninput="updateStats()">
                 </div>
 
             </div>
@@ -695,32 +718,32 @@
                 <h2>Enhancement Selection</h2>
                 <div id="BuffDisplayContainer">
                     <div class="info_menu_button">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Power_Buff.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Mana_Buff.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Speed_Buff.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Void_Buff.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/AttackSpeed_Buff.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Health_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Power_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Mana_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Speed_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Void_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/AttackSpeed_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Health_Buff.png">
                     </div>
                     <div class="info_menu_button">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Gold_Buff.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Silver_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Gold_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Silver_Buff.png">
                     </div>
                     <div class="info_menu_button">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/E_Fire_Giant.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Fire_Giant.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Slash_Buff.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Joust_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/E_Fire_Giant.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Fire_Giant.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Slash_Buff.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Joust_Buff.png">
                     </div>
                     <div class="info_menu_button">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Power_Potion.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Power_Potion.png">
                     </div>
                     <div class="info_menu_button">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Defense_Elixir.png">
-                        <img onclick="selectBuff(this)" src="../Assets/Icons/Power_Elixir.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Defense_Elixir.png">
+                        <img onclick="selectBuff(this)" src="./Assets/Icons/Power_Elixir.png">
                     </div>
                     <div class="info_menu_button">
-                        <img onclick="selectBuff(null)" src="../Assets/Icons/Reset.png">
+                        <img onclick="selectBuff(null)" src="./Assets/Icons/Reset.png">
                     </div>
                 </div>
                 <h2>Randomization</h2>
@@ -740,7 +763,7 @@
                 <div id="GodList"></div>
             </div>
             <div id="GodMenuMiddle">
-                <h2>God Filters</h2>
+                <h2 id="GodFilterText">God Filters</h2>
                 <span class="filter_option" onclick="SelectedGodFilter='Guardian'; initializeGods(); focusSelf('#GodMenuMiddle .filter_option', this)">Guardian</span>
                 <span class="filter_option" onclick="SelectedGodFilter='Hunter'; initializeGods(); focusSelf('#GodMenuMiddle .filter_option', this)">Hunter</span>
                 <span class="filter_option" onclick="SelectedGodFilter='Assassin'; initializeGods(); focusSelf('#GodMenuMiddle .filter_option', this)">Assassin</span>
@@ -749,12 +772,12 @@
                 <span class="filter_option" onclick="SelectedGodFilter=null; initializeGods(); focusSelf('#GodMenuMiddle .filter_option', null)">Reset Filters</span>
             </div>
             <div id="GodMenuRight">
-                <div id="HoveredGodName">Mercury</div>
-                <div id="HoveredGodTitle">Messanger of The Gods</div>
+                <div id="HoveredGodName"></div>
+                <div id="HoveredGodTitle"></div>
                 <div id="HoveredGodIcon"></div>
-                <div id="HoveredGodPantheon">Roman</div>
-                <div id="HoveredGodDamage">Physical</div>
-                <div id="HoveredGodClass">Assassin</div>
+                <div id="HoveredGodPantheon"></div>
+                <div id="HoveredGodDamage"></div>
+                <div id="HoveredGodClass"></div>
                 <div id="HoveredGodInfoText">Double-Click to Select!</div>
             </div>
         </div>
@@ -811,15 +834,15 @@
         <div id="ToolTip"></div>
 
         <!-- JSON Data -->
-        <script src="../Languages/ENGLISH.json"></script>
+        <script src="./Languages/English.json"></script>
 
         <!-- Scripts -->
-        <script src="../Scripts/Utility.js"></script>
-        <script src="../Scripts/DisplayManip.js"></script>
-        <script src="../Scripts/DataManip.js"></script>
-        <script src="../Scripts/NetworkFeatures.js"></script>
-        <script src="../Scripts/StatCalc.js"></script>
-        <script src="../Scripts/OnEntry.js"></script>
+        <script src="./Scripts/DisplayManip.js"></script>
+        <script src="./Scripts/DataManip.js"></script>
+        <script src="./Scripts/Utility.js"></script>
+        <script src="./Scripts/Language.js"></script>
+        <script src="./Scripts/NetworkFeatures.js"></script>
+        <script src="./Scripts/StatCalc.js"></script>
 
     </body>
 </html>

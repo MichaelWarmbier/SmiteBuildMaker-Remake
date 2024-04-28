@@ -16,6 +16,7 @@ function updateStats() {
     addNonConquestBalance();
     addBuffs();
     calculateBasicAttack();
+    addModifications();
     displayStats();
 }
 
@@ -41,7 +42,7 @@ function addItemStats() {
         if (!item) continue;
         for (stat of item.ItemDescription.Menuitems) {
 
-            const VALUE = parseInt(stat.Value.replace(/[+%]/g, ''));
+            const VALUE = parseFloat(stat.Value.replace(/[+%]/g, ''));
             const NAME = stat.Description;
 
             if (StatNicknames['Speed'].includes(NAME))                              statData.Speed += statData.Speed * (VALUE / 100);
@@ -71,95 +72,95 @@ function addItemStats() {
 
 function addNonConquestBalance() {
     if (!NonConquest) return;
-    if (godData.Name == 'Ah Puch') {
-        addPassive('[Non-Conquest Nerf]: -5% Damage to Gods, -10% Damage to Minions, +5% Non-Ultimate Cooldowns, +15% Ultimate Cooldown' );
+    if (godData.Name == `Ah Puch`) {
+        addPassive(`[${langText[88]}]: -5%${langText[73]}, -10% ${langText[74]}, +5% ${langText[75]}, +15% ${langText[76]}`);
         statData.Power -= statData.Power * .05;
-    } if (godData.Name == 'Artemis') {
-        addPassive('[Non-Conquest Nerf]: -5% Damage to Gods, +10% Ultimate Cooldown');
+    } if (godData.Name == `Artemis`) {
+        addPassive(`[${langText[88]}]: -5% ${langText[73]}, +10% ${langText[75]}`);
         statData.Power -= statData.Power * .05;  
-    } if (godData.Name == 'Zeus') {
-        addPassive('[Non-Conquest Nerf]: -10% Damage to Gods, +5% Ultimate Cooldown');
+    } if (godData.Name == `Zeus`) {
+        addPassive(`[${langText[88]}]: -10% ${langText[73]}, +5% ${langText[75]}`);
         statData.Power -= statData.Power * .10;
-    } if (godData.Name == 'Serqet') {
-        addPassive('[Non-Conquest Buff]: +5% Damage to Gods, -10% Damage Taken');
+    } if (godData.Name == `Serqet`) {
+        addPassive(`[${langText[89]}]: +5% ${langText[73]}, -10% ${langText[76]}`);
         statData.Power += statData.Power * .05;
-    } if (godData.Name == 'Susanoo') {
-        addPassive('[Non-Conquest Nerf]: +-5% Damage to Gods, +5% Cooldowns');
+    } if (godData.Name == `Susanoo`) {
+        addPassive(`[${langText[88]}]: +-5% ${langText[73]}, +5% ${langText[87]}`);
         statData.Power -= statData.Power * .05;
-    } if (godData.Name == 'Nu Wa') {
-        addPassive('[Non-Conquest Nerf]: +-5% Damage dealt, +10% Ultimate Cooldown');
+    } if (godData.Name == `Nu Wa`) {
+        addPassive(`[${langText[88]}]: +-5% ${langText[78]}, +10% ${langText[75]}`);
         statData.Power -= statData.Power * .05;
     } 
 }
 
 function addBuffs() {
     const BUFFS = SiteData.PlayerData[ActivePlayer].Buffs;
-    if (BUFFS.includes('Health Buff')) {
-        addPassive('[Health Buff]: +100 Health, +100 Mana, +30 Health/Mana per 50 Protections, +10 HP5, +10 MP5');
+    if (BUFFS.includes(`Health Buff`)) {
+        addPassive(`[${langText[61]}]: +100 Health, +100 Mana, +30 Health/Mana per 50 Protections, +10 HP5, +10 MP5`);
         statData.Health += 100 + 30 * (Math.floor((statData.MagicalProtections + statData.PhysicalProtections) / 50));
         statData.Mana += 100 + 30 * (Math.floor((statData.MagicalProtections + statData.PhysicalProtections) / 50));
         statData.HP5 += 10;
         statData.MP5 += 10;
-    } if (BUFFS.includes('Mana Buff')) {
-        addPassive('[Mana Buff]: +20 MP5');
+    } if (BUFFS.includes(`Mana Buff`)) {
+        addPassive(`[${langText[59]}]: +20 ${langText[13]}`);
         statData.MP5 += 20;
-    } if (BUFFS.includes('Attack Speed Buff')) {
-        addPassive('[Attack Speed Buff]: +15% Attack Speed');
+    } if (BUFFS.includes(`Attack Speed Buff`)) {
+        addPassive(`[${langText[58]}]: +15% ${langText[8]}`);
         statData.AttackSpeed += statData.AttackSpeed * .15;
-    } if (BUFFS.includes('Speed Buff')) {
-        addPassive('[Speed Buff]: +10% Movement Speed');
+    } if (BUFFS.includes(`Speed Buff`)) {
+        addPassive(`[${langText[57]}]: +10% ${langText[6]}`);
         statData.Speed += statData.Speed * .10;
-    } if (BUFFS.includes('Void Buff')) {
-        addPassive('[Void Buff]: +10% Attack Speed, +10 Magical Basic Attack, +12 Physical Basic Attack');
-        if (godData.Type.includes('Magical')) statData.BasicAttackDamage += 10;
-        if (godData.Type.includes('Physical')) statData.BasicAttackDamage += 12;
-    } if (BUFFS.includes('Power Buff')) {
-        addPassive('[Power Buff]: +10% Power, +10 Magical Power, +5 Physical Power');
+    } if (BUFFS.includes(`Void Buff`)) {
+        addPassive(`[${langText[60]}]: +10% ${langText[8]}, +10 ${langText[93]} ${langText[9]}, +12 ${langText[94]} ${langText[9]}`);
+        if (godData.Type.includes(`Magical`)) statData.BasicAttackDamage += 10;
+        if (godData.Type.includes(`Physical`)) statData.BasicAttackDamage += 12;
+    } if (BUFFS.includes(`Power Buff`)) {
+        addPassive(`[${langText[56]}]: +10% ${langText[7]}, +10 ${langText[93]} ${langText[7]}, +5 ${langText[93]} ${langText[7]}`);
         statData.Power += statData.Power * .10;
-        if (godData.Type.includes('Magical')) statData.Power += 10;
-        if (godData.Type.includes('Physical')) statData.Power += 5;
-    } if (BUFFS.includes('Silver Buff')) {
-        addPassive('[Silver Buff]: +5% CDR x .75 Per Level');
+        if (godData.Type.includes(`Magical`)) statData.Power += 10;
+        if (godData.Type.includes(`Physical`)) statData.Power += 5;
+    } if (BUFFS.includes(`Silver Buff`)) {
+        addPassive(`[${langText[63]}]: +5% CDR x .75 x ${langText[5]}`);
         statData.CDR += 5 + .75 * (playerData.Level);
-    } if (BUFFS.includes('Gold Buff')) {
-        addPassive('[Gold Buff]: +5 Physical Protections Per Level, +5 Magical Protections Per Level');
+    } if (BUFFS.includes(`Gold Buff`)) {
+        addPassive(`[${langText[62]}]: +5 ${langText[82]} x ${langText[5]}, +5 ${langText[95]} x ${langText[5]},`);
         statData.PhysicalProtections += 5 * playerData.Level;
         statData.MagicalProtections += 5 * playerData.Level;
-    } if (BUFFS.includes('Fire Giant')) {
-        addPassive('[Fire Giant]: +75 Magical Power, +55 Physical Power, +3% HP5, +2% MP5');
-        if (godData.Type.includes('Magical')) statData.Power += 75;
-        if (godData.Type.includes('Physical')) statData.Power += 55;
+    } if (BUFFS.includes(`Fire Giant`)) {
+        addPassive(`[${langText[64]}]: +75 ${langText[93]} ${langText[7]}, +55 ${langText[94]} ${langText[7]}, +3% ${langText[12]}, +2% ${langText[12]}`);
+        if (godData.Type.includes(`Magical`)) statData.Power += 75;
+        if (godData.Type.includes(`Physical`)) statData.Power += 55;
         statData.HP5 += statData.Health * .03;
         statData.MP5 += statData.Mana * .02;
-    } if (BUFFS.includes('E. Fire Giant')) {
-        addPassive('[E. Fire Giant]: +100 Magical Power, +65 Physical Power, +3% HP5, +2% MP5');
-        if (godData.Type.includes('Magical')) statData.Power += 100;
-        if (godData.Type.includes('Physical')) statData.Power += 65;
+    } if (BUFFS.includes(`E. Fire Giant`)) {
+        addPassive(`[${langText[65]}]: +100 ${langText[93]} ${langText[7]}, +65 ${langText[94]} ${langText[7]}, +3% ${langText[12]}, +2% ${langText[13]}`);
+        if (godData.Type.includes(`Magical`)) statData.Power += 100;
+        if (godData.Type.includes(`Physical`)) statData.Power += 65;
         statData.HP5 += statData.Health * .03;
         statData.MP5 += statData.Mana * .02;
-    } if (BUFFS.includes('Joust Buff')) {
-        addPassive('[Joust Buff]: +4% HP5, +2% MP5');
+    } if (BUFFS.includes(`Joust Buff`)) {
+        addPassive(`[${langText[66]}]: +4% ${langText[12]}, +2% ${langText[13]}`);
         statData.HP5 += statData.Health * .04;
         statData.MP5 += statData.Mana * .02;
-    } if (BUFFS.includes('Slash Buff')) {
-        addPassive('[Slash Buff]: +50 Magical Power, +30 Physical Power, +4% HP5, +2% MP5');
-        if (godData.Type.includes('Magical')) statData.Power += 50;
-        if (godData.Type.includes('Physical')) statData.Power += 30;
+    } if (BUFFS.includes(`Slash Buff`)) {
+        addPassive(`[${langText[67]}]: +50 ${langText[93]} ${langText[7]}, +30 ${langText[94]} ${langText[7]}, +4% ${langText[12]}, +2% ${langText[13]}`);
+        if (godData.Type.includes(`Magical`)) statData.Power += 50;
+        if (godData.Type.includes(`Physical`)) statData.Power += 30;
         statData.HP5 += statData.Health * .04;
         statData.MP5 += statData.Mana * .02;
-    } if (BUFFS.includes('Power Potion')) {
-        addPassive('[Power Potion]: +70 Magical Power, +40 Physical Power, +10 Penetration');
-        if (godData.Type.includes('Magical')) statData.Power += 70;
-        if (godData.Type.includes('Physical')) statData.Power += 40;
+    } if (BUFFS.includes(`Power Potion`)) {
+        addPassive(`[${langText[68]}]: +70 ${langText[93]} ${langText[7]}, +40 ${langText[94]} ${langText[7]}, +10 ${langText[16]}`);
+        if (godData.Type.includes(`Magical`)) statData.Power += 70;
+        if (godData.Type.includes(`Physical`)) statData.Power += 40;
         statData.Penetration += 10;
-    } if (BUFFS.includes('Defense Elixir')) {
-        addPassive('[Defense Elixir]: +50 Magical Protections, +50 Physical Protections, +10% Damage Mitigation, +20% CCR');
+    } if (BUFFS.includes(`Defense Elixir`)) {
+        addPassive(`[${langText[70]}]: +50 ${langText[95]}, +50 ${langText[82]}, +10% ${langText[15]}, +20% ${langText[14]}`);
         statData.MagicalProtections += 50;
         statData.PhysicalProtections += 50;
         statData.DamageReduction += 10;
         statData.CCR += 20;
-    } if (BUFFS.includes('Power Elixir')) {
-        addPassive('[Power Elixir]: +25% Power, +10% Penetration');
+    } if (BUFFS.includes(`Power Elixir`)) {
+        addPassive(`[${langText[69]}]: +25% ${langText[7]}, +10% ${langText[16]}`);
         statData.Power += statData.Power * .25;
         statData.PercentPenetration += 10;
     } 
@@ -168,6 +169,14 @@ function addBuffs() {
 function calculateBasicAttack(player) {
     if (godData.Type.includes('Magical') == 'Magical')          statData.BasicAttackDamage += (statData.Power + godData.MagicalPower + (godData.MagicalPowerPerLevel * playerData.Level)) * (godData.Name == 'Olorun' ? .25 : .20);
     else if (godData.Type.includes('Physical') == 'Physical')   statData.BasicAttackDamage += (statData.Power + godData.PhysicalPower + (godData.PhysicalPowerPerLevel * playerData.Level));
+}
+
+function addModifications() {
+    const MODIFY = document.querySelectorAll('.stat_modify');
+    const KEYS = Object.keys(SiteData.PlayerData[ActivePlayer].Stats);
+    for (let elemIndex = 0; elemIndex < MODIFY.length; elemIndex++)
+        if (MODIFY[elemIndex].value != '' && MODIFY[elemIndex].value != null && MODIFY[elemIndex].value != undefined)
+            SiteData.PlayerData[ActivePlayer].Stats[KEYS[elemIndex]] += parseFloat(MODIFY[elemIndex].value);
 }
 
 function displayStats() {
@@ -182,9 +191,8 @@ function displayStats() {
         const CAP = STAT_CAPS[statIndex].innerHTML.replace('%', '');
         let amount = statData[STAT_NAMES[statIndex]].toFixed(2);
         const PERCENT = amount / CAP * 100
-        if (amount > parseInt(CAP)) amount = CAP;
-
-        console.log(PERCENT);
+        if (amount > parseFloat(CAP)) STAT_AMOUNTS[statIndex].style.color = 'var(--BrightGold)';
+        else                        STAT_AMOUNTS[statIndex].style.color = 'var(--LightGray)';
 
         STAT_AMOUNTS[statIndex].innerHTML = amount + (hasPercent ? '%' : '');
         if (!PERCENT) STAT_BARS[statIndex].style.backgroundColor = 'var(--InternalBlue)';
